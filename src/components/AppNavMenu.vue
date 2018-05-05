@@ -19,7 +19,7 @@
       </v-list-tile>
       <p v-if="!miniVariant" class="work_panel">work panel</p>
       <v-divider></v-divider>
-      <v-list-tile v-for="i in items" @click="">
+      <v-list-tile v-for="i in items" :key="i.title" @click="">
         <v-list-tile-action>
           <v-icon class="primary--text mb-1">{{ i.icon }}</v-icon>
         </v-list-tile-action>
