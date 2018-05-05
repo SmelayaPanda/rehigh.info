@@ -6,9 +6,9 @@
     fixed
     app>
     <v-list>
-      <v-list-tile>
+      <v-list-tile class="secondary white--text">
         <v-list-tile-action>
-          <v-icon>history</v-icon>
+          <v-icon class="white--text">history</v-icon>
         </v-list-tile-action>
         <v-list-tile-title>Notifications History</v-list-tile-title>
       </v-list-tile>
@@ -31,3 +31,6 @@
     }
   }
 </script>
+
+<style>
+</style>
