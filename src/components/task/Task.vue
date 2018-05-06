@@ -1,16 +1,17 @@
 <template>
-  <task-table></task-table>
+  <div>
+    <app-router-name name="Task"/>
+    <task-table></task-table>
+  </div>
 </template>
 
 <script>
   import TaskTable from './TaskTable'
+  import AppRouterName from '../theme/AppRouterName'
 
 export default {
     name: 'Task',
-    components: {TaskTable}
+    components: {AppRouterName, TaskTable}
   }
 </script>
 
-<style scoped>
-
-</style>

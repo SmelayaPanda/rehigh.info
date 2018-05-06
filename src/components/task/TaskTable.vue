@@ -1,14 +1,8 @@
 <template>
-  <div>
-    <v-layout row wrap id="task_header">
-      <v-flex xs12>
-        Task
-      </v-flex>
-    </v-layout>
   <v-container>
     <v-layout row wrap>
     <v-flex xs12>
-      <el-card>
+      <v-card>
         <el-table
           :data="tableData"
           :row-class-name="tableRowClassName"
@@ -30,11 +24,10 @@
             prop="name">
           </el-table-column>
         </el-table>
-      </el-card>
+      </v-card>
     </v-flex>
     </v-layout>
   </v-container>
-  </div>
 </template>
 
 <script>
@@ -108,7 +101,4 @@
 </script>
 
 <style scoped lang="scss">
-  #task_header {
-    background: $color-primary;
-  }
 </style>

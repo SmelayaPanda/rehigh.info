@@ -1,5 +1,9 @@
 <template>
-  <v-toolbar app :clipped-left="false" class="primary white--text">
+  <v-toolbar
+    :clipped-left="false"
+    height="64"
+    app flat
+    class="primary white--text">
     <v-btn icon @click.stop="changeToolbarSize">
       <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'" class="white--text"></v-icon>
     </v-btn>
