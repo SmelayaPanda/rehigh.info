@@ -4,7 +4,7 @@
         :items="items"
         v-model="select"
         :hint="select.abbr"
-        label="Выберите проект"
+        label="Project"
         single-line
         item-text="state"
         item-value="abbr"

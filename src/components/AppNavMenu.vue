@@ -11,7 +11,7 @@
     fixed
     app>
     <v-list class="white--text">
-      <v-list-tile>
+      <v-list-tile id="rehigh_title">
         <v-list-tile-action>
           <v-icon class="primary--text">gesture</v-icon>
         </v-list-tile-action>
@@ -62,5 +62,10 @@
     font-style: italic;
     margin-top: -6px;
     font-size: 13px;
+  }
+
+  #rehigh_title {
+    margin-top: 20px;
+    margin-bottom: 8px;
   }
 </style>

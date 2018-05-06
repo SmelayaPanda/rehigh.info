@@ -15,11 +15,12 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-
+// FILTERS
+import DateFilter from '@/filters/date'
 // for router in store
 const unsync = sync(store, router)
 unsync()
-
+Vue.filter('date', DateFilter)
 Vue.use(vueScrollBehavior, {
   router: router, // The router instance
   maxLength: 100, // Saved history List max length
