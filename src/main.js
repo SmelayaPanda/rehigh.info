@@ -7,6 +7,11 @@ import {store} from './store'
 import {sync} from 'vuex-router-sync'
 import vueScrollBehavior from 'vue-scroll-behavior'
 // import * as firebase from 'firebase'
+// MIXINS
+import {authMixin} from './mixins/auth'
+import {appConstants} from './mixins/constants'
+import {isLoading} from './mixins/loading'
+import {appError} from './mixins/error'
 // UI
 import './styles/global.scss'
 import ElementUI from 'element-ui'
@@ -20,6 +25,11 @@ import DateFilter from '@/filters/date'
 // for router in store
 const unsync = sync(store, router)
 unsync()
+
+Vue.mixin(appConstants)
+Vue.mixin(authMixin)
+Vue.mixin(isLoading)
+Vue.mixin(appError)
 Vue.filter('date', DateFilter)
 Vue.use(vueScrollBehavior, {
   router: router, // The router instance
@@ -33,7 +43,7 @@ Vue.use(Vuetify, { theme: {
   secondary: '#262f3d',
   accent: '#82B1FF',
   error: '#FF5252',
-  info: '#dddddd',
+  info: '#616161',
   success: '#4CAF50',
   warning: '#FFC107'
 }})

@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs22 sm18 md5 lg3 xl3>
+  <v-flex xs9 sm8 md5 lg3 xl3>
       <v-select
         :items="items"
         v-model="select"

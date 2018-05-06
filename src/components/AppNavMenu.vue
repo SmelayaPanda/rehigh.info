@@ -21,7 +21,7 @@
           </router-link>
         </v-list-tile-title>
       </v-list-tile>
-      <p v-if="!miniVariant" class="work_panel">work panel</p>
+      <p v-if="!miniVariant" id="work_panel">work panel</p>
       <v-divider></v-divider>
       <v-list-tile v-for="i in items" :key="i.title" @click="$router.push(i.router)">
         <v-list-tile-action>
@@ -57,15 +57,16 @@
   }
 </script>
 <style type="text/css">
-  .work_panel {
+  #work_panel {
     text-align: center;
     font-style: italic;
     margin-top: -6px;
+    margin-bottom: 28px;
     font-size: 13px;
   }
 
   #rehigh_title {
-    margin-top: 20px;
-    margin-bottom: 8px;
+    margin-top: 22px;
+    margin-bottom: 4px;
   }
 </style>

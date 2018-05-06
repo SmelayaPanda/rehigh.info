@@ -5,6 +5,7 @@
         <v-card>
           <el-table
             :data="tableData"
+            show-overflow-tooltip
             :row-class-name="tableRowClassName"
             :default-sort="{prop: 'deadline', order: 'descending'}"
             style="width: 100%">
@@ -31,11 +32,6 @@
                 <span>{{ scope.row.title }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="Status" width="100" sortable>
-              <template slot-scope="scope">
-                <span>{{ scope.row.status }}</span>
-              </template>
-            </el-table-column>
             <el-table-column label="Plan (h)" width="100" sortable>
               <template slot-scope="scope">
                 {{ scope.row.time.plan / 100000 }}
@@ -55,14 +51,14 @@
                 <span v-else>-</span>
               </template>
             </el-table-column>
-            <el-table-column label="Coast" width="100" sortable>
+            <el-table-column label="Price" width="100" sortable>
               <template slot-scope="scope">
-                <span>{{ scope.row.coast.amount }} {{ scope.row.coast.currency }}</span>
+                <span>{{ scope.row.price.amount }} {{ scope.row.price.currency }}</span>
               </template>
             </el-table-column>
             <el-table-column label="Payment" width="100" sortable>
               <template slot-scope="scope">
-                <span>{{ scope.row.payment.amount }} {{ scope.row.coast.currency }}</span>
+                <span>{{ scope.row.payment.amount }} {{ scope.row.payment.currency }}</span>
               </template>
             </el-table-column>
           </el-table>
@@ -84,30 +80,23 @@
         ],
         tableData: [{
           id: 'YSJHDSDySD78SD65',
-          title: 'Task no 1',
+          project: 'misterio',
+          title: 'Task no 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut doloribus excepturi laborum quam',
           description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut doloribus excepturi laborum quam quasi reiciendis saepe? A dicta enim esse ipsam labore nisi possimus, repellendus! Aspernatur minus quis saepe sit.',
-          priority: 1, // 1 - high | 2 - middle | 3 - low
-          agreed: true, // from client side ( true = can start this task )
-          coast: {
-            amount: 467,
-            currency: 'RUB'
-          },
-          payment: {
-            status: 'none', // none | part | full
-            amount: 0,
-            currency: 'RUB'
-          },
+          priority: 'low', // high | middle | low
+          price: {amount: 467, currency: 'RUB'},
+          payment: {amount: 0, currency: 'RUB'},
           time: {
             plan: 360000, // milisecons
             real: 0
           },
-          status: 'pending', // pending | started | finished | accepted | archived | stopped
+          status: 'pending', // created | pending | started | finished | accepted | archived | stopped
           history: {
+            created: new Date(),
             pending: new Date(),
             started: new Date(),
             finished: new Date(),
             accepted: new Date(),
-            archived: new Date(),
             stopped: new Date() // last
           },
           deadline: new Date(),
@@ -120,9 +109,9 @@
     },
     methods: {
       tableRowClassName ({row, rowIndex}) {
-        if (row.agreed) {
-          return 'success-row'
-        } else if (rowIndex === 3) {
+        if (row.status === 'pending') {
+          return ''
+        } else if (row.status === 'started') {
           return 'success-row'
         }
         return ''
