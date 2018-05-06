@@ -5,17 +5,17 @@
     <v-content>
       <router-view/>
     </v-content>
-    <notifications/>
+    <app-notifications/>
   </v-app>
 </template>
 
 <script>
   import AppNavMenu from './components/AppNavMenu'
   import AppToolbar from './components/AppToolbar'
-  import Notifications from './components/notifications/Notifications'
+  import AppNotifications from './components/notifications/AppNotifications'
 
 export default {
-    components: {AppToolbar, AppNavMenu, Notifications},
+    components: {AppToolbar, AppNavMenu, AppNotifications},
     data () {
       return {
         rightDrawer: false

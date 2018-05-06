@@ -18,7 +18,7 @@
 </template>
 <script>
   export default {
-    name: 'notifications',
+    name: 'app-notifications',
     data () {
       return {
         isOpened: false

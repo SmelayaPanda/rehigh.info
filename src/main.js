@@ -38,16 +38,27 @@ Vue.use(vueScrollBehavior, {
   delay: 0 // Delay by a number of milliseconds
 })
 Vue.use(ElementUI, {locale})
-Vue.use(Vuetify, { theme: {
-  primary: '#039be5',
-  secondary: '#262f3d',
-  accent: '#82B1FF',
-  error: '#FF5252',
-  info: '#616161',
-  success: '#4CAF50',
-  warning: '#FFC107'
-}})
-
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#039be5',
+    secondary: '#262f3d',
+    accent: '#82B1FF',
+    error: '#FF5252',
+    info: '#616161',
+    success: '#4CAF50',
+    warning: '#FFC107'
+  }
+})
+Vue.directive('click-outside', {
+  bind: (el, binding, vnode) => {
+    el.event = event => {
+      if (el === event.target || el.contains(event.target)) return
+      vnode.context[binding.expression](event)
+    }
+    document.body.addEventListener('click', el.event)
+  },
+  unbind: el => document.body.removeEventListener('click', el.event)
+})
 Vue.config.productionTip = false
 Vue.prototype.$bus = new Vue()
 
@@ -56,6 +67,6 @@ new Vue({
   el: '#app',
   router,
   store,
-  components: { App },
+  components: {App},
   template: '<App/>'
 })

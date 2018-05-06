@@ -66,7 +66,7 @@
   }
 
   #rehigh_title {
-    margin-top: 22px;
-    margin-bottom: 4px;
+    margin-top: 24px;
+    margin-bottom: 8px;
   }
 </style>

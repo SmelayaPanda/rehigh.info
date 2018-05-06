@@ -1,7 +1,7 @@
 <template>
   <v-toolbar
     :clipped-left="false"
-    height="64"
+    height="70"
     app flat
     class="primary white--text">
     <v-btn icon @click.stop="changeToolbarSize">
@@ -12,14 +12,17 @@
     <v-btn icon @click.stop="$bus.$emit('openNotifications')">
       <v-icon class="white--text">notifications_none</v-icon>
     </v-btn>
+    <app-account/>
+    <br>
   </v-toolbar>
 </template>
 <script>
-  import AppProjectSelect from './AppProjectSelect'
+  import AppProjectSelect from './projects/AppProjectSelect'
+  import AppAccount from './user/AppAccount'
 
-  export default {
+export default {
     name: 'app-toolbar',
-    components: {AppProjectSelect},
+    components: {AppAccount, AppProjectSelect},
     data () {
       return {
         miniVariant: false
