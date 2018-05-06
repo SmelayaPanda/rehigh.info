@@ -6,5 +6,7 @@ $color-info: #dddddd;
 $color-success: #4CAF50;
 $color-warning: #FFC107;
 
+@import "./mixins";
+@import "./transitions";
 @import "./vuetify";
 @import "./elements";

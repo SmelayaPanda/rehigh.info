@@ -11,11 +11,11 @@
 
 <script>
   import AppNavMenu from './components/AppNavMenu'
-  import Notifications from './components/notifications/Notifications'
   import AppToolbar from './components/AppToolbar'
+  import Notifications from './components/notifications/Notifications'
 
 export default {
-    components: {AppToolbar, Notifications, AppNavMenu},
+    components: {AppToolbar, AppNavMenu, Notifications},
     data () {
       return {
         rightDrawer: false
