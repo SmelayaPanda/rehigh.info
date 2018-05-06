@@ -10,3 +10,8 @@ $color-warning: #FFC107;
 @import "./transitions";
 @import "./vuetify";
 @import "./elements";
+
+
+a {
+  text-decoration: none;
+}

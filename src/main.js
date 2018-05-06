@@ -8,7 +8,7 @@ import {sync} from 'vuex-router-sync'
 import vueScrollBehavior from 'vue-scroll-behavior'
 // import * as firebase from 'firebase'
 // UI
-import '@/styles/global.scss'
+import './styles/global.scss'
 import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css'

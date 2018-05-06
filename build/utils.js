@@ -59,8 +59,30 @@ exports.cssLoaders = function (options) {
     css: generateLoaders(),
     postcss: generateLoaders(),
     less: generateLoaders('less'),
-    sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
+    sass: [
+      'vue-style-loader',
+      'css-loader',
+      'postcss-loader',
+      'sass-loader?indentedSyntax=1',
+      {
+        loader: 'sass-resources-loader',
+        options: {
+          resources: path.resolve(__dirname, '../src/styles/global.scss'),
+        },
+      },
+    ],
+    scss: [
+      'vue-style-loader',
+      'css-loader',
+      'postcss-loader',
+      'sass-loader',
+      {
+        loader: 'sass-resources-loader',
+        options: {
+          resources: path.resolve(__dirname, '../src/styles/global.scss'),
+        },
+      },
+    ],
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
   }

@@ -15,11 +15,15 @@
         <v-list-tile-action>
           <v-icon class="primary--text">gesture</v-icon>
         </v-list-tile-action>
-        <v-list-tile-title class="title">Re:High Studio</v-list-tile-title>
+        <v-list-tile-title class="title">
+          <router-link to="/" exact>
+            Re:High Studio
+          </router-link>
+        </v-list-tile-title>
       </v-list-tile>
       <p v-if="!miniVariant" class="work_panel">work panel</p>
       <v-divider></v-divider>
-      <v-list-tile v-for="i in items" :key="i.title" @click="">
+      <v-list-tile v-for="i in items" :key="i.title" @click="$router.push(i.router)">
         <v-list-tile-action>
           <v-icon class="primary--text mb-1">{{ i.icon }}</v-icon>
         </v-list-tile-action>
@@ -39,9 +43,9 @@
         isOpened: true,
         miniVariant: false,
         items: [
-          { title: 'TASK', icon: 'whatshot' },
-          { title: 'DOCUMENTS', icon: 'insert_drive_file' },
-          { title: 'CONTACTS', icon: 'perm_contact_calendar' }
+          {title: 'TASK', router: '/task', icon: 'whatshot'},
+          {title: 'DOCUMENTS', router: '/documents', icon: 'insert_drive_file'},
+          {title: 'CONTACTS', router: '/contacts', icon: 'perm_contact_calendar'}
         ]
       }
     },
