@@ -34,19 +34,21 @@
 <script>
   export default {
     name: 'app-nav-menu',
-    props: {
-      drawer: {},
-      miniVariant: {}
-    },
     data () {
       return {
         isOpened: true,
+        miniVariant: false,
         items: [
           { title: 'TASK', icon: 'whatshot' },
           { title: 'DOCUMENTS', icon: 'insert_drive_file' },
           { title: 'CONTACTS', icon: 'perm_contact_calendar' }
         ]
       }
+    },
+    created () {
+      this.$bus.$on('expandNavMenu', () => {
+        this.miniVariant = !this.miniVariant
+      })
     }
   }
 </script>

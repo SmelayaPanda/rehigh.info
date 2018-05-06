@@ -1,16 +1,7 @@
 <template>
   <v-app>
-    <app-nav-menu :mini-variant="miniVariant"/>
-    <v-toolbar app :clipped-left="false" class="primary white--text">
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'" class="white--text"></v-icon>
-      </v-btn>
-      <project-select/>
-      <v-spacer></v-spacer>
-      <v-btn icon @click.stop="$bus.$emit('openNotifications')">
-        <v-icon class="white--text">notifications_none</v-icon>
-      </v-btn>
-    </v-toolbar>
+    <app-nav-menu/>
+    <app-toolbar/>
     <v-content>
       <router-view/>
     </v-content>
@@ -19,15 +10,14 @@
 </template>
 
 <script>
-  import AppNavMenu from '@/components/AppNavMenu'
-  import ProjectSelect from '@/components/ProjectSelect'
-  import Notifications from '@/components/Notifications'
+  import AppNavMenu from './components/AppNavMenu'
+  import Notifications from './components/notifications/Notifications'
+  import AppToolbar from './components/AppToolbar'
 
 export default {
-    components: {Notifications, ProjectSelect, AppNavMenu},
+    components: {AppToolbar, Notifications, AppNavMenu},
     data () {
       return {
-        miniVariant: false,
         rightDrawer: false
       }
     },
