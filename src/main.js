@@ -7,6 +7,7 @@ import {store} from './store'
 import {sync} from 'vuex-router-sync'
 import vueScrollBehavior from 'vue-scroll-behavior'
 import * as firebase from 'firebase'
+import 'firebase/firestore'
 import {config} from './config/index'
 // MIXINS
 import {authMixin} from './mixins/auth'
@@ -52,11 +53,14 @@ new Vue({
   store,
   components: {App},
   template: '<App/>',
-  created: function () {
+  created () {
     firebase.initializeApp(config.firebase(process.env.NODE_ENV))
+    firebase.firestore().settings({timestampsInSnapshots: true})
+    // Vue.prototype
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.$store.dispatch('fetchUserData', user)
+        this.$store.dispatch('fetchProjects')
       } else {
         router.push('/signin')
       }

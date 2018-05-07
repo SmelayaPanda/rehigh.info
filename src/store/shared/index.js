@@ -1,4 +1,4 @@
-// import * as firebase from 'firebase'
+// import * as fb from 'firebase'
 
 export default {
   state: {

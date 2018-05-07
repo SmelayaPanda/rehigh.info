@@ -1,4 +1,4 @@
-import * as firebase from 'firebase'
+import * as fb from 'firebase'
 import router from '../../router'
 // import {appConstants} from '@/mixins/constants'
 import {Message, Notification} from 'element-ui'
@@ -9,7 +9,6 @@ export default {
   },
   mutations: {
     setUser (state, payload) {
-      console.log(payload)
       state.user = payload
     },
     setRole (state, payload) {
@@ -23,9 +22,9 @@ export default {
     signUserUp ({commit, dispatch}, payload) {
       commit('ERR', '')
       commit('LOADING', true)
-      return firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(payload.email, payload.password)
+      return fb.auth().createUserAndRetrieveDataWithEmailAndPassword(payload.email, payload.password)
         .then(() => {
-          firebase.auth().currentUser.sendEmailVerification()
+          fb.auth().currentUser.sendEmailVerification()
           Notification({
             title: 'Поздравляем',
             message: 'Аккаунт был успешно создан!',
@@ -42,7 +41,7 @@ export default {
     signUserIn ({commit, dispatch}, payload) {
       commit('ERR', '')
       commit('LOADING', true)
-      firebase.auth().signInAndRetrieveDataWithEmailAndPassword(payload.email, payload.password)
+      fb.auth().signInAndRetrieveDataWithEmailAndPassword(payload.email, payload.password)
         .then(() => { // onAuthStateChanged works
           console.log('Successful Login')
           router.push('/account')
@@ -51,7 +50,7 @@ export default {
         .catch(err => dispatch('LOG', err))
     },
     logout ({dispatch, commit}) {
-      firebase.auth().signOut()
+      fb.auth().signOut()
         .then(() => {
           commit('setUser', '')
           commit('ERR', '')
@@ -61,7 +60,7 @@ export default {
     },
     resetPassword ({commit, dispatch}, payload) {
       commit('ERR', '')
-      firebase.auth().sendPasswordResetEmail(payload)
+      fb.auth().sendPasswordResetEmail(payload)
         .then(function () {
           Notification({
             title: 'Внимание',

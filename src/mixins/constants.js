@@ -26,7 +26,12 @@ export const appConstants = {
         low: {value: 'low', label: 'низкий'},
         middle: {value: 'middle', label: 'средний'},
         high: {value: 'high', label: 'высокий'}
-      }
+      },
+      PROJECT_TYPES: [ // TODO: to dictionaries
+        'store', 'landing-page', 'presentation', 'presentation-store', 'info',
+        'blog', 'card-site', 'personal', 'gallery', 'company', 'promo',
+        'news', 'content', 'services'
+      ]
     }
   }
 }
