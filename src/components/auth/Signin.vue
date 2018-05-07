@@ -4,39 +4,20 @@
       <v-flex xs12 sm8 md6 lg5 x4>
         <el-card>
           <div v-if="this.appError" slot="header" class="clearfix">
-            <v-icon class="error--text">error</v-icon>
-            {{ this.appError.message }}
+            <v-icon class="error--text mr-2">error</v-icon>{{ this.appError.message }}
           </div>
-          <h2 class="secondary--text">Re:High Studio</h2>
+          <h2 class="secondary--text">Register</h2>
           <v-container>
-            <el-form
-              :model="formRule"
-              status-icon
-              :rules="rules"
-              auto-complete="on"
-              ref="formRule">
+            <el-form :model="formRule" status-icon :rules="rules" auto-complete="on" ref="formRule">
               <el-form-item label="Email" prop="email">
-                <el-input
-                  type="email"
-                  id="email"
-                  :autofocus="true"
-                  v-model="formRule.email"
-                  auto-complete="on">
-                </el-input>
+                <el-input type="email" id="email" :autofocus="true" v-model="formRule.email" auto-complete="on"/>
               </el-form-item>
               <el-form-item label="Password" prop="password">
-                <el-input
-                  type="password"
-                  v-model="formRule.password"
-                  auto-complete="off">
-                </el-input>
+                <el-input type="password" v-model="formRule.password" auto-complete="off"/>
               </el-form-item>
               <el-form-item>
-                <v-btn
-                  class="primary"
-                  :disabled="this.isLoading"
-                  @click="submitForm('formRule')">
-                  Sign in
+                <v-btn class="primary" :disabled="this.isLoading" @click="submitForm('formRule')">
+                  GO
                 </v-btn>
               </el-form-item>
               <div v-if="submitCount > 1">
@@ -45,7 +26,7 @@
                 <v-btn class="primary" @click="resetPassword">Reset Password</v-btn>
               </div>
               <router-link to="/signup">
-                <el-button type="text">Нет аккаунта?</el-button>
+                <el-button type="text">Have't account?</el-button>
               </router-link>
             </el-form>
           </v-container>
@@ -61,19 +42,19 @@
     data () {
       let checkEmail = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('Укажите вашу электронную почту'))
+          return callback(new Error('Type email'))
         }
         setTimeout(() => {
           if (this.isValidEmail(value)) {
             callback()
           } else {
-            callback(new Error('Введена некорректная почта'))
+            callback(new Error('Email is not correct'))
           }
         }, 1000)
       }
       let validatePass = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('Введите пароль'))
+          callback(new Error('Type password'))
         } else {
           if (this.formRule.checkPass !== '') {
             this.$refs.formRule.validateField('checkPass')
@@ -104,7 +85,7 @@
               password: this.formRule.password
             })
           } else {
-            return this.$store.dispatch('ERR', {message: 'Пожалуйста, заполните поля корректно!'})
+            return this.$store.dispatch('ERR', {message: 'Please, fill up the fields correctly!'})
           }
         })
       },

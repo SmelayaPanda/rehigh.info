@@ -3,40 +3,30 @@
     <!--Authentication form-->
     <el-row type="flex" justify="center">
       <el-col :xs="24" :sm="14" :md="12" :lg="10" :xl="8">
-        <v-alert v-if="this.appError">{{ this.appError.message }}</v-alert>
         <el-card>
-          <h2>Регистрация</h2>
+          <div v-if="this.appError" slot="header" class="clearfix">
+            <v-icon class="error--text mr-2">error</v-icon>{{ this.appError.message }}
+          </div>
+          <h2>Register</h2>
           <v-container>
-
-            <el-form :model="formRule"
-                     status-icon
-                     :rules="rules"
-                     auto-complete="on"
-                     ref="formRule">
+            <el-form :model="formRule" status-icon :rules="rules" auto-complete="on" ref="formRule">
               <el-form-item label="Email" prop="email">
-                <el-input type="email"
-                          :autofocus="true"
-                          v-model="formRule.email"
-                          auto-complete="on">
-                </el-input>
+                <el-input type="email" :autofocus="true" v-model="formRule.email" auto-complete="on"/>
               </el-form-item>
-              <el-form-item label="Пароль" prop="password">
-                <el-input type="password"
-                          v-model="formRule.password"
-                          auto-complete="off">
-                </el-input>
+              <el-form-item label="Password" prop="password">
+                <el-input type="password" v-model="formRule.password" auto-complete="off"/>
               </el-form-item>
-              <el-form-item label="Подтверждение пароля" prop="checkPass">
-                <el-input type="password" v-model="formRule.checkPass" auto-complete="off"></el-input>
+              <el-form-item label="Password check" prop="checkPass">
+                <el-input type="password" v-model="formRule.checkPass" auto-complete="off"/>
               </el-form-item>
               <el-form-item>
                 <v-btn class="primary" :disabled="this.isLoading" @click="submitForm('formRule')">
-                  Вперед!
+                  go
                 </v-btn>
               </el-form-item>
             </el-form>
             <router-link to="/signin">
-              <el-button type="text">Есть аккаунт?</el-button>
+              <el-button type="text">Have account?</el-button>
             </router-link>
           </v-container>
         </el-card>
@@ -51,21 +41,21 @@
     data () {
       let checkEmail = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('Укажите вашу электронную почту'))
+          return callback(new Error('Type email'))
         }
         setTimeout(() => {
-          if (!this.isValidEmail(value)) {
-            callback(new Error('Введена некорректная почта'))
-          } else {
+          if (this.isValidEmail(value)) {
             callback()
+          } else {
+            callback(new Error('Email is not correct'))
           }
         }, 1000)
       }
       let validatePass = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('Введите пароль'))
+          callback(new Error('Type password'))
         } else if (value.length < 6) {
-          callback(new Error('Пароль дожен быть не менее 6 символов'))
+          callback(new Error('Password length > 6 symbols'))
         } else {
           if (this.formRule.checkPass !== '') {
             this.$refs.formRule.validateField('checkPass')
@@ -75,9 +65,9 @@
       }
       let validateConfPass = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('Введите пароль повторно'))
+          callback(new Error('Repeat password'))
         } else if (value !== this.formRule.password) {
-          callback(new Error('Пароли не совпадают!'))
+          callback(new Error('Passwords do not match!'))
         } else {
           callback()
         }
@@ -89,15 +79,9 @@
           email: ''
         },
         rules: {
-          password: [
-            {validator: validatePass, trigger: 'blur'}
-          ],
-          checkPass: [
-            {validator: validateConfPass, trigger: 'blur'}
-          ],
-          email: [
-            {validator: checkEmail, trigger: 'blur'}
-          ]
+          password: [{validator: validatePass, trigger: 'blur'}],
+          checkPass: [{validator: validateConfPass, trigger: 'blur'}],
+          email: [{validator: checkEmail, trigger: 'blur'}]
         }
       }
     },
@@ -107,7 +91,7 @@
           if (valid) {
             this.$store.dispatch('signUserUp', {email: this.formRule.email, password: this.formRule.password})
           } else {
-            return this.$store.dispatch('ERR', {message: 'Пожалуйста, заполните поля корректно!'})
+            return this.$store.dispatch('ERR', {message: 'Please, fill up the fields correctly!'})
           }
         })
       },
