@@ -2,11 +2,10 @@
   <v-container fluid>
     <v-layout row wrap>
       <v-flex xs12>
-        <v-card>
+        <v-card v-if="tasks">
           <el-table
-            :data="tableData"
+            :data="tasks"
             show-overflow-tooltip
-            :row-class-name="tableRowClassName"
             :default-sort="{prop: 'deadline', order: 'descending'}"
             style="width: 100%">
             <el-table-column type="expand">
@@ -16,7 +15,7 @@
                 <el-tag v-for="type in props.row.type" :key="type" size="small" class="mb-2 mt-2 mr-1">
                   {{ type }}
                 </el-tag>
-                <p>State: {{ props.row.description }}</p>
+                <p>{{ props.row.description }}</p>
                 <el-steps align-center space="140px" class="mt-3">
                   <el-step
                     v-if="props.row.history"
@@ -27,19 +26,22 @@
                 </el-steps>
               </template>
             </el-table-column>
-            <el-table-column label="Title" sortable>
+            <el-table-column label="Priority / Title">
               <template slot-scope="scope">
-                <span>{{ scope.row.title }}</span>
+                <el-tag v-if="scope.row.priority === TASK_PRIORITY.low.value" type="success" size="mini">3</el-tag>
+                <el-tag v-if="scope.row.priority === TASK_PRIORITY.middle.value" type="primary" size="mini">2</el-tag>
+                <el-tag v-if="scope.row.priority === TASK_PRIORITY.high.value" type="danger" size="mini">1</el-tag>
+                <span class="ml-2">{{ scope.row.title }}</span>
               </template>
             </el-table-column>
             <el-table-column label="Plan (h)" width="100" sortable>
               <template slot-scope="scope">
-                {{ scope.row.time.plan / 100000 }}
+                {{ scope.row.time.plan }}
               </template>
             </el-table-column>
             <el-table-column label="Real (h)" width="100" sortable>
               <template slot-scope="scope">
-                {{ scope.row.time.real / 100000 }}
+                {{ scope.row.time.real }}
               </template>
             </el-table-column>
             <el-table-column label="Deadline" width="160" sortable>
@@ -72,49 +74,12 @@
   export default {
     name: 'task-table',
     data () {
-      return {
-        type: [
-          {text: 'Vue', value: 'vue'},
-          {text: 'CSS', value: 'css'},
-          {text: 'HTML', value: 'html'}
-        ],
-        tableData: [{
-          id: 'YSJHDSDySD78SD65',
-          project: 'misterio',
-          title: 'Task no 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut doloribus excepturi laborum quam',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut doloribus excepturi laborum quam quasi reiciendis saepe? A dicta enim esse ipsam labore nisi possimus, repellendus! Aspernatur minus quis saepe sit.',
-          priority: 'low', // high | middle | low
-          price: {amount: 467, currency: 'RUB'},
-          payment: {amount: 0, currency: 'RUB'},
-          time: {
-            plan: 360000, // milisecons
-            real: 0
-          },
-          status: 'pending', // created | pending | started | finished | accepted | archived | stopped
-          history: {
-            created: new Date(),
-            pending: new Date(),
-            started: new Date(),
-            finished: new Date(),
-            accepted: new Date(),
-            stopped: new Date() // last
-          },
-          deadline: new Date(),
-          type: ['vue', 'css'],
-          comments: [
-            {userId: '', date: new Date(), text: ''}
-          ]
-        }]
-      }
+      return {}
     },
-    methods: {
-      tableRowClassName ({row, rowIndex}) {
-        if (row.status === 'pending') {
-          return ''
-        } else if (row.status === 'started') {
-          return 'success-row'
-        }
-        return ''
+    methods: {},
+    computed: {
+      tasks () {
+        return this.$store.getters.tasks ? Object.values(this.$store.getters.tasks) : []
       }
     }
   }

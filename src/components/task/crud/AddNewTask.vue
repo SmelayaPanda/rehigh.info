@@ -9,7 +9,7 @@
           <v-toolbar-title>Add new task</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark flat @click.native="createNewTask">Save</v-btn>
+            <v-btn dark flat @click.native="addNewTask">Save</v-btn>
           </v-toolbar-items>
         </v-toolbar>
         <v-list three-line subheader>
@@ -55,11 +55,11 @@
               <span class="info--text">Priority</span>
               <v-radio-group v-model="task.priority">
                 <v-radio :label="TASK_PRIORITY.low.value" :value="TASK_PRIORITY.low.value"
-                         color="primary"></v-radio>
+                         color="success"></v-radio>
                 <v-radio :label="TASK_PRIORITY.middle.value" :value="TASK_PRIORITY.middle.value"
                          color="primary"></v-radio>
                 <v-radio :label="TASK_PRIORITY.high.value" :value="TASK_PRIORITY.high.value"
-                         color="primary"></v-radio>
+                         color="error"></v-radio>
               </v-radio-group>
             </v-flex>
             <v-flex xs12 sm4 md3 lg2 xl2>
@@ -87,16 +87,6 @@
                 value-format="timestamp">
               </el-date-picker>
             </v-flex>
-            <v-flex xs12>
-              <v-text-field
-                label="Comments"
-                v-model="task.comments.text"
-                :rules="[(v) => v.length <= 2048 || 'Max 2048 characters']"
-                :counter="2048"
-                multi-line
-                :rows="2">
-              </v-text-field>
-            </v-flex>
           </v-layout>
         </v-container>
       </v-card>
@@ -115,30 +105,23 @@
           description: '',
           type: '',
           priority: '',
-          price: {
-            amount: 3000,
-            currency: 'RUB'
-          },
-          time: {
-            plan: 8
-          },
+          price: {amount: 3000, currency: 'RUB'},
+          payment: {amount: 0, currency: 'RUB'},
+          time: {plan: 8, real: 0},
           deadline: new Date().getTime(),
-          creator: {
-            userId: ''
-          },
-          comments: {
-            userId: '',
-            text: '',
-            date: new Date()
-          }
+          history: {created: ''},
+          status: 'created',
+          creator: {userId: ''}
         }
       }
     },
-    methods: {
-      createNewTask () {
+    methods: { // TODO: add comments to task (userId, text, date)
+      addNewTask () {
         this.dialog = false
-        this.task.creator.userId = this.user.uid
-        console.log(this.task)
+        this.task.creator.userId = this.appUser.uid
+        this.task.history.created = new Date().getTime()
+        this.task.projectId = this.appProject.id
+        this.$store.dispatch('addNewTask', this.task)
       }
     },
     created () {
