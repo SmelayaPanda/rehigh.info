@@ -10,10 +10,8 @@ import * as firebase from 'firebase'
 import 'firebase/firestore'
 import {config} from './config/index'
 // MIXINS
-import {authMixin} from './mixins/auth'
-import {appConstants} from './mixins/constants'
-import {isLoading} from './mixins/loading'
-import {appError} from './mixins/error'
+import {computed} from './mixins/computed'
+import {data} from './mixins/data'
 // DIRECTIVES
 import {clickOutside} from './directives/click_outside'
 // UI
@@ -30,10 +28,8 @@ import DateFilter from '@/filters/date'
 const unsync = sync(store, router)
 unsync()
 
-Vue.mixin(appConstants)
-Vue.mixin(authMixin)
-Vue.mixin(isLoading)
-Vue.mixin(appError)
+Vue.mixin(data)
+Vue.mixin(computed)
 Vue.filter('date', DateFilter)
 Vue.use(vueScrollBehavior, {
   router: router, // The router instance

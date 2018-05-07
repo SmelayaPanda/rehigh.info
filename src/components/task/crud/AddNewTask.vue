@@ -1,5 +1,5 @@
 <template>
-  <v-layout row justify-center>
+  <v-layout row justify-center v-if="appProject" :key="appProject.id">
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary">
@@ -15,9 +15,8 @@
         <v-list three-line subheader>
           <v-list-tile avatar>
             <v-list-tile-content>
-              <v-list-tile-title>Misterio Shop</v-list-tile-title>
-              <v-list-tile-sub-title>Sex shop | Intimacy market
-              </v-list-tile-sub-title>
+              <v-list-tile-title>{{ appProject.title }}</v-list-tile-title>
+              <v-list-tile-sub-title>{{ appProject.subtitle }}</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -111,9 +110,6 @@
     data () {
       return {
         dialog: false,
-        notifications: false,
-        sound: true,
-        widgets: false,
         task: {
           title: '',
           description: '',
@@ -127,6 +123,9 @@
             plan: 8
           },
           deadline: new Date().getTime(),
+          creator: {
+            userId: ''
+          },
           comments: {
             userId: '',
             text: '',
@@ -138,6 +137,7 @@
     methods: {
       createNewTask () {
         this.dialog = false
+        this.task.creator.userId = this.user.uid
         console.log(this.task)
       }
     },

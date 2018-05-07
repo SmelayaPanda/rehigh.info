@@ -4,7 +4,7 @@
       id="project_selector"
       v-model="select"
       @change="switchProject"
-      :disabled="!$store.getters.user || !projects"
+      :disabled="!$store.getters.user || !appProjects"
       :items="items"
       :hint="select.subtitle"
       label="Project"
@@ -34,6 +34,8 @@
       switchProject ({title, subtitle, id}) {
         if (id === -1) {
           this.$bus.$emit('openAddNewProjectDialog')
+        } else {
+          this.$store.dispatch('setProject', id)
         }
       }
     },
@@ -43,19 +45,16 @@
         if (this.$store.getters.user) { // TODO: developer role only, for each email own project
           items.push({title: 'Добавить проект', id: -1}, {divider: true})
         }
-        if (this.projects) {
-          for (let id in this.projects) {
+        if (this.appProjects) {
+          for (let id in this.appProjects) {
             items.push({
               id: id,
-              title: this.projects[id].title,
-              subtitle: this.projects[id].subtitle
+              title: this.appProjects[id].title,
+              subtitle: this.appProjects[id].subtitle
             })
           }
         }
         return items
-      },
-      projects () {
-        return this.$store.getters.projects
       }
     }
   }

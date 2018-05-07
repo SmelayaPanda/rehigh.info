@@ -20,6 +20,7 @@ export default {
           let projects = {}
           snap.docs.forEach(doc => {
             projects[doc.id] = doc.data()
+            projects[doc.id].id = doc.id
           })
           commit('setProjects', projects)
         })
@@ -28,11 +29,13 @@ export default {
     addNewProject ({commit, dispatch}, payload) {
       return fb.firestore().collection('projects').add(payload)
         .then(docRef => {
-          console.log(docRef)
           payload.id = docRef.id
           commit('setProject', {...payload})
         })
         .catch(err => dispatch('LOG', err))
+    },
+    setProject ({commit, getters}, payload) {
+      commit('setProject', getters.projects[payload])
     }
   },
   getters: {

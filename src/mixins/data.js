@@ -1,4 +1,4 @@
-export const appConstants = {
+export const data = {
   data: function () {
     return {
       USER_ROLES: {

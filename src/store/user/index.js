@@ -18,6 +18,7 @@ export default {
   actions: {
     fetchUserData ({commit, dispatch, getters}, payload) {
       commit('setUser', {...payload})
+      router.push('/')
     },
     signUserUp ({commit, dispatch}, payload) {
       commit('ERR', '')

@@ -15,8 +15,8 @@
         <v-list three-line subheader>
           <v-list-tile avatar>
             <v-list-tile-content>
-              <v-list-tile-title>Misterio Shop</v-list-tile-title>
-              <v-list-tile-sub-title>Sex shop | Intimacy market</v-list-tile-sub-title>
+              <v-list-tile-title>Re:High Studio</v-list-tile-title>
+              <v-list-tile-sub-title>New project creation</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -96,7 +96,6 @@
         this.dialog = false
         this.project.creator.userId = this.$store.getters.user.uid
         this.project.creator.email = this.$store.getters.user.email
-        console.log(this.project)
         this.$store.dispatch('addNewProject', this.project)
       }
     },
