@@ -3,8 +3,8 @@ import * as fb from 'firebase'
 export default {
   state: {
     project: '', // selected
-    projects: '',
-    tasks: '',
+    projects: '', // all
+    tasks: '', // all in selected project with taskStatus
     taskStatus: 'created'
   },
   mutations: {

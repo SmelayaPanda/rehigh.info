@@ -5,9 +5,9 @@
         <el-radio-button v-for="status in TASK_STATUSES" :key="status.value" :label="status.value"/>
       </el-radio-group>
       <v-icon @click="$bus.$emit('openAddNewTaskDialog')" id="add_new_task" medium>playlist_add</v-icon>
-      <add-new-task></add-new-task>
+      <add-new-task/>
     </app-router-name>
-    <task-table></task-table>
+    <task-table/>
   </div>
 </template>
 
@@ -29,6 +29,11 @@
         this.$store.dispatch('setTaskStatus', this.status)
         this.$store.dispatch('fetchTasks')
       }
+    },
+    created () {
+      this.$bus.$on('changeTaskStatus', status => {
+        this.status = status
+      })
     }
   }
 </script>

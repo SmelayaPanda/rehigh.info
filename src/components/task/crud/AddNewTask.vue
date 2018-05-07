@@ -103,10 +103,10 @@
         task: {
           title: '',
           description: '',
-          type: '',
           priority: '',
-          price: {amount: 3000, currency: 'RUB'},
           payment: {amount: 0, currency: 'RUB'},
+          price: {amount: 3000, currency: 'RUB'},
+          type: '',
           time: {plan: 8, real: 0},
           deadline: new Date().getTime(),
           history: {created: ''},
