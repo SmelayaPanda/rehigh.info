@@ -1,6 +1,12 @@
 export const appConstants = {
   data: function () {
     return {
+      USER_ROLES: {
+        admin: {value: 'admin', label: 'Администратор'},
+        developer: {value: 'developer', label: 'Разработчик'},
+        client: {value: 'client', label: 'Клиент'},
+        guest: {value: 'guest', label: 'Гость'}
+      },
       RUB: '&nbsp;&#8381',
       TASK_STATUSES: {
         created: {value: 'created', label: 'создан'},

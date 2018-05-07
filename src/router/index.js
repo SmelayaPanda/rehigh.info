@@ -1,5 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+// AUTH
+import AuthGuard from './auth-guard'
+import SignIn from '@/components/auth/SignIn'
+import SignUp from '@/components/auth/SignUp'
+// PROJECT
 import Task from '@/components/task/Task'
 import Documents from '@/components/documents/Documents'
 import Contacts from '@/components/contacts/Contacts'
@@ -12,7 +17,8 @@ export default new Router({
     {
       path: '/task',
       name: 'task',
-      component: Task
+      component: Task,
+      beforeEnter: AuthGuard
     },
     {
       path: '/documents',
@@ -23,6 +29,16 @@ export default new Router({
       path: '/contacts',
       name: 'contacts',
       component: Contacts
+    },
+    {
+      path: '/signin',
+      name: 'signin',
+      component: SignIn
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: SignUp
     }
   ]
 })

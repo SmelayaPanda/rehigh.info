@@ -6,7 +6,8 @@ import router from './router'
 import {store} from './store'
 import {sync} from 'vuex-router-sync'
 import vueScrollBehavior from 'vue-scroll-behavior'
-// import * as firebase from 'firebase'
+import * as firebase from 'firebase'
+import {config} from './config/index'
 // MIXINS
 import {authMixin} from './mixins/auth'
 import {appConstants} from './mixins/constants'
@@ -40,26 +41,25 @@ Vue.use(vueScrollBehavior, {
   delay: 0 // Delay by a number of milliseconds
 })
 Vue.use(ElementUI, {locale})
-Vue.use(Vuetify, {
-  theme: {
-    primary: '#039be5',
-    secondary: '#262f3d',
-    accent: '#82B1FF',
-    error: '#FF5252',
-    info: '#616161',
-    success: '#4CAF50',
-    warning: '#FFC107'
-  }
-})
+Vue.use(Vuetify, config.vuetifyTheme)
 Vue.directive('click-outside', clickOutside)
 Vue.config.productionTip = false
 Vue.prototype.$bus = new Vue()
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store,
   components: {App},
-  template: '<App/>'
+  template: '<App/>',
+  created: function () {
+    firebase.initializeApp(config.firebase(process.env.NODE_ENV))
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch('fetchUserData', user)
+      } else {
+        router.push('/signin')
+      }
+    })
+  }
 })

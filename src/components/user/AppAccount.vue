@@ -23,17 +23,20 @@
                 <span class="primary--text headline">C</span>
               </v-avatar>
             </v-flex>
-            <v-flex xs8>
-              <span>Alexey Azarov</span> <br>
-              <span class="info--text">smelayapandagm@gmail.com</span> <br>
+            <v-flex xs8 v-if="user">
+              <span>Re:High Studio</span> <br>
+              <span class="info--text">{{ user.email }}</span> <br>
               <v-btn small class="primary" id="my_account_btn">My account</v-btn>
             </v-flex>
           </v-layout>
         </v-card-title>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn flat color="primary">Logout</v-btn>
-          <v-btn flat color="success">Login</v-btn>
+          <v-btn v-if="user" @click="logout" flat color="primary">Logout</v-btn>
+          <div v-if="!user">
+            <v-btn @click="login" flat color="success">Login</v-btn>
+            <v-btn @click="register" flat color="success">Register</v-btn>
+          </div>
         </v-card-actions>
       </v-card>
     </transition>
@@ -51,6 +54,23 @@
     methods: {
       hide () {
         this.menu = false
+      },
+      logout () {
+        this.menu = false
+        this.$store.dispatch('logout')
+      },
+      login () {
+        this.menu = false
+        this.$router.push('/signin')
+      },
+      register () {
+        this.menu = false
+        this.$router.push('/signup')
+      }
+    },
+    computed: {
+      user () {
+        return this.$store.getters.user
       }
     }
   }
