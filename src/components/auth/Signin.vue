@@ -6,7 +6,7 @@
           <div v-if="this.appError" slot="header" class="clearfix">
             <v-icon class="error--text mr-2">error</v-icon>{{ this.appError.message }}
           </div>
-          <h2 class="secondary--text">Register</h2>
+          <h2 class="secondary--text">Login</h2>
           <v-container>
             <el-form :model="formRule" status-icon :rules="rules" auto-complete="on" ref="formRule">
               <el-form-item label="Email" prop="email">

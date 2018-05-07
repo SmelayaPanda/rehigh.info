@@ -1,8 +1,7 @@
 <template>
   <v-container>
-    <!--Authentication form-->
-    <el-row type="flex" justify="center">
-      <el-col :xs="24" :sm="14" :md="12" :lg="10" :xl="8">
+    <v-layout row justify-center>
+      <v-flex xs12 sm8 md6 lg5 x4>
         <el-card>
           <div v-if="this.appError" slot="header" class="clearfix">
             <v-icon class="error--text mr-2">error</v-icon>{{ this.appError.message }}
@@ -30,8 +29,8 @@
             </router-link>
           </v-container>
         </el-card>
-      </el-col>
-    </el-row>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
