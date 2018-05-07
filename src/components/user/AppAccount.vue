@@ -13,22 +13,22 @@
         id="account_menu"
         width="380px">
         <v-card-title primary-title>
-            <v-layout row>
-              <v-flex xs4>
-                <v-avatar
-                  id="account_menu_avatar"
-                  app color="secondary"
-                  size="80"
-                  class="elevation-3">
-                  <span class="primary--text headline">C</span>
-                </v-avatar>
-              </v-flex>
-              <v-flex xs8>
-                <span>Alexey Azarov</span> <br>
-                <span class="info--text">smelayapandagm@gmail.com</span> <br>
-                <v-btn small class="primary" id="my_account_btn">My account</v-btn>
-              </v-flex>
-            </v-layout>
+          <v-layout row>
+            <v-flex xs4>
+              <v-avatar
+                id="account_menu_avatar"
+                app color="secondary"
+                size="80"
+                class="elevation-3">
+                <span class="primary--text headline">C</span>
+              </v-avatar>
+            </v-flex>
+            <v-flex xs8>
+              <span>Alexey Azarov</span> <br>
+              <span class="info--text">smelayapandagm@gmail.com</span> <br>
+              <v-btn small class="primary" id="my_account_btn">My account</v-btn>
+            </v-flex>
+          </v-layout>
         </v-card-title>
         <v-divider></v-divider>
         <v-card-actions>
