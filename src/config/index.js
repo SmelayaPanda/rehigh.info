@@ -10,7 +10,14 @@ export const config = {
         messagingSenderId: '430080679681'
       }
     } else if (env === 'production') {
-      return {}
+      return {
+        apiKey: 'AIzaSyBChgD-ImMjNR9nRvYOlPpFDDxWHyo3x68',
+        authDomain: 'rehigh-dev.firebaseapp.com',
+        databaseURL: 'https://rehigh-dev.firebaseio.com',
+        projectId: 'rehigh-dev',
+        storageBucket: 'rehigh-dev.appspot.com',
+        messagingSenderId: '430080679681'
+      }
     }
   },
   vuetifyTheme: {

@@ -5,6 +5,7 @@ import AuthGuard from './auth-guard'
 import SignIn from '@/components/auth/SignIn'
 import SignUp from '@/components/auth/SignUp'
 // PROJECT
+import AppHome from '@/components/AppHome'
 import Task from '@/components/task/Task'
 import Documents from '@/components/documents/Documents'
 import Contacts from '@/components/contacts/Contacts'
@@ -14,6 +15,11 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: AppHome
+    },
     {
       path: '/task',
       name: 'task',
