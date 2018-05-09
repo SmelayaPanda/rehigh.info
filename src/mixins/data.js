@@ -2,19 +2,19 @@ export const data = {
   data: function () {
     return {
       USER_ROLES: {
-        admin: {value: 'admin', en: 'Admin', ru: 'Администратор'},
-        developer: {value: 'developer', en: 'Developer', ru: 'Разработчик'},
-        client: {value: 'client', en: 'Client', ru: 'Клиент'},
-        guest: {value: 'guest', en: 'Guest', ru: 'Гость'}
+        admin: {val: 'admin', en: 'Admin', ru: 'Администратор'},
+        developer: {val: 'developer', en: 'Developer', ru: 'Разработчик'},
+        client: {val: 'client', en: 'Client', ru: 'Клиент'},
+        guest: {val: 'guest', en: 'Guest', ru: 'Гость'}
       },
       RUB: '&nbsp;&#8381',
       TASK_STATUSES: {
-        created: {value: 'created', en: 'Created', ru: 'Создан'},
-        pending: {value: 'pending', en: 'Pending', ru: 'Ожидает'}, // only client can switch to status pending
-        started: {value: 'started', en: 'Started', ru: 'В процессе'},
-        finished: {value: 'finished', en: 'Finished', ru: 'Завершен'},
-        accepted: {value: 'accepted', en: 'Accepted', ru: 'Принят'},
-        stopped: {value: 'stopped', en: 'Stopped', ru: 'Приостановлено'}
+        created: {val: 'created', en: 'Created', ru: 'Создан'},
+        pending: {val: 'pending', en: 'Pending', ru: 'Ожидает'}, // only client can switch to status pending
+        started: {val: 'started', en: 'Started', ru: 'В процессе'},
+        finished: {val: 'finished', en: 'Finished', ru: 'Завершен'},
+        accepted: {val: 'accepted', en: 'Accepted', ru: 'Принят'},
+        stopped: {val: 'stopped', en: 'Stopped', ru: 'Приостановлено'}
       },
       TASK_TYPES: [ // TODO: to dictionaries
         'vue', 'vuex', 'vue-router', 'vuetify', 'elements-ui',
@@ -23,9 +23,9 @@ export const data = {
         'design', 'logo', 'booklet', 'psd', 'ai', 'ae', 'ap'
       ],
       TASK_PRIORITY: {
-        low: {value: 'low', en: 'Low', ru: 'Низкий'},
-        middle: {value: 'middle', en: 'Middle', ru: 'Средний'},
-        high: {value: 'high', en: 'High', ru: 'Высокий'}
+        low: {val: 'low', en: 'Low', ru: 'Низкий'},
+        middle: {val: 'middle', en: 'Middle', ru: 'Средний'},
+        high: {val: 'high', en: 'High', ru: 'Высокий'}
       },
       PROJECT_TYPES: [ // TODO: to dictionaries
         'store', 'landing-page', 'presentation', 'presentation-store', 'info',

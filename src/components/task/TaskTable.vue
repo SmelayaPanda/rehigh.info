@@ -28,9 +28,9 @@
             </el-table-column>
             <el-table-column label="Priority / Title">
               <template slot-scope="scope">
-                <el-tag v-if="scope.row.priority === TASK_PRIORITY.low.value" type="success" size="mini">3</el-tag>
-                <el-tag v-if="scope.row.priority === TASK_PRIORITY.middle.value" type="primary" size="mini">2</el-tag>
-                <el-tag v-if="scope.row.priority === TASK_PRIORITY.high.value" type="danger" size="mini">1</el-tag>
+                <el-tag v-if="scope.row.priority === TASK_PRIORITY.low.val" type="success" size="mini">3</el-tag>
+                <el-tag v-if="scope.row.priority === TASK_PRIORITY.middle.val" type="primary" size="mini">2</el-tag>
+                <el-tag v-if="scope.row.priority === TASK_PRIORITY.high.val" type="danger" size="mini">1</el-tag>
                 <span class="ml-2">{{ scope.row.title }}</span>
               </template>
             </el-table-column>

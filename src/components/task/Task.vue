@@ -4,7 +4,9 @@
       <el-radio-group
         @change="loadTasks" :disabled="!appProject"
         v-model="status" size="mini" id="task_status_select">
-        <el-radio-button v-for="status in TASK_STATUSES" :key="status.value" :label="status.en"/>
+        <el-radio-button v-for="status in TASK_STATUSES" :key="status.val" :label="status.val">
+          {{ status.en }}
+        </el-radio-button>
       </el-radio-group>
       <v-icon @click="$bus.$emit('openAddNewTaskDialog')" id="add_new_task" medium>playlist_add</v-icon>
       <add-new-task/>
@@ -27,12 +29,13 @@
       }
     },
     methods: {
-      loadTasks () {
-        this.$store.dispatch('setTaskStatus', this.status)
+      loadTasks (val) {
+        this.$store.dispatch('setTaskStatus', val)
         this.$store.dispatch('fetchTasks')
       }
     },
     created () {
+      this.loadTasks(this.status)
       this.$bus.$on('changeTaskStatus', status => {
         this.status = status
       })

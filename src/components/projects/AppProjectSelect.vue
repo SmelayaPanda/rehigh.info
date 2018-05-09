@@ -36,8 +36,8 @@
           this.$bus.$emit('openAddNewProjectDialog')
         } else {
           this.$store.dispatch('setProject', id)
-          this.$store.dispatch('setTaskStatus', this.TASK_STATUSES.created.value)
-          this.$bus.$emit('changeTaskStatus', this.TASK_STATUSES.created.value)
+          this.$store.dispatch('setTaskStatus', this.TASK_STATUSES.created.val)
+          this.$bus.$emit('changeTaskStatus', this.TASK_STATUSES.created.val)
           this.$store.dispatch('fetchTasks')
         }
       }

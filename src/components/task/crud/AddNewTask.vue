@@ -54,11 +54,11 @@
             <v-flex xs12 sm4 md2 lg2 xl2>
               <span class="info--text">Priority</span>
               <v-radio-group v-model="task.priority">
-                <v-radio :label="TASK_PRIORITY.low.en" :value="TASK_PRIORITY.low.value"
+                <v-radio :label="TASK_PRIORITY.low.en" :value="TASK_PRIORITY.low.val"
                          color="success"></v-radio>
-                <v-radio :label="TASK_PRIORITY.middle.en" :value="TASK_PRIORITY.middle.value"
+                <v-radio :label="TASK_PRIORITY.middle.en" :value="TASK_PRIORITY.middle.val"
                          color="primary"></v-radio>
-                <v-radio :label="TASK_PRIORITY.high.en" :value="TASK_PRIORITY.high.value"
+                <v-radio :label="TASK_PRIORITY.high.en" :value="TASK_PRIORITY.high.val"
                          color="error"></v-radio>
               </v-radio-group>
             </v-flex>
