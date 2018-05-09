@@ -54,8 +54,20 @@
                 :items="PROJECT_TYPES"
                 label="Project type"
                 chips
+                tags
                 deletable-chips
                 autocomplete
+                multiple>
+              </v-select>
+            </v-flex>
+            <v-flex xs12>
+              <v-select
+                v-model="emailList"
+                label="Access emails"
+                chips
+                deletable-chips
+                autocomplete
+                tags
                 multiple>
               </v-select>
             </v-flex>
@@ -79,23 +91,22 @@
           type: '',
           history: {
             created: new Date().getTime()
-          },
-          creator: {
-            userId: '',
-            email: ''
-          },
-          client: {
-            userId: '',
-            email: ''
           }
-        }
+        },
+        emailList: [ // emails which have access to project
+          'smelayapandagm@gmail.com',
+          'vika.erika@gmail.com'
+        ]
       }
     },
     methods: {
       createNewProject () {
         this.dialog = false
-        this.project.creator.userId = this.$store.getters.user.uid
-        this.project.creator.email = this.$store.getters.user.email
+        let emails = {}
+        this.emailList.forEach(el => {
+          emails[el] = true
+        })
+        this.project.emails = emails
         this.$store.dispatch('addNewProject', this.project)
       }
     },

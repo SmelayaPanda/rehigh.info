@@ -24,6 +24,7 @@ export default {
   actions: {
     // PROJECT
     fetchProjects ({commit, dispatch}, payload) {
+      commit('LOADING', true)
       return fb.firestore().collection('projects').get()
         .then(snap => {
           let projects = {}
@@ -32,20 +33,24 @@ export default {
             projects[doc.id].id = doc.id
           })
           commit('setProjects', projects)
+          commit('LOADING', false)
         })
         .catch(err => dispatch('LOG', err))
     },
     addNewProject ({commit, dispatch}, payload) {
+      commit('LOADING', true)
       return fb.firestore().collection('projects').add(payload)
         .then(docRef => {
           payload.id = docRef.id
           commit('setProject', {...payload})
           console.log('Project added')
+          commit('LOADING', false)
         })
         .catch(err => dispatch('LOG', err))
     },
     // TASK
     fetchTasks ({commit, dispatch, getters}) {
+      commit('LOADING', true)
       return fb.firestore().collection('tasks')
         .where('status', '==', getters.taskStatus)
         .where('projectId', '==', getters.project.id).get()
@@ -57,10 +62,12 @@ export default {
           })
           commit('setTasks', tasks)
           console.log('Fetched: tasks')
+          commit('LOADING', false)
         })
         .catch(err => dispatch('LOG', err))
     },
     addNewTask ({commit, dispatch, getters}, payload) {
+      commit('LOADING', true)
       let tasks = getters.tasks
       return fb.firestore().collection('tasks').add(payload)
         .then(docRef => {
@@ -68,6 +75,7 @@ export default {
           tasks[docRef.id].id = docRef.id
           commit('setTasks', {...tasks})
           console.log('Task added')
+          commit('LOADING', false)
         })
         .catch(err => dispatch('LOG', err))
     },

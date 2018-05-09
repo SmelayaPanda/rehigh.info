@@ -47,6 +47,7 @@
                 label="Task type"
                 chips
                 deletable-chips
+                tags
                 autocomplete
                 multiple>
               </v-select>

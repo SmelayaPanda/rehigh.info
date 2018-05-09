@@ -4,12 +4,19 @@
     :mini-variant="miniVariant"
     :clipped="false"
     v-model="isOpened"
-    class="secondary"
+    class="secondary elevation-7"
     width="280"
     hide-overlay
     stateless
     fixed
     app>
+    <v-progress-linear
+      v-if="isLoading"
+      :indeterminate="isLoading"
+      height="2"
+      color="primary"
+      id="app_loading">
+    </v-progress-linear>
     <v-list class="white--text">
       <v-list-tile id="rehigh_title">
         <v-list-tile-action>
@@ -68,5 +75,11 @@
   #rehigh_title {
     margin-top: 24px;
     margin-bottom: 8px;
+  }
+
+  #app_loading {
+    margin: 0;
+    padding: 0;
+    position: absolute;
   }
 </style>

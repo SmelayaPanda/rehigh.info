@@ -4,7 +4,7 @@
       id="project_selector"
       v-model="select"
       @change="switchProject"
-      :disabled="!$store.getters.user || !appProjects"
+      :disabled="!appUser || !appProjects || appRole === USER_ROLES.guest.val"
       :items="items"
       :hint="select.subtitle"
       label="Project"
@@ -45,16 +45,26 @@
     computed: {
       items () {
         let items = []
-        if (this.$store.getters.user) { // TODO: developer role only, for each email own project
+        if (this.appRole === 'developer') {
           items.push({title: 'Добавить проект', id: -1}, {divider: true})
         }
         if (this.appProjects) {
           for (let id in this.appProjects) {
-            items.push({
-              id: id,
-              title: this.appProjects[id].title,
-              subtitle: this.appProjects[id].subtitle
-            })
+            if (this.appProjects[id].emails[this.appUser.email]) {
+              items.push({
+                id: id,
+                title: this.appProjects[id].title,
+                subtitle: this.appProjects[id].subtitle
+              })
+            }
+          }
+          if (items.length && this.appRole === 'client') { // auto select project for client
+            this.select = {
+              title: items[0].title,
+              subtitle: items[0].subtitle,
+              id: items[0].id
+            }
+            this.$store.dispatch('setProject', items[0].id)
           }
         }
         return items

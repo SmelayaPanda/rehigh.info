@@ -1,5 +1,5 @@
 <template>
-  <div id="task_router">
+  <div id="task_router" v-if="appRole !== USER_ROLES.guest.val">
     <app-router-name name="Task">
       <el-radio-group
         @change="loadTasks" :disabled="!appProject"
@@ -25,7 +25,7 @@
     components: {AddNewTask, AppRouterName, TaskTable},
     data () {
       return {
-        status: 'pending'
+        status: 'created'
       }
     },
     methods: {
