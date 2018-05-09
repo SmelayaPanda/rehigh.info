@@ -9,12 +9,12 @@ export const data = {
       },
       RUB: '&nbsp;&#8381',
       TASK_STATUSES: {
-        created: {value: 'created', label: 'создан'},
-        pending: {value: 'pending', label: 'ожидает'}, // only client can switch to status pending
-        started: {value: 'started', label: 'в процессе'},
-        finished: {value: 'finished', label: 'завершен'},
-        accepted: {value: 'accepted', label: 'принят'},
-        stopped: {value: 'stopped', label: 'приостанов'}
+        created: {value: 'created', en: 'Created', ru: 'Создан'},
+        pending: {value: 'pending', en: 'Pending', ru: 'Ожидает'}, // only client can switch to status pending
+        started: {value: 'started', en: 'Started', ru: 'В процессе'},
+        finished: {value: 'finished', en: 'Finished', ru: 'Завершен'},
+        accepted: {value: 'accepted', en: 'Accepted', ru: 'Принят'},
+        stopped: {value: 'stopped', en: 'Stopped', ru: 'Приостановлено'}
       },
       TASK_TYPES: [ // TODO: to dictionaries
         'vue', 'vuex', 'vue-router', 'vuetify', 'elements-ui',
@@ -23,9 +23,9 @@ export const data = {
         'design', 'logo', 'booklet', 'psd', 'ai', 'ae', 'ap'
       ],
       TASK_PRIORITY: {
-        low: {value: 'low', label: 'низкий'},
-        middle: {value: 'middle', label: 'средний'},
-        high: {value: 'high', label: 'высокий'}
+        low: {value: 'low', en: 'Low', ru: 'Низкий'},
+        middle: {value: 'middle', en: 'Middle', ru: 'Средний'},
+        high: {value: 'high', en: 'High', ru: 'Высокий'}
       },
       PROJECT_TYPES: [ // TODO: to dictionaries
         'store', 'landing-page', 'presentation', 'presentation-store', 'info',

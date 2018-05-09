@@ -86,7 +86,7 @@
       }
     },
     watch: {
-      appRole (val) {
+      appRole (val) { // for initial role setting
         this.role = val
       }
     }

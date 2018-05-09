@@ -4,7 +4,7 @@
       <el-radio-group
         @change="loadTasks" :disabled="!appProject"
         v-model="status" size="mini" id="task_status_select">
-        <el-radio-button v-for="status in TASK_STATUSES" :key="status.value" :label="status.value"/>
+        <el-radio-button v-for="status in TASK_STATUSES" :key="status.value" :label="status.en"/>
       </el-radio-group>
       <v-icon @click="$bus.$emit('openAddNewTaskDialog')" id="add_new_task" medium>playlist_add</v-icon>
       <add-new-task/>

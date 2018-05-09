@@ -25,7 +25,6 @@ export default {
           payload.roles = snap.data().roles
           commit('setUser', {...payload})
           dispatch('setInitialRole', snap.data().roles)
-          console.log(payload)
           router.push('/')
         })
     },
@@ -33,7 +32,6 @@ export default {
       commit('setRole', payload)
     },
     setInitialRole ({commit}, payload) {
-      console.log(payload)
       if (payload.indexOf('developer') !== -1) {
         commit('setRole', 'developer')
       } else if (payload.indexOf('admin') !== -1) {
