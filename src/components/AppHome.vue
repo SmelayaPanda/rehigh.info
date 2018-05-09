@@ -8,7 +8,9 @@
             <p>{{ appProject.description }}</p>
             <v-chip v-for="type in appProject.type" v-bind:key="type">{{ type }}</v-chip>
           </v-container>
-          <h1 v-else>Select a Project</h1>
+          <v-container v-else>
+            <h1 class="info--text">Select a Project</h1>
+          </v-container>
         </v-flex>
       </v-layout>
     </v-container>

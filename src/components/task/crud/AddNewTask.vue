@@ -122,6 +122,21 @@
         this.task.history.created = new Date().getTime()
         this.task.projectId = this.appProject.id
         this.$store.dispatch('addNewTask', this.task)
+          .then(() => { // clear
+            // this.task = {
+            //   title: '',
+            //   description: '',
+            //   priority: '',
+            //   payment: {amount: 0, currency: 'RUB'},
+            //   price: {amount: 3000, currency: 'RUB'},
+            //   type: '',
+            //   time: {plan: 8, real: 0},
+            //   deadline: new Date().getTime(),
+            //   history: {created: ''},
+            //   status: 'created',
+            //   creator: {userId: ''}
+            // }
+          })
       }
     },
     created () {

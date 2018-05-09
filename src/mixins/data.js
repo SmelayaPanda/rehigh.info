@@ -2,10 +2,10 @@ export const data = {
   data: function () {
     return {
       USER_ROLES: {
-        admin: {value: 'admin', label: 'Администратор'},
-        developer: {value: 'developer', label: 'Разработчик'},
-        client: {value: 'client', label: 'Клиент'},
-        guest: {value: 'guest', label: 'Гость'}
+        admin: {value: 'admin', en: 'Admin', ru: 'Администратор'},
+        developer: {value: 'developer', en: 'Developer', ru: 'Разработчик'},
+        client: {value: 'client', en: 'Client', ru: 'Клиент'},
+        guest: {value: 'guest', en: 'Guest', ru: 'Гость'}
       },
       RUB: '&nbsp;&#8381',
       TASK_STATUSES: {

@@ -30,6 +30,19 @@
             </v-flex>
           </v-layout>
         </v-card-title>
+        <v-container fluid >
+          <v-layout row wrap>
+            <v-flex xs12 sm6 md6>
+              <h3 class="info--text" id="account_role_title">Account role</h3>
+              <v-radio-group @change="changeUserRole" v-model="role" column id="account_role">
+                <v-radio
+                  v-for="role in appUser.roles" :key="role" color="primary"
+                  :label="USER_ROLES[role].en" :value="role">
+                </v-radio>
+              </v-radio-group>
+            </v-flex>
+          </v-layout>
+        </v-container>
         <v-divider></v-divider>
         <v-card-actions>
           <v-btn v-if="appUser" @click="logout" flat color="primary">Logout</v-btn>
@@ -48,7 +61,8 @@
     name: 'AppAccount',
     data () {
       return {
-        menu: false
+        menu: false,
+        role: 'guest'
       }
     },
     methods: {
@@ -66,6 +80,14 @@
       register () {
         this.menu = false
         this.$router.push('/signup')
+      },
+      changeUserRole (val) {
+        this.$store.dispatch('setRole', val)
+      }
+    },
+    watch: {
+      appRole (val) {
+        this.role = val
       }
     }
   }
@@ -90,5 +112,9 @@
 
   #my_account_btn {
     margin-left: 0;
+  }
+
+  #account_role {
+    padding-top: 0;
   }
 </style>

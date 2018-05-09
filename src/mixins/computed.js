@@ -5,6 +5,9 @@ export const computed = {
     appUser () {
       return store.getters.user
     },
+    appRole () {
+      return store.getters.role
+    },
     appProject () {
       return this.$store.getters.project
     },
