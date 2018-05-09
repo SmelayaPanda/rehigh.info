@@ -26,41 +26,46 @@
                 </el-steps>
               </template>
             </el-table-column>
-            <el-table-column label="Priority / Title">
+            <el-table-column label="" width="34">
               <template slot-scope="scope">
-                <el-tag v-if="scope.row.priority === TASK_PRIORITY.low.val" type="success" size="mini">3</el-tag>
-                <el-tag v-if="scope.row.priority === TASK_PRIORITY.middle.val" type="primary" size="mini">2</el-tag>
-                <el-tag v-if="scope.row.priority === TASK_PRIORITY.high.val" type="danger" size="mini">1</el-tag>
-                <span class="ml-2">{{ scope.row.title }}</span>
+                <v-icon v-if="scope.row.priority === TASK_PRIORITY.low.val" class="success--text"">fiber_manual_record</v-icon>
+                <v-icon v-if="scope.row.priority === TASK_PRIORITY.middle.val" class="primary--text">fiber_manual_record</v-icon>
+                <v-icon v-if="scope.row.priority === TASK_PRIORITY.high.val" class="error--text">fiber_manual_record</v-icon>
               </template>
             </el-table-column>
-            <el-table-column label="Plan (h)" width="100" sortable>
+            <el-table-column label="Title">
               <template slot-scope="scope">
-                {{ scope.row.time.plan }}
+                <span>{{ scope.row.title }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="Real (h)" width="100" sortable>
+            <el-table-column label="Deadline" width="140">
               <template slot-scope="scope">
-                {{ scope.row.time.real }}
-              </template>
-            </el-table-column>
-            <el-table-column label="Deadline" width="160" sortable>
-              <template slot-scope="scope">
-                <i class="el-icon-time"></i>
-                <span v-if="scope.row.deadline" style="margin-left: 5px">
+                <span v-if="scope.row.deadline">
                   {{ scope.row.deadline | date('en') }}
                 </span>
                 <span v-else>-</span>
               </template>
             </el-table-column>
-            <el-table-column label="Price" width="100" sortable>
+            <el-table-column label="Plan (days)" width="100">
               <template slot-scope="scope">
-                <span>{{ scope.row.price.amount }} {{ scope.row.price.currency }}</span>
+                ~{{ (scope.row.time.plan / 8).toFixed(1) }}
               </template>
             </el-table-column>
-            <el-table-column label="Payment" width="100" sortable>
+            <el-table-column
+              v-if="appRole === USER_ROLES.admin.val || appRole === USER_ROLES.developer.val"
+              label="Real (h)" width="100">
               <template slot-scope="scope">
-                <span>{{ scope.row.payment.amount }} {{ scope.row.payment.currency }}</span>
+                {{ scope.row.time.real }}
+              </template>
+            </el-table-column>
+            <el-table-column label="Price" width="100">
+              <template slot-scope="scope">
+                <span>{{ scope.row.price.amount }} <span v-html="RUB"></span></span>
+              </template>
+            </el-table-column>
+            <el-table-column label="Payment" width="100">
+              <template slot-scope="scope">
+                <span>{{ scope.row.payment.amount }} <span v-html="RUB"></span></span>
               </template>
             </el-table-column>
           </el-table>

@@ -66,6 +66,7 @@
             <v-flex xs12 sm4 md3 lg2 xl2>
               <v-text-field
                 label="Price"
+                @change="calcHours"
                 v-model="task.price.amount"
                 :suffix="task.price.currency"
                 type="number">
@@ -74,7 +75,8 @@
                 label="Plan time"
                 v-model="task.time.plan"
                 suffix="hours"
-                type="number">
+                type="number"
+                disabled>
               </v-text-field>
             </v-flex>
             <v-flex xs12 sm4 md3 lg2 xl2>
@@ -138,12 +140,18 @@
             //   creator: {userId: ''}
             // }
           })
+      },
+      calcHours (val) {
+        if (val) { // TODO: setup RUB/hours for every project
+          this.task.time.plan = val / 400
+        }
       }
     },
     created () {
       this.$bus.$on('openAddNewTaskDialog', () => {
         this.dialog = true
       })
+      this.calcHours(this.task.price.amount)
     }
   }
 </script>
