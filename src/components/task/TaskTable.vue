@@ -28,9 +28,12 @@
             </el-table-column>
             <el-table-column label="" width="34">
               <template slot-scope="scope">
-                <v-icon v-if="scope.row.priority === TASK_PRIORITY.low.val" class="success--text"">fiber_manual_record</v-icon>
-                <v-icon v-if="scope.row.priority === TASK_PRIORITY.middle.val" class="primary--text">fiber_manual_record</v-icon>
-                <v-icon v-if="scope.row.priority === TASK_PRIORITY.high.val" class="error--text">fiber_manual_record</v-icon>
+                <v-icon v-if="scope.row.priority === TASK_PRIORITY.low.val"
+                        class="success--text">fiber_manual_record</v-icon>
+                <v-icon v-if="scope.row.priority === TASK_PRIORITY.middle.val"
+                        class="primary--text">fiber_manual_record</v-icon>
+                <v-icon v-if="scope.row.priority === TASK_PRIORITY.high.val"
+                        class="error--text">fiber_manual_record</v-icon>
               </template>
             </el-table-column>
             <el-table-column label="Title">
@@ -46,7 +49,7 @@
                 <span v-else>-</span>
               </template>
             </el-table-column>
-            <el-table-column label="Plan (days)" width="100">
+            <el-table-column label="Days" width="60">
               <template slot-scope="scope">
                 ~{{ (scope.row.time.plan / 8).toFixed(1) }}
               </template>
@@ -58,14 +61,29 @@
                 {{ scope.row.time.real }}
               </template>
             </el-table-column>
-            <el-table-column label="Price" width="100">
+            <el-table-column label="Price" width="92">
               <template slot-scope="scope">
                 <span>{{ scope.row.price.amount }} <span v-html="RUB"></span></span>
               </template>
             </el-table-column>
-            <el-table-column label="Payment" width="100">
+            <el-table-column label="Payment" width="92">
               <template slot-scope="scope">
                 <span>{{ scope.row.payment.amount }} <span v-html="RUB"></span></span>
+              </template>
+            </el-table-column>
+            <el-table-column width="46" align="left">
+              <template slot-scope="scope">
+                <v-menu bottom left>
+                  <v-icon slot="activator">more_vert</v-icon>
+                  <v-list>
+                    <v-list-tile @click="">
+                      <v-list-tile-title>Chane status</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile @click="">
+                      <v-list-tile-title>Edit</v-list-tile-title>
+                    </v-list-tile>
+                  </v-list>
+                </v-menu>
               </template>
             </el-table-column>
           </el-table>
