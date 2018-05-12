@@ -7,10 +7,13 @@
           <v-card color="secondary" class="doc_card" dark>
             <dogovor/>
             <v-card-title primary class="title">Договор на оказание услуг</v-card-title>
-            <v-card-text>Типовой договор оказания услуг по созданию сайта предполагает, что Исполнитель обязуется
-              оказать услуги по созданию сайта Заказчику, на условиях, определяемых Договором, а Заказчик обязуется
+            <v-card-text>Типовой договор оказания услуг по созданию сайта предполагает, что Исполнитель
+              обязуется
+              оказать услуги по созданию сайта Заказчику, на условиях, определяемых Договором, а Заказчик
+              обязуется
               принять услуги и оплатить их. <br>
-              Оказание услуг по созданию сайта является возмездным. Разработка сайта производится на основании
+              Оказание услуг по созданию сайта является возмездным. Разработка сайта производится на
+              основании
               Технического Задания к Договору.
             </v-card-text>
           </v-card>
@@ -19,7 +22,8 @@
           <v-layout row wrap>
             <v-flex d-flex>
               <v-card color="success" class="doc_card" dark>
-                <v-card-title class="title">Дополнительное соглашение к договору на оказание услуг</v-card-title>
+                <v-card-title class="title">Дополнительное соглашение к договору на оказание услуг
+                </v-card-title>
               </v-card>
             </v-flex>
             <v-flex d-flex>
@@ -57,13 +61,13 @@
   import AppRouterName from '../theme/AppRouterName'
   import Dogovor from './dialogs/Dogovor'
 
-export default {
+  export default {
     name: 'Documents',
     components: {Dogovor, AppRouterName}
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .doc_card {
     transition: .3s all
   }

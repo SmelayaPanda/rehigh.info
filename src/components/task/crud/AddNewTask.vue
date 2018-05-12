@@ -66,9 +66,16 @@
             <v-flex xs12 sm4 md3 lg2 xl2>
               <v-text-field
                 label="Price"
-                @change="calcHours"
+                @input="calcHours"
                 v-model="task.price.amount"
                 :suffix="task.price.currency"
+                type="number">
+              </v-text-field>
+              <v-text-field
+                label="Payment per hours"
+                @input="calcHours"
+                v-model="paymentPerHours"
+                suffix="RUB/hour"
                 type="number">
               </v-text-field>
               <v-text-field
@@ -98,24 +105,27 @@
 </template>
 
 <script>
+  let initTask = {
+    title: '',
+    description: '',
+    priority: 'middle',
+    payment: {amount: 0, currency: 'RUB'},
+    price: {amount: 3000, currency: 'RUB'},
+    type: '',
+    time: {plan: 8, real: 0},
+    deadline: new Date().getTime(),
+    history: {created: ''},
+    status: 'created',
+    creator: {userId: ''}
+  }
+  let task = Object.assign({}, initTask)
   export default {
     name: 'AddNewTask',
     data () {
       return {
         dialog: false,
-        task: {
-          title: '',
-          description: '',
-          priority: '',
-          payment: {amount: 0, currency: 'RUB'},
-          price: {amount: 3000, currency: 'RUB'},
-          type: '',
-          time: {plan: 8, real: 0},
-          deadline: new Date().getTime(),
-          history: {created: ''},
-          status: 'created',
-          creator: {userId: ''}
-        }
+        task: task,
+        paymentPerHours: 400
       }
     },
     methods: { // TODO: add comments to task (userId, text, date)
@@ -126,25 +136,11 @@
         this.task.projectId = this.appProject.id
         this.$store.dispatch('addNewTask', this.task)
           .then(() => { // clear
-            // this.task = {
-            //   title: '',
-            //   description: '',
-            //   priority: '',
-            //   payment: {amount: 0, currency: 'RUB'},
-            //   price: {amount: 3000, currency: 'RUB'},
-            //   type: '',
-            //   time: {plan: 8, real: 0},
-            //   deadline: new Date().getTime(),
-            //   history: {created: ''},
-            //   status: 'created',
-            //   creator: {userId: ''}
-            // }
+            this.task = initTask
           })
       },
-      calcHours (val) {
-        if (val) { // TODO: setup RUB/hours for every project
-          this.task.time.plan = val / 400
-        }
+      calcHours () {
+        this.task.time.plan = this.task.price.amount / this.paymentPerHours
       }
     },
     created () {
