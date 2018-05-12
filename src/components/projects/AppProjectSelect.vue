@@ -7,7 +7,7 @@
       :disabled="!appUser || !appProjects || appRole === USER_ROLES.guest.val"
       :items="items"
       :hint="select.subtitle"
-      label="Project"
+      :label="msg.project[LANG]"
       item-text="title"
       item-value="subtitle"
       color="primary"
@@ -27,7 +27,10 @@
     components: {AddNewProject},
     data () {
       return {
-        select: []
+        select: [],
+        msg: {
+          project: {en: 'Project', ru: 'Проект'}
+        }
       }
     },
     methods: {

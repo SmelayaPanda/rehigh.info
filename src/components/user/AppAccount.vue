@@ -26,19 +26,26 @@
             <v-flex xs8 v-if="appUser">
               <span>Re:High Studio</span> <br>
               <span class="info--text">{{ appUser.email }}</span> <br>
-              <v-btn small class="primary" id="my_account_btn">My account</v-btn>
+              <v-btn small class="primary" id="my_account_btn">{{ msg.account[LANG] }}</v-btn>
             </v-flex>
           </v-layout>
         </v-card-title>
-        <v-container fluid >
+        <v-container fluid>
           <v-layout row wrap>
             <v-flex xs12 sm6 md6>
-              <h3 class="info--text" id="account_role_title">Account role</h3>
+              <h3 class="info--text" id="account_role_title">{{ msg.role[LANG] }}</h3>
               <v-radio-group @change="changeUserRole" v-model="role" column id="account_role">
                 <v-radio
                   v-for="role in appUser.roles" :key="role" color="primary"
                   :label="USER_ROLES[role].en" :value="role">
                 </v-radio>
+              </v-radio-group>
+            </v-flex>
+            <v-flex xs12 sm6 md6>
+              <h3 class="info--text" id="user_lang_title">{{ msg.lang[LANG] }}</h3>
+              <v-radio-group @change="changeUserLang" v-model="lang" column id="user_lang">
+                <v-radio color="primary" label="RU" value="ru"></v-radio>
+                <v-radio color="primary" label="EN" value="en"></v-radio>
               </v-radio-group>
             </v-flex>
           </v-layout>
@@ -62,7 +69,13 @@
     data () {
       return {
         menu: false,
-        role: 'guest'
+        role: 'guest',
+        lang: 'ru',
+        msg: {
+          lang: {ru: 'Язык', en: 'Language'},
+          role: {ru: 'Аккаунт-роль', en: 'Account-role'},
+          account: {ru: 'Мой аккаунт', en: 'My account'}
+        }
       }
     },
     methods: {
@@ -83,11 +96,17 @@
       },
       changeUserRole (val) {
         this.$store.dispatch('setRole', val)
+      },
+      changeUserLang (val) {
+        this.$store.dispatch('setLang', val)
       }
     },
     watch: {
       appRole (val) { // for initial role setting
         this.role = val
+      },
+      LANG (val) {
+        this.lang = val
       }
     }
   }
@@ -114,6 +133,7 @@
     margin-left: 0;
   }
 
+  #user_lang,
   #account_role {
     padding-top: 0;
   }

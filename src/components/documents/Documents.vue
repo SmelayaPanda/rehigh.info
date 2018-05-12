@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-router-name name="Documents"/>
+    <app-router-name :name="msg.contacts[LANG]"/>
     <v-container fluid grid-list-md>
       <v-layout row wrap>
         <v-flex d-flex xs12 sm6 md5 @click="$bus.$emit('opeDogovorDialog')">
@@ -63,7 +63,14 @@
 
   export default {
     name: 'Documents',
-    components: {Dogovor, AppRouterName}
+    components: {Dogovor, AppRouterName},
+    data () {
+      return {
+        msg: {
+          contacts: {en: 'Documents', ru: 'Документы'}
+        }
+      }
+    }
   }
 </script>
 

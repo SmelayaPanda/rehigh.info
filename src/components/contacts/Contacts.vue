@@ -1,15 +1,22 @@
 <template>
   <div>
-    <app-router-name name="Contacts"/>
+    <app-router-name :name="msg.contacts[LANG]"/>
   </div>
 </template>
 
 <script>
   import AppRouterName from '../theme/AppRouterName'
 
-export default {
+  export default {
     name: 'contacts',
-    components: {AppRouterName}
+    components: {AppRouterName},
+    data () {
+      return {
+        msg: {
+          contacts: {en: 'Contacts', ru: 'Контакты'}
+        }
+      }
+    }
   }
 </script>
 

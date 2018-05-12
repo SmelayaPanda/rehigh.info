@@ -1,11 +1,11 @@
 <template>
   <div id="task_router" v-if="appRole !== USER_ROLES.guest.val">
-    <app-router-name name="Task">
+    <app-router-name :name="title[LANG]">
       <el-radio-group
         @change="loadTasks" :disabled="!appProject"
         v-model="status" size="mini" id="task_status_select">
         <el-radio-button v-for="status in TASK_STATUSES" :key="status.val" :label="status.val">
-          {{ status.en }}
+          {{ status[LANG] }}
         </el-radio-button>
       </el-radio-group>
       <v-icon
@@ -29,6 +29,7 @@
     components: {CreateUpdateTask, AppRouterName, TaskTable},
     data () {
       return {
+        title: {en: 'Task', ru: 'Задачи'},
         status: 'created'
       }
     },

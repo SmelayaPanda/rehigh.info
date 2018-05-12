@@ -1,12 +1,11 @@
 <template>
   <v-bottom-sheet v-model="sheet">
-    <v-btn slot="activator" color="purple" dark>Click me</v-btn>
     <v-list>
       <v-container class="secondary--text">
         <task-help v-if="this.$router.currentRoute.name === 'task'"/>
         <project-help v-if="this.$router.currentRoute.name === 'project'"/>
         <documents-help v-if="this.$router.currentRoute.name === 'documents'"/>
-        <p v-else>Документация отсутствует</p>
+        <p v-else>{{ msg.absent[LANG] }}</p>
       </v-container>
     </v-list>
   </v-bottom-sheet>
@@ -22,7 +21,10 @@ export default {
     components: {DocumentsHelp, ProjectHelp, TaskHelp},
     data () {
       return {
-        sheet: false
+        sheet: false,
+        msg: {
+          absent: {ru: 'Документация отсутствует', en: 'No documentation'}
+        }
       }
     },
     created () {

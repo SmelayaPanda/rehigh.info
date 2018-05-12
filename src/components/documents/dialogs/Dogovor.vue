@@ -95,7 +95,7 @@
     name: 'Dogovor',
     data () {
       return {
-        dialog: true
+        dialog: false
       }
     },
     created () {

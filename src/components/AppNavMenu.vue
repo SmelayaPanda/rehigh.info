@@ -30,12 +30,12 @@
       </v-list-tile>
       <p v-if="!miniVariant" id="work_panel">work panel</p>
       <v-divider></v-divider>
-      <v-list-tile v-for="i in items" :key="i.title" @click="$router.push(i.router)">
+      <v-list-tile v-for="i in items" :key="i.router" @click="$router.push(i.router)">
         <v-list-tile-action>
           <v-icon class="primary--text mb-1">{{ i.icon }}</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title class="body-2">{{ i.title }}</v-list-tile-title>
+          <v-list-tile-title class="body-2">{{ i.title[LANG] }}</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-divider></v-divider>
@@ -43,7 +43,7 @@
     <v-card flat id="bottom_nav">
       <v-bottom-nav :value="true" :active.sync="bottomNav" absolute color="transparent">
         <v-btn @click="$bus.$emit('openHelp')" flat color="primary" value="help">
-          <span class="white--text">Help</span>
+          <span class="white--text">{{ msg.help[LANG] }}</span>
           <v-icon>help</v-icon>
         </v-btn>
       </v-bottom-nav>
@@ -58,12 +58,15 @@
         isOpened: true,
         miniVariant: false,
         items: [
-          {title: 'PROJECT', router: '/project', icon: 'settings_ethernet'},
-          {title: 'TASK', router: '/task', icon: 'whatshot'},
-          {title: 'DOCUMENTS', router: '/documents', icon: 'insert_drive_file'},
-          {title: 'CONTACTS', router: '/contacts', icon: 'perm_contact_calendar'}
+          {title: {en: 'PROJECT', ru: 'ПРОЕКТ'}, router: '/project', icon: 'settings_ethernet'},
+          {title: {en: 'TASK', ru: 'ЗАДАЧИ'}, router: '/task', icon: 'whatshot'},
+          {title: {en: 'DOCUMENTS', ru: 'ДОКУМЕНТЫ'}, router: '/documents', icon: 'insert_drive_file'},
+          {title: {en: 'CONTACTS', ru: 'КОНТАКТЫ'}, router: '/contacts', icon: 'perm_contact_calendar'}
         ],
-        bottomNav: ''
+        bottomNav: '',
+        msg: {
+          help: {en: 'Help', ru: 'Помощь'}
+        }
       }
     },
     created () {

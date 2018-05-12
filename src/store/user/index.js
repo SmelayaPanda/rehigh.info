@@ -5,7 +5,8 @@ import {Message, Notification} from 'element-ui'
 export default {
   state: {
     user: '',
-    role: 'guest'
+    role: 'guest',
+    lang: 'ru'
     // all user roles added through db
     // user.roles: [ developer, admin, client, guest ]
     // role: only one selected in app
@@ -16,6 +17,9 @@ export default {
     },
     setRole (state, payload) {
       state.role = payload
+    },
+    setLang (state, payload) {
+      state.lang = payload
     }
   },
   actions: {
@@ -24,12 +28,21 @@ export default {
         .then(snap => {
           payload.roles = snap.data().roles
           commit('setUser', {...payload})
+          commit('setLang', snap.data().lang ? snap.data().lang : 'ru')
           dispatch('setInitialRole', snap.data().roles)
           router.push('/')
         })
     },
     setRole ({commit, getters}, payload) {
       commit('setRole', payload)
+    },
+    setLang ({commit, dispatch, getters}, payload) {
+      commit('setLang', payload)
+      return fb.firestore().collection('users').doc(getters.user.uid).update({lang: payload})
+        .then(() => {
+          console.log('Lang saved')
+        })
+        .catch(err => dispatch('LOG', err))
     },
     setInitialRole ({commit}, payload) {
       if (payload.indexOf('developer') !== -1) {
@@ -50,6 +63,7 @@ export default {
           return fb.firestore().collection('users').doc(snap.user.uid).set({
             uid: snap.user.uid,
             email: snap.user.email,
+            lang: 'ru',
             roles: ['guest'],
             created: new Date().getTime()
           })
@@ -128,6 +142,7 @@ export default {
   },
   getters: {
     user: state => state.user,
-    role: state => state.role
+    role: state => state.role,
+    lang: state => state.lang
   }
 }

@@ -28,7 +28,7 @@
 
 <script>
   export default {
-    name: 'TaskHelp',
+    name: 'TaskHelp'
   }
 </script>
 

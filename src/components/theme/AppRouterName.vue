@@ -25,6 +25,6 @@
     line-height: 40px;
     color: white;
     margin-left: 52px;
-    padding-right: 20px;
+    padding-right: 15px;
   }
 </style>

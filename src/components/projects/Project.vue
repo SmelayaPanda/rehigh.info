@@ -6,10 +6,10 @@
           <h1>{{ appProject.title }}</h1>
           <h2>{{ appProject.subtitle }}</h2>
           <p>{{ appProject.description }}</p>
-          <v-chip v-for="type in appProject.type" v-bind:key="type">{{ type }}</v-chip>
+          <v-chip v-for="type in appProject.type" :key="type">{{ type }}</v-chip>
         </v-container>
         <v-container v-else>
-          <h1 class="info--text">Select a Project</h1>
+          <h1 class="info--text">{{ msg.select[LANG] }}</h1>
         </v-container>
       </v-flex>
     </v-layout>
@@ -18,7 +18,14 @@
 
 <script>
   export default {
-    name: 'Project'
+    name: 'Project',
+    data () {
+      return {
+        msg: {
+          select: {en: 'Select a Project', ru: 'Выберите проект'}
+        }
+      }
+    }
   }
 </script>
 

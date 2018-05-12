@@ -10,7 +10,7 @@
         <v-list-tile-action>
           <v-icon class="white--text">history</v-icon>
         </v-list-tile-action>
-        <v-list-tile-title>Notifications History</v-list-tile-title>
+        <v-list-tile-title>{{ msg.notify[LANG] }}</v-list-tile-title>
       </v-list-tile>
     </v-list>
     <v-divider></v-divider>
@@ -21,7 +21,10 @@
     name: 'app-notifications',
     data () {
       return {
-        isOpened: false
+        isOpened: false,
+        msg: {
+          notify: {en: 'Notifications History', ru: 'История оповещений'}
+        }
       }
     },
     created () {

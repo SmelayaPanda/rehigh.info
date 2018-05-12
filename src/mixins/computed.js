@@ -19,6 +19,9 @@ export const computed = {
     },
     isLoading () {
       return store.getters.loading
+    },
+    LANG () {
+      return this.$store.getters.lang
     }
   }
 }
