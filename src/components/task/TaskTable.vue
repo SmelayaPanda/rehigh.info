@@ -79,8 +79,8 @@
                     <v-list-tile @click="">
                       <v-list-tile-title>Chane status</v-list-tile-title>
                     </v-list-tile>
-                    <v-list-tile @click="">
-                      <v-list-tile-title>Edit</v-list-tile-title>
+                    <v-list-tile @click="$bus.$emit('openEditTaskDialog', scope.row.id)">
+                      <v-list-tile-title>Edit task</v-list-tile-title>
                     </v-list-tile>
                   </v-list>
                 </v-menu>

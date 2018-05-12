@@ -8,21 +8,25 @@
           {{ status.en }}
         </el-radio-button>
       </el-radio-group>
-      <v-icon @click="$bus.$emit('openAddNewTaskDialog')" id="add_new_task" medium>playlist_add</v-icon>
-      <add-new-task/>
+      <v-icon
+        v-if="appRole === USER_ROLES.admin.val || appRole === USER_ROLES.developer.val"
+        @click="$bus.$emit('openAddNewTaskDialog')"
+        id="add_new_task" medium>playlist_add
+      </v-icon>
+      <create-update-task/>
     </app-router-name>
-    <task-table/>
+    <task-table v-if="appProject"/>
   </div>
 </template>
 
 <script>
   import TaskTable from './TaskTable'
   import AppRouterName from '../theme/AppRouterName'
-  import AddNewTask from './crud/AddNewTask'
+  import CreateUpdateTask from './crud/CreateUpdateTask'
 
   export default {
     name: 'Task',
-    components: {AddNewTask, AppRouterName, TaskTable},
+    components: {CreateUpdateTask, AppRouterName, TaskTable},
     data () {
       return {
         status: 'created'
@@ -35,7 +39,9 @@
       }
     },
     created () {
-      this.loadTasks(this.status)
+      if (this.appProject) {
+        this.loadTasks(this.status)
+      }
       this.$bus.$on('changeTaskStatus', status => {
         this.status = status
       })

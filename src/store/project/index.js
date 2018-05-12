@@ -79,6 +79,18 @@ export default {
         })
         .catch(err => dispatch('LOG', err))
     },
+    editTask ({commit, dispatch, getters}, payload) {
+      commit('LOADING', true)
+      let tasks = getters.tasks
+      return fb.firestore().collection('tasks').doc(payload.id).update(payload)
+        .then(() => {
+          tasks[payload.id] = payload
+          commit('setTasks', {...tasks})
+          console.log('Task edited')
+          commit('LOADING', false)
+        })
+        .catch(err => dispatch('LOG', err))
+    },
     setProject ({commit, getters}, payload) {
       commit('setProject', getters.projects[payload])
     },

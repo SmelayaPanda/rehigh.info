@@ -40,6 +40,14 @@
       </v-list-tile>
       <v-divider></v-divider>
     </v-list>
+    <v-card flat id="bottom_nav">
+      <v-bottom-nav :value="true" :active.sync="bottomNav" absolute color="transparent">
+        <v-btn @click="$bus.$emit('openHelp')" flat color="primary" value="help">
+          <span class="white--text">Help</span>
+          <v-icon>help</v-icon>
+        </v-btn>
+      </v-bottom-nav>
+    </v-card>
   </v-navigation-drawer>
 </template>
 <script>
@@ -50,10 +58,12 @@
         isOpened: true,
         miniVariant: false,
         items: [
+          {title: 'PROJECT', router: '/project', icon: 'settings_ethernet'},
           {title: 'TASK', router: '/task', icon: 'whatshot'},
           {title: 'DOCUMENTS', router: '/documents', icon: 'insert_drive_file'},
           {title: 'CONTACTS', router: '/contacts', icon: 'perm_contact_calendar'}
-        ]
+        ],
+        bottomNav: ''
       }
     },
     created () {
@@ -81,5 +91,11 @@
     margin: 0;
     padding: 0;
     position: absolute;
+  }
+
+  #bottom_nav {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
   }
 </style>

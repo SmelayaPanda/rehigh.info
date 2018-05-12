@@ -6,10 +6,10 @@
           <v-btn icon dark @click.native="dialog = false">
             <v-icon>close</v-icon>
           </v-btn>
-          <v-toolbar-title>Add new task</v-toolbar-title>
+          <v-toolbar-title>{{ operation.title }}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark flat @click.native="addNewTask">Save</v-btn>
+            <v-btn dark flat @click.native="saveTask">Save</v-btn>
           </v-toolbar-items>
         </v-toolbar>
         <v-list three-line subheader>
@@ -118,26 +118,36 @@
     status: 'created',
     creator: {userId: ''}
   }
-  let task = Object.assign({}, initTask)
+  let newTask = Object.assign({}, initTask)
   export default {
-    name: 'AddNewTask',
+    name: 'CreateUpdateTask',
     data () {
       return {
         dialog: false,
-        task: task,
+        operation: {
+          title: '',
+          name: ''
+        },
+        task: newTask,
         paymentPerHours: 400
       }
     },
     methods: { // TODO: add comments to task (userId, text, date)
-      addNewTask () {
-        this.dialog = false
-        this.task.creator.userId = this.appUser.uid
-        this.task.history.created = new Date().getTime()
-        this.task.projectId = this.appProject.id
-        this.$store.dispatch('addNewTask', this.task)
-          .then(() => { // clear
-            this.task = initTask
-          })
+      saveTask () {
+        if (this.operation.name === 'add') {
+          this.dialog = false
+          this.task.creator.userId = this.appUser.uid
+          this.task.history.created = new Date().getTime()
+          this.task.projectId = this.appProject.id
+          this.$store.dispatch('addNewTask', this.task)
+            .then(() => { // clear
+              this.task = initTask
+            })
+        } else {
+          this.dialog = false
+          this.task.history.edited = new Date().getTime()
+          this.$store.dispatch('editTask', this.task)
+        }
       },
       calcHours () {
         this.task.time.plan = this.task.price.amount / this.paymentPerHours
@@ -145,6 +155,14 @@
     },
     created () {
       this.$bus.$on('openAddNewTaskDialog', () => {
+        this.operation.name = 'add'
+        this.operation.title = 'Add new task'
+        this.dialog = true
+      })
+      this.$bus.$on('openEditTaskDialog', (id) => {
+        this.task = this.$store.getters.tasks[id]
+        this.operation.name = 'edit'
+        this.operation.title = 'Edit task'
         this.dialog = true
       })
       this.calcHours(this.task.price.amount)

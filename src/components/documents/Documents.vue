@@ -3,7 +3,7 @@
     <app-router-name name="Documents"/>
     <v-container fluid grid-list-md>
       <v-layout row wrap>
-        <v-flex d-flex xs12 sm6 md4 @click="$bus.$emit('opeDogovorDialog')">
+        <v-flex d-flex xs12 sm6 md5 @click="$bus.$emit('opeDogovorDialog')">
           <v-card color="secondary" class="doc_card" dark>
             <dogovor/>
             <v-card-title primary class="title">Договор на оказание услуг</v-card-title>
@@ -18,7 +18,7 @@
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-flex d-flex xs12 sm6 md3>
+        <v-flex d-flex xs12 sm6 md4>
           <v-layout row wrap>
             <v-flex d-flex>
               <v-card color="success" class="doc_card" dark>
@@ -37,7 +37,7 @@
             </v-flex>
           </v-layout>
         </v-flex>
-        <v-flex d-flex xs12 sm6 md2 child-flex>
+        <v-flex d-flex xs12 sm6 md3 child-flex>
           <v-card color="success" class="doc_card" dark>
             <v-card-text class="title">Важно знать</v-card-text>
           </v-card>
