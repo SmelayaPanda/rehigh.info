@@ -5,7 +5,6 @@
       <v-layout row wrap>
         <v-flex d-flex xs12 sm6 md5 @click="$bus.$emit('opeDogovorDialog')">
           <v-card color="secondary" class="doc_card" dark>
-            <dogovor/>
             <v-card-title primary class="title">Договор на оказание услуг</v-card-title>
             <v-card-text>Типовой договор оказания услуг по созданию сайта предполагает, что Исполнитель
               обязуется
@@ -27,7 +26,7 @@
               </v-card>
             </v-flex>
             <v-flex d-flex>
-              <v-layout row wrap>
+              <v-layout row wrap @click="$bus.$emit('openTechnologyStackDialog')">
                 <v-flex d-flex xs12>
                   <v-card color="secondary" class="doc_card" dark>
                     <v-card-title class="title">Стек используемых технологий</v-card-title>
@@ -54,16 +53,20 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <!--DIALOGS-->
+    <dogovor/>
+    <technology-stack/>
   </div>
 </template>
 
 <script>
   import AppRouterName from '../theme/AppRouterName'
   import Dogovor from './dialogs/Dogovor'
+  import TechnologyStack from "./dialogs/TechnologyStack";
 
   export default {
     name: 'Documents',
-    components: {Dogovor, AppRouterName},
+    components: {TechnologyStack, Dogovor, AppRouterName},
     data () {
       return {
         msg: {
