@@ -30,14 +30,14 @@
             </v-flex>
           </v-layout>
         </v-card-title>
-        <v-container fluid>
+        <v-container fluid v-if="appUser">
           <v-layout row wrap>
             <v-flex xs12 sm6 md6>
               <h3 class="info--text" id="account_role_title">{{ msg.role[LANG] }}</h3>
               <v-radio-group @change="changeUserRole" v-model="role" column id="account_role">
                 <v-radio
                   v-for="role in appUser.roles" :key="role" color="primary"
-                  :label="USER_ROLES[role].en" :value="role">
+                  :label="USER_ROLES[role][LANG]" :value="role">
                 </v-radio>
               </v-radio-group>
             </v-flex>
@@ -52,10 +52,10 @@
         </v-container>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn v-if="appUser" @click="logout" flat color="primary">Logout</v-btn>
+          <v-btn v-if="appUser" @click="logout" flat color="primary">{{ msg.logout[LANG] }}</v-btn>
           <div v-if="!appUser">
-            <v-btn @click="login" flat color="success">Login</v-btn>
-            <v-btn @click="register" flat color="success">Register</v-btn>
+            <v-btn @click="login" flat color="success">{{ msg.login[LANG] }}</v-btn>
+            <v-btn @click="register" flat color="success">{{ msg.register[LANG] }}</v-btn>
           </div>
         </v-card-actions>
       </v-card>
@@ -74,7 +74,10 @@
         msg: {
           lang: {ru: 'Язык', en: 'Language'},
           role: {ru: 'Аккаунт-роль', en: 'Account-role'},
-          account: {ru: 'Мой аккаунт', en: 'My account'}
+          account: {ru: 'Мой аккаунт', en: 'My account'},
+          logout: {ru: 'Выйти', en: 'Logout'},
+          login: {ru: 'Войти', en: 'Login'},
+          register: {ru: 'Регистрация', en: 'Register'}
         }
       }
     },

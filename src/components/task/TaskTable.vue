@@ -36,12 +36,12 @@
                         class="error--text">fiber_manual_record</v-icon>
               </template>
             </el-table-column>
-            <el-table-column label="Title">
+            <el-table-column :label="msg.title[LANG]">
               <template slot-scope="scope">
                 <span>{{ scope.row.title }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="Deadline" width="140">
+            <el-table-column :label="msg.deadline[LANG]" width="140">
               <template slot-scope="scope">
                 <span v-if="scope.row.deadline">
                   {{ scope.row.deadline | date('en') }}
@@ -49,24 +49,24 @@
                 <span v-else>-</span>
               </template>
             </el-table-column>
-            <el-table-column label="Days" width="60">
+            <el-table-column :label="msg.days[LANG]" width="80">
               <template slot-scope="scope">
                 ~{{ (scope.row.time.plan / 8).toFixed(1) }}
               </template>
             </el-table-column>
             <el-table-column
               v-if="appRole === USER_ROLES.admin.val || appRole === USER_ROLES.developer.val"
-              label="Real (h)" width="100">
+              :label="msg.real[LANG]" width="100">
               <template slot-scope="scope">
                 {{ scope.row.time.real }}
               </template>
             </el-table-column>
-            <el-table-column label="Price" width="92">
+            <el-table-column :label="msg.price[LANG]" width="92">
               <template slot-scope="scope">
                 <span>{{ scope.row.price.amount }} <span v-html="RUB"></span></span>
               </template>
             </el-table-column>
-            <el-table-column label="Payment" width="92">
+            <el-table-column :label="msg.payment[LANG]" width="92">
               <template slot-scope="scope">
                 <span>{{ scope.row.payment.amount }} <span v-html="RUB"></span></span>
               </template>
@@ -87,6 +87,18 @@
               </template>
             </el-table-column>
           </el-table>
+          <el-row v-if="totalTaskCount" type="flex" justify="start" id="task_pagination">
+            <el-pagination
+              @current-change="changeCurPage"
+              @size-change="changePageSize"
+              background
+              layout="sizes, prev, pager, next, total"
+              :current-page.sync="curPage"
+              :page-size="pageSize"
+              :page-sizes="[5, 10, 20, 50, 100]"
+              :total="totalTaskCount">
+            </el-pagination>
+          </el-row>
         </v-card>
       </v-flex>
     </v-layout>
@@ -97,16 +109,49 @@
   export default {
     name: 'task-table',
     data () {
-      return {}
+      return {
+        curPage: 1,
+        pageSize: 10,
+        msg: {
+          title: {en: 'Title', ru: 'Название'},
+          days: {en: 'Plan (d)', ru: 'План (д)'},
+          real: {en: 'Real (h)', ru: 'Реально (ч)'},
+          deadline: {en: 'Deadline', ru: 'Сдача'},
+          price: {en: 'Price', ru: 'Цена'},
+          payment: {en: 'Payment', ru: 'Оплачено'}
+        }
+      }
     },
-    methods: {},
+    methods: {
+      changeCurPage (curPage) {
+        this.curPage = curPage
+      },
+      changePageSize (size) {
+        this.pageSize = size
+      }
+    },
     computed: {
       tasks () {
-        return this.$store.getters.tasks ? Object.values(this.$store.getters.tasks) : []
+        if (this.$store.getters.tasks) {
+          return Object.values(this.$store.getters.tasks)
+            .slice((this.curPage - 1) * this.pageSize, this.curPage * this.pageSize)
+        } else {
+          return []
+        }
+      },
+      totalTaskCount () {
+        return this.$store.getters.tasks ? Object.keys(this.$store.getters.tasks).length : 0
       }
     }
   }
 </script>
 
 <style scoped lang="scss">
+  .task_card {
+    padding: 10px;
+  }
+
+  #task_pagination {
+    padding: 10px;
+  }
 </style>

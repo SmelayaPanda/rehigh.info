@@ -9,11 +9,11 @@ export const data = {
       },
       RUB: '&nbsp;&#8381',
       TASK_STATUSES: {
-        created: {val: 'created', en: 'Created', ru: 'Создан'},
+        created: {val: 'created', en: 'Created', ru: 'Создано'},
         pending: {val: 'pending', en: 'Pending', ru: 'Ожидает'}, // only client can switch to status pending
         started: {val: 'started', en: 'Started', ru: 'В процессе'},
-        finished: {val: 'finished', en: 'Finished', ru: 'Завершен'},
-        accepted: {val: 'accepted', en: 'Accepted', ru: 'Принят'},
+        finished: {val: 'finished', en: 'Finished', ru: 'Завершено'},
+        accepted: {val: 'accepted', en: 'Accepted', ru: 'Принято'},
         stopped: {val: 'stopped', en: 'Stopped', ru: 'Приостановлено'}
       },
       TASK_TYPES: [ // TODO: to dictionaries

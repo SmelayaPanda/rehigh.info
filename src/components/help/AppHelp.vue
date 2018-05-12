@@ -3,8 +3,8 @@
     <v-list>
       <v-container class="secondary--text">
         <task-help v-if="this.$router.currentRoute.name === 'task'"/>
-        <project-help v-if="this.$router.currentRoute.name === 'project'"/>
-        <documents-help v-if="this.$router.currentRoute.name === 'documents'"/>
+        <project-help v-else-if="this.$router.currentRoute.name === 'project'"/>
+        <documents-help v-else-if="this.$router.currentRoute.name === 'documents'"/>
         <p v-else>{{ msg.absent[LANG] }}</p>
       </v-container>
     </v-list>
