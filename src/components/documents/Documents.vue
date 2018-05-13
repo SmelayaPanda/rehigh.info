@@ -62,9 +62,9 @@
 <script>
   import AppRouterName from '../theme/AppRouterName'
   import Dogovor from './dialogs/Dogovor'
-  import TechnologyStack from "./dialogs/TechnologyStack";
+  import TechnologyStack from './dialogs/TechnologyStack'
 
-  export default {
+export default {
     name: 'Documents',
     components: {TechnologyStack, Dogovor, AppRouterName},
     data () {

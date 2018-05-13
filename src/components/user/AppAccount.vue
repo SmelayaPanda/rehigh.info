@@ -24,7 +24,7 @@
               </v-avatar>
             </v-flex>
             <v-flex xs8 v-if="appUser">
-              <span>Re:High Studio</span> <br>
+              <span>{{ appUser.firstname.toUpperCase() }} {{ appUser.lastname.toUpperCase() }}</span> <br>
               <span class="info--text">{{ appUser.email }}</span> <br>
               <v-btn small class="primary" id="my_account_btn">{{ msg.account[LANG] }}</v-btn>
             </v-flex>

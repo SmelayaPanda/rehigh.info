@@ -8,15 +8,15 @@
           </div>
           <h2 class="secondary--text">Login</h2>
           <v-container>
-            <el-form :model="formRule" status-icon :rules="rules" auto-complete="on" ref="formRule">
+            <el-form :model="form" status-icon :rules="rules" auto-complete="on" ref="form">
               <el-form-item label="Email" prop="email">
-                <el-input type="email" id="email" :autofocus="true" v-model="formRule.email" auto-complete="on"/>
+                <el-input type="email" id="email" :autofocus="true" v-model="form.email" auto-complete="on"/>
               </el-form-item>
               <el-form-item label="Password" prop="password">
-                <el-input type="password" v-model="formRule.password" auto-complete="off"/>
+                <el-input type="password" v-model="form.password" auto-complete="off"/>
               </el-form-item>
               <el-form-item>
-                <v-btn class="primary" :disabled="this.isLoading" @click="submitForm('formRule')">
+                <v-btn class="primary" :disabled="this.isLoading" @click="submitForm('form')">
                   GO
                 </v-btn>
               </el-form-item>
@@ -56,17 +56,17 @@
         if (value === '') {
           callback(new Error('Type password'))
         } else {
-          if (this.formRule.checkPass !== '') {
-            this.$refs.formRule.validateField('checkPass')
+          if (this.form.checkPass !== '') {
+            this.$refs.form.validateField('checkPass')
           }
           callback()
         }
       }
       return {
-        formRule: {
+        form: {
+          email: '',
           password: '',
-          checkPass: '',
-          email: ''
+          checkPass: ''
         },
         rules: {
           password: [{validator: validatePass, trigger: 'blur'}],
@@ -81,8 +81,8 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$store.dispatch('signUserIn', {
-              email: this.formRule.email,
-              password: this.formRule.password
+              email: this.form.email,
+              password: this.form.password
             })
           } else {
             return this.$store.dispatch('ERR', {message: 'Please, fill up the fields correctly!'})
@@ -93,7 +93,7 @@
         return /^\S+@\S+\.\S+$/.test(email)
       },
       resetPassword () {
-        this.$store.dispatch('resetPassword', this.formRule.email)
+        this.$store.dispatch('resetPassword', this.form.email)
       }
     }
   }

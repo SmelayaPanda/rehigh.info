@@ -8,18 +8,24 @@
           </div>
           <h2>Register</h2>
           <v-container>
-            <el-form :model="formRule" status-icon :rules="rules" auto-complete="on" ref="formRule">
+            <el-form :model="form" status-icon :rules="rules" auto-complete="on" ref="form">
+              <el-form-item label="Firstname" prop="firstname">
+                <el-input type="text" id="firstname" :autofocus="true" v-model="form.firstname" auto-complete="on"/>
+              </el-form-item>
+              <el-form-item label="Lastname" prop="lastname">
+                <el-input type="text" id="lastname" :autofocus="true" v-model="form.lastname" auto-complete="on"/>
+              </el-form-item>
               <el-form-item label="Email" prop="email">
-                <el-input type="email" :autofocus="true" v-model="formRule.email" auto-complete="on"/>
+                <el-input type="email" :autofocus="true" v-model="form.email" auto-complete="on"/>
               </el-form-item>
               <el-form-item label="Password" prop="password">
-                <el-input type="password" v-model="formRule.password" auto-complete="off"/>
+                <el-input type="password" v-model="form.password" auto-complete="off"/>
               </el-form-item>
               <el-form-item label="Password check" prop="checkPass">
-                <el-input type="password" v-model="formRule.checkPass" auto-complete="off"/>
+                <el-input type="password" v-model="form.checkPass" auto-complete="off"/>
               </el-form-item>
               <el-form-item>
-                <v-btn class="primary" :disabled="this.isLoading" @click="submitForm('formRule')">
+                <v-btn class="primary" :disabled="isLoading || !isValidForm" @click="submitForm('form')">
                   go
                 </v-btn>
               </el-form-item>
@@ -38,6 +44,13 @@
   export default {
     name: 'signin',
     data () {
+      let notEmptyString = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('Fill in the field'))
+        } else {
+          callback()
+        }
+      }
       let checkEmail = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('Type email'))
@@ -56,8 +69,8 @@
         } else if (value.length < 6) {
           callback(new Error('Password length > 6 symbols'))
         } else {
-          if (this.formRule.checkPass !== '') {
-            this.$refs.formRule.validateField('checkPass')
+          if (this.form.checkPass !== '') {
+            this.$refs.form.validateField('checkPass')
           }
           callback()
         }
@@ -65,22 +78,26 @@
       let validateConfPass = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('Repeat password'))
-        } else if (value !== this.formRule.password) {
+        } else if (value !== this.form.password) {
           callback(new Error('Passwords do not match!'))
         } else {
           callback()
         }
       }
       return {
-        formRule: {
+        form: {
+          firstname: '',
+          lastname: '',
+          email: '',
           password: '',
-          checkPass: '',
-          email: ''
+          checkPass: ''
         },
         rules: {
+          firstname: [{validator: notEmptyString, trigger: 'blur'}],
+          lastname: [{validator: notEmptyString, trigger: 'blur'}],
+          email: [{validator: checkEmail, trigger: 'blur'}],
           password: [{validator: validatePass, trigger: 'blur'}],
-          checkPass: [{validator: validateConfPass, trigger: 'blur'}],
-          email: [{validator: checkEmail, trigger: 'blur'}]
+          checkPass: [{validator: validateConfPass, trigger: 'blur'}]
         }
       }
     },
@@ -88,7 +105,12 @@
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$store.dispatch('signUserUp', {email: this.formRule.email, password: this.formRule.password})
+            this.$store.dispatch('signUserUp', {
+              firstname: this.form.firstname,
+              lastname: this.form.lastname,
+              email: this.form.email,
+              password: this.form.password
+            })
           } else {
             return this.$store.dispatch('ERR', {message: 'Please, fill up the fields correctly!'})
           }
@@ -96,6 +118,12 @@
       },
       isValidEmail: function (email) {
         return /^\S+@\S+\.\S+$/.test(email)
+      }
+    },
+    computed: {
+      isValidForm () {
+        return this.form.firstname && this.form.lastname &&
+          this.form.password.length > 5 && this.isValidEmail(this.form.email)
       }
     }
   }

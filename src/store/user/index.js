@@ -24,10 +24,10 @@ export default {
   },
   actions: {
     fetchUserData ({commit, dispatch, getters}, payload) {
+      let user = {...payload}
       return fb.firestore().collection('users').doc(payload.uid).get()
         .then(snap => {
-          payload.roles = snap.data().roles
-          commit('setUser', {...payload})
+          commit('setUser', Object.assign(user, snap.data()))
           commit('setLang', snap.data().lang ? snap.data().lang : 'ru')
           dispatch('setInitialRole', snap.data().roles)
           router.push('/')
@@ -62,6 +62,8 @@ export default {
         .then((snap) => {
           return fb.firestore().collection('users').doc(snap.user.uid).set({
             uid: snap.user.uid,
+            firstname: payload.firstname,
+            lastname: payload.lastname,
             email: snap.user.email,
             lang: 'ru',
             roles: ['guest'],
