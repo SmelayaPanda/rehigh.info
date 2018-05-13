@@ -4,8 +4,8 @@ export default {
   state: {
     project: '', // selected
     projects: '', // all
-    tasks: '', // all in selected project with taskStatus
-    taskStatus: 'created'
+    tasks: '', // in selected project ( with taskStatus )
+    taskStatus: 'created' // in selected project
   },
   mutations: {
     setProject (state, payload) {
@@ -74,7 +74,7 @@ export default {
           tasks[docRef.id] = payload
           tasks[docRef.id].id = docRef.id
           commit('setTasks', {...tasks})
-          console.log('Task added')
+          dispatch('EVENT', `Добавлена новая задача: ${payload.title}.`)
           commit('LOADING', false)
         })
         .catch(err => dispatch('LOG', err))
@@ -86,13 +86,14 @@ export default {
         .then(() => {
           tasks[payload.id] = payload
           commit('setTasks', {...tasks})
-          console.log('Task edited')
+          dispatch('EVENT', `Задача ${payload.id} была редактирована.`)
           commit('LOADING', false)
         })
         .catch(err => dispatch('LOG', err))
     },
-    setProject ({commit, getters}, payload) {
+    setProject ({commit, dispatch, getters}, payload) {
       commit('setProject', getters.projects[payload])
+      dispatch('fetchProjectNotifications', payload)
     },
     setTaskStatus ({commit, getters}, payload) {
       commit('setTaskStatus', payload)

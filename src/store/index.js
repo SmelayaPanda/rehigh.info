@@ -5,6 +5,7 @@ import shared from './shared/index'
 import user from './user/index'
 import project from './project/index'
 import dictionaries from './dictionaries/index'
+import notifications from './notifications/index'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export const store = new Vuex.Store({
     user: user,
     shared: shared,
     project: project,
-    dictionaries: dictionaries
+    dictionaries: dictionaries,
+    notifications: notifications
   }
 })

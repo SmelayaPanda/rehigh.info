@@ -4,6 +4,7 @@
     right
     v-model="isOpened"
     fixed
+    width="400"
     app>
     <v-list>
       <v-list-tile class="secondary white--text">
@@ -14,6 +15,14 @@
       </v-list-tile>
     </v-list>
     <v-divider></v-divider>
+    <v-container>
+      <v-layout flex wpar v-for="event in notifications" :key="event.date">
+        <v-card class="event_card">
+          <p class="event_date">{{ event.date | date }}</p>
+          <p>{{ event.msg }}</p>
+        </v-card>
+      </v-layout>
+    </v-container>
   </v-navigation-drawer>
 </template>
 <script>
@@ -27,6 +36,11 @@
         }
       }
     },
+    computed: {
+      notifications () {
+        return this.$store.getters.notifications ? this.$store.getters.notifications.reverse() : []
+      }
+    },
     created () {
       this.$bus.$on('openNotifications', () => {
         this.isOpened = !this.isOpened
@@ -35,5 +49,17 @@
   }
 </script>
 
-<style>
+<style scoped lang="scss">
+  .event_card {
+    padding: 0 15px;
+    width: 100%;
+    margin: 5px;
+  }
+
+  .event_date {
+    color: $color-info;
+    text-align: right;
+    font-size: 11px;
+    padding-top: 5px;
+  }
 </style>

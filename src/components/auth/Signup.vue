@@ -15,6 +15,9 @@
               <el-form-item label="Lastname" prop="lastname">
                 <el-input type="text" id="lastname" :autofocus="true" v-model="form.lastname" auto-complete="on"/>
               </el-form-item>
+              <el-form-item label="Nickname" prop="nickname">
+                <el-input type="text" id="nickname" :autofocus="true" v-model="form.nickname" auto-complete="on"/>
+              </el-form-item>
               <el-form-item label="Email" prop="email">
                 <el-input type="email" :autofocus="true" v-model="form.email" auto-complete="on"/>
               </el-form-item>
@@ -88,6 +91,7 @@
         form: {
           firstname: '',
           lastname: '',
+          nickname: '',
           email: '',
           password: '',
           checkPass: ''
@@ -95,6 +99,7 @@
         rules: {
           firstname: [{validator: notEmptyString, trigger: 'blur'}],
           lastname: [{validator: notEmptyString, trigger: 'blur'}],
+          nickname: [{validator: notEmptyString, trigger: 'blur'}],
           email: [{validator: checkEmail, trigger: 'blur'}],
           password: [{validator: validatePass, trigger: 'blur'}],
           checkPass: [{validator: validateConfPass, trigger: 'blur'}]
@@ -108,6 +113,7 @@
             this.$store.dispatch('signUserUp', {
               firstname: this.form.firstname,
               lastname: this.form.lastname,
+              nickname: this.form.nickname,
               email: this.form.email,
               password: this.form.password
             })
@@ -122,8 +128,9 @@
     },
     computed: {
       isValidForm () {
-        return this.form.firstname && this.form.lastname &&
-          this.form.password.length > 5 && this.isValidEmail(this.form.email)
+        return this.form.firstname && this.form.lastname && this.form.nickname &&
+          this.form.password.length > 5 && this.form.password === this.form.checkPass &&
+          this.isValidEmail(this.form.email)
       }
     }
   }

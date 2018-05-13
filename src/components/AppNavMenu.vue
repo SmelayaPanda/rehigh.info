@@ -13,7 +13,7 @@
     <v-progress-linear
       v-if="isLoading"
       :indeterminate="isLoading"
-      height="2"
+      height="3"
       color="primary"
       id="app_loading">
     </v-progress-linear>

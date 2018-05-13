@@ -64,6 +64,7 @@ export default {
             uid: snap.user.uid,
             firstname: payload.firstname,
             lastname: payload.lastname,
+            nickname: payload.nickname,
             email: snap.user.email,
             lang: 'ru',
             roles: ['guest'],
@@ -76,10 +77,10 @@ export default {
         .then(() => {
           Notification({
             title: 'Поздравляем',
-            message: 'Аккаунт был успешно создан!',
+            message: 'Аккаунт был успешно создан! Проверьте вашу почту для верификации.',
             type: 'success',
             showClose: true,
-            duration: 10000,
+            duration: 30000,
             offset: 50
           })
           router.push('/account')

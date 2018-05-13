@@ -1,9 +1,10 @@
-// import * as fb from 'firebase'
+import * as fb from 'firebase'
 
 export default {
   state: {
     loading: false,
-    error: null
+    error: null,
+    events: [] // all project events
   },
   mutations: {
     LOADING (state, payload) {
@@ -11,6 +12,9 @@ export default {
     },
     ERR (state, payload) {
       state.error = payload
+    },
+    EVENTS (state, payload) {
+      state.events = payload
     }
   },
   actions: {
@@ -27,10 +31,25 @@ export default {
       if (payload.code !== 'aborted') { // offline client
         // firebase.database().ref('errLog').push(payload.stack ? payload.stack : payload)
       }
+    },
+    EVENT ({commit, dispatch, getters}, payload) {
+      let newEvent = {
+        msg: payload,
+        userId: getters.user.uid,
+        date: new Date().getTime()
+      }
+      fb.database().ref(`events/${getters.project.id}`).push(newEvent)
+        .then((data) => {
+          let events = getters.events ? getters.events : []
+          events[data.key] = newEvent
+          commit('EVENTS', events)
+        })
+        .catch(err => dispatch('LOG', err))
     }
   },
   getters: {
     loading: state => state.loading,
-    error: state => state.error
+    error: state => state.error,
+    events: state => state.events
   }
 }
