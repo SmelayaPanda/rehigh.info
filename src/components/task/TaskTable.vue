@@ -78,7 +78,9 @@
             <el-table-column width="46" align="left">
               <template slot-scope="scope">
                 <v-menu bottom left>
-                  <v-icon slot="activator">more_vert</v-icon>
+                  <v-btn fab flat small color="primary" class="operation_btn" slot="activator">
+                    <v-icon>more_vert</v-icon>
+                  </v-btn>
                   <v-list>
                     <v-list-tile @click="$bus.$emit('openChangeTaskStatusDialog', scope.row.id)">
                       <v-list-tile-title>{{ msg.changeStatus[LANG] }}</v-list-tile-title>
@@ -116,7 +118,7 @@
     data () {
       return {
         curPage: 1,
-        pageSize: 10,
+        pageSize: 5,
         msg: {
           title: {en: 'Title', ru: 'Название'},
           days: {en: 'Plan (d)', ru: 'План (д)'},
@@ -163,5 +165,9 @@
 
   #task_pagination {
     padding: 10px;
+  }
+
+  .operation_btn {
+    margin-left: -10px;
   }
 </style>
