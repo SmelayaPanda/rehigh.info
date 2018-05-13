@@ -15,8 +15,9 @@ export default {
         .once('value')
         .then(snap => {
           if (snap.exists()) {
-            console.log(Object.values(snap.val()))
             commit('setNotifications', Object.values(snap.val()))
+          } else {
+            commit('setNotifications', '')
           }
         })
     }

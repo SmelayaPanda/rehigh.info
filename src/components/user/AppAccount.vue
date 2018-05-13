@@ -37,7 +37,7 @@
               <v-radio-group @change="changeUserRole" v-model="role" column id="account_role">
                 <v-radio
                   v-for="role in appUser.roles" :key="role" color="primary"
-                  :label="USER_ROLES[role][LANG]" :value="role">
+                  :label="ROLES[role][LANG]" :value="role">
                 </v-radio>
               </v-radio-group>
             </v-flex>

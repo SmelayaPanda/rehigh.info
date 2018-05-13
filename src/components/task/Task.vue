@@ -1,5 +1,5 @@
 <template>
-  <div id="task_router" v-if="appRole !== USER_ROLES.guest.val">
+  <div id="task_router" v-if="appRole !== ROLES.guest.val">
     <app-router-name :name="title[LANG]">
       <el-radio-group
         @change="loadTasks" :disabled="!appProject"
@@ -8,11 +8,12 @@
           {{ status[LANG] }}
         </el-radio-button>
       </el-radio-group>
-      <v-icon
-        v-if="appRole === USER_ROLES.admin.val || appRole === USER_ROLES.developer.val"
+      <v-btn
+        v-if="appRole === ROLES.admin.val || appRole === ROLES.developer.val"
         @click="$bus.$emit('openAddNewTaskDialog')"
-        id="add_new_task" medium>playlist_add
-      </v-icon>
+        flat fab small class="ml-3">
+      <v-icon class="white--text ml-1" medium>playlist_add</v-icon>
+      </v-btn>
       <create-update-task/>
     </app-router-name>
     <task-table v-if="appProject"/>
@@ -56,16 +57,5 @@
 
   #task_status_select {
     margin-bottom: 7px;
-  }
-
-  #add_new_task {
-    color: white;
-    margin-left: 15px;
-    margin-bottom: 3px;
-  }
-
-  #add_new_task:hover {
-    cursor: pointer;
-    transform: scale(1.1);
   }
 </style>

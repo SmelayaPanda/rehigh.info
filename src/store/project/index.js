@@ -86,7 +86,7 @@ export default {
         .then(() => {
           tasks[payload.id] = payload
           commit('setTasks', {...tasks})
-          dispatch('EVENT', `Задача ${payload.id} была редактирована.`)
+          // dispatch('EVENT', `Задача ${payload.id} была редактирована.`)
           commit('LOADING', false)
         })
         .catch(err => dispatch('LOG', err))

@@ -4,7 +4,7 @@
       id="project_selector"
       v-model="select"
       @change="switchProject"
-      :disabled="!appUser || !appProjects || appRole === USER_ROLES.guest.val"
+      :disabled="!appUser || !appProjects || appRole === ROLES.guest.val"
       :items="items"
       :hint="select.subtitle"
       :label="msg.project[LANG]"

@@ -1,7 +1,7 @@
 export const data = {
   data: function () {
     return {
-      USER_ROLES: {
+      ROLES: {
         admin: {val: 'admin', en: 'Admin', ru: 'Администратор'},
         developer: {val: 'developer', en: 'Developer', ru: 'Разработчик'},
         client: {val: 'client', en: 'Client', ru: 'Клиент'},

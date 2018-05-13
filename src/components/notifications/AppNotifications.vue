@@ -60,6 +60,7 @@
     color: $color-info;
     text-align: right;
     font-size: 11px;
+    margin-bottom: 2px;
     padding-top: 5px;
   }
 </style>
