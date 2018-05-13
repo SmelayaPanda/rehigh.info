@@ -16,12 +16,13 @@
                   {{ type }}
                 </el-tag>
                 <p>{{ props.row.description }}</p>
-                <el-steps align-center space="140px" class="mt-3">
+                <el-steps v-if="props.row.history" align-center space="140px" class="mt-3">
                   <el-step
-                    v-if="props.row.history"
-                    v-for="(date, status) in props.row.history" :key="status"
-                    :title="status"
-                    :description="date | date('en')">
+                    v-for="status in TASK_STATUSES"
+                    v-if="props.row.history[status.val]"
+                    :key="status.val"
+                    :title="TASK_STATUSES[status.val][LANG]"
+                    :description="props.row.history[status.val] | date(LANG)">
                   </el-step>
                 </el-steps>
               </template>
@@ -47,7 +48,7 @@
             <el-table-column :label="msg.deadline[LANG]" width="140">
               <template slot-scope="scope">
                 <span v-if="scope.row.deadline">
-                  {{ scope.row.deadline | date('en') }}
+                  {{ scope.row.deadline | date(LANG) }}
                 </span>
                 <span v-else>-</span>
               </template>
@@ -58,7 +59,7 @@
               </template>
             </el-table-column>
             <el-table-column
-              v-if="appRole === ROLES.admin.val || appRole === ROLES.developer.val"
+              v-if="appRole === ROLES.admin.val"
               :label="msg.real[LANG]" width="100">
               <template slot-scope="scope">
                 {{ scope.row.time.real }}
@@ -79,10 +80,10 @@
                 <v-menu bottom left>
                   <v-icon slot="activator">more_vert</v-icon>
                   <v-list>
-                    <v-list-tile v-if="changeStatusAvailability" @click="">
+                    <v-list-tile @click="$bus.$emit('openChangeTaskStatusDialog', scope.row.id)">
                       <v-list-tile-title>{{ msg.changeStatus[LANG] }}</v-list-tile-title>
                     </v-list-tile>
-                    <v-list-tile v-if="appRole === ROLES.developer.val || appRole === ROLES.admin.val"
+                    <v-list-tile v-if="appRole === ROLES.admin.val"
                                  @click="$bus.$emit('openEditTaskDialog', scope.row.id)">
                       <v-list-tile-title>{{ msg.edit[LANG] }}</v-list-tile-title>
                     </v-list-tile>
@@ -150,14 +151,6 @@
       },
       totalTaskCount () {
         return this.$store.getters.tasks ? Object.keys(this.$store.getters.tasks).length : 0
-      },
-      changeStatusAvailability () {
-        if (this.appRole === this.ROLES.client.val && this.taskStatus === this.TASK_STATUSES.created.val) {
-          return true
-        } else {
-          return (this.appRole === this.ROLES.admin.val || this.appRole === this.ROLES.developer.val) &&
-        this.taskStatus !== this.TASK_STATUSES.created.val
-        }
       }
     }
   }

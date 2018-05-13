@@ -18,7 +18,7 @@
     <v-container>
       <v-layout flex wpar v-for="event in notifications" :key="event.date">
         <v-card class="event_card">
-          <p class="event_date">{{ event.date | date }}</p>
+          <p class="event_date">{{ event.date | date(LANG) }}</p>
           <p>{{ event.msg }}</p>
         </v-card>
       </v-layout>

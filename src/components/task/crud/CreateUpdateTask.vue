@@ -85,6 +85,12 @@
                 type="number"
                 disabled>
               </v-text-field>
+              <v-text-field
+                label="Payment"
+                v-model="task.payment.amount"
+                :suffix="task.payment.currency"
+                type="number">
+              </v-text-field>
             </v-flex>
             <v-flex xs12 sm4 md3 lg2 xl2>
               <p class="info--text">Deadline</p>
@@ -145,8 +151,8 @@
             })
         } else {
           this.dialog = false
-          this.task.history.edited = new Date().getTime()
-          this.$store.dispatch('editTask', this.task)
+          delete this.task.status // edit operation
+          this.$store.dispatch('updateTask', this.task)
         }
       },
       calcHours () {

@@ -9,14 +9,15 @@
         </el-radio-button>
       </el-radio-group>
       <v-btn
-        v-if="appRole === ROLES.admin.val || appRole === ROLES.developer.val"
+        v-if="appRole === ROLES.admin.val"
         @click="$bus.$emit('openAddNewTaskDialog')"
         flat fab small class="ml-3">
-      <v-icon class="white--text ml-1" medium>playlist_add</v-icon>
+        <v-icon class="white--text ml-1" medium>playlist_add</v-icon>
       </v-btn>
-      <create-update-task/>
     </app-router-name>
     <task-table v-if="appProject"/>
+    <create-update-task/>
+    <change-task-status/>
   </div>
 </template>
 
@@ -24,10 +25,11 @@
   import TaskTable from './TaskTable'
   import AppRouterName from '../theme/AppRouterName'
   import CreateUpdateTask from './crud/CreateUpdateTask'
+  import ChangeTaskStatus from './crud/ChangeTaskStatus'
 
-  export default {
+export default {
     name: 'Task',
-    components: {CreateUpdateTask, AppRouterName, TaskTable},
+    components: {ChangeTaskStatus, CreateUpdateTask, AppRouterName, TaskTable},
     data () {
       return {
         title: {en: 'Task', ru: 'Задачи'},
