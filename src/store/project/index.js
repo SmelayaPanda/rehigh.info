@@ -85,6 +85,7 @@ export default {
       return fb.firestore().collection('tasks').doc(payload.id).update(payload)
         .then(() => {
           if (payload.status) { // change status
+            dispatch('EVENT', `Изменен статус задачи ${payload.id}: ${tasks[payload.id].title}`)
             delete tasks[payload.id]
           } else { // edit
             tasks[payload.id] = payload

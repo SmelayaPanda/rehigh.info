@@ -3,7 +3,7 @@
     <app-router-name :name="msg.contacts[LANG]"/>
     <v-container fluid grid-list-md>
       <v-layout row wrap>
-        <v-flex d-flex xs12 sm6 md5 @click="$bus.$emit('opeDogovorDialog')">
+        <v-flex d-flex xs12 sm6 md5>
           <v-card color="secondary" class="doc_card" dark>
             <v-card-title primary class="title">Договор на оказание услуг</v-card-title>
             <v-card-text>Типовой договор оказания услуг по созданию сайта предполагает, что Исполнитель
@@ -15,6 +15,10 @@
               основании
               Технического Задания к Договору.
             </v-card-text>
+            <v-container id="dogovor_wrap">
+              <a href="https://docs.google.com/document/d/1lZ1uJQnpSqgZkeb8YRx73UTJcXatIC1_sto7-LBwTcg/edit?ts=5aa03102" target="_blank">
+                <v-icon class="primary--text">insert_drive_file</v-icon> <span id="dogovor">Документ</span></a>
+            </v-container>
           </v-card>
         </v-flex>
         <v-flex d-flex xs12 sm6 md4>
@@ -54,19 +58,17 @@
       </v-layout>
     </v-container>
     <!--DIALOGS-->
-    <dogovor/>
     <technology-stack/>
   </div>
 </template>
 
 <script>
   import AppRouterName from '../theme/AppRouterName'
-  import Dogovor from './dialogs/Dogovor'
   import TechnologyStack from './dialogs/TechnologyStack'
 
 export default {
     name: 'Documents',
-    components: {TechnologyStack, Dogovor, AppRouterName},
+    components: {TechnologyStack, AppRouterName},
     data () {
       return {
         msg: {
@@ -85,5 +87,12 @@ export default {
   .doc_card:hover {
     cursor: pointer;
     transform: scale(1.01);
+  }
+  #dogovor_wrap {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  #dogovor:hover {
+    text-decoration: underline;
   }
 </style>

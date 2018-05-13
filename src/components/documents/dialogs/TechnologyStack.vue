@@ -57,7 +57,7 @@
     name: 'TechnologyStack',
     data () {
       return {
-        dialog: true
+        dialog: false
       }
     },
     created () {

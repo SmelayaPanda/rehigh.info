@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary">
-          <v-btn icon dark @click.native="dialog = false">
+          <v-btn icon dark @click.native="close">
             <v-icon>close</v-icon>
           </v-btn>
           <v-toolbar-title>{{ operation.title }}</v-toolbar-title>
@@ -117,7 +117,7 @@
     priority: 'middle',
     payment: {amount: 0, currency: 'RUB'},
     price: {amount: 3000, currency: 'RUB'},
-    type: '',
+    type: [],
     time: {plan: 8, real: 0},
     deadline: new Date().getTime(),
     history: {created: ''},
@@ -154,6 +154,10 @@
           delete this.task.status // edit operation
           this.$store.dispatch('updateTask', this.task)
         }
+      },
+      close () {
+        this.dialog = false
+        this.task = initTask
       },
       calcHours () {
         this.task.time.plan = this.task.price.amount / this.paymentPerHours
