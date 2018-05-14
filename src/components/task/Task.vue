@@ -18,6 +18,7 @@
     <task-table v-if="appProject"/>
     <create-update-task/>
     <change-task-status/>
+    <delete-task/>
   </div>
 </template>
 
@@ -26,10 +27,11 @@
   import AppRouterName from '../theme/AppRouterName'
   import CreateUpdateTask from './crud/CreateUpdateTask'
   import ChangeTaskStatus from './crud/ChangeTaskStatus'
+  import DeleteTask from './crud/DeleteTask'
 
 export default {
     name: 'Task',
-    components: {ChangeTaskStatus, CreateUpdateTask, AppRouterName, TaskTable},
+    components: {DeleteTask, ChangeTaskStatus, CreateUpdateTask, AppRouterName, TaskTable},
     data () {
       return {
         title: {en: 'Task', ru: 'Задачи'},

@@ -85,9 +85,15 @@
                     <v-list-tile @click="$bus.$emit('openChangeTaskStatusDialog', scope.row.id)">
                       <v-list-tile-title>{{ msg.changeStatus[LANG] }}</v-list-tile-title>
                     </v-list-tile>
-                    <v-list-tile v-if="appRole === ROLES.admin.val"
-                                 @click="$bus.$emit('openEditTaskDialog', scope.row.id)">
+                    <v-list-tile
+                      v-if="appRole === ROLES.admin.val"
+                      @click="$bus.$emit('openEditTaskDialog', scope.row.id)">
                       <v-list-tile-title>{{ msg.edit[LANG] }}</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile
+                      v-if="appRole === ROLES.admin.val"
+                      @click="$bus.$emit('openDeleteTaskDialog', scope.row.id)">
+                      <v-list-tile-title>{{ msg.remove[LANG] }}</v-list-tile-title>
                     </v-list-tile>
                   </v-list>
                 </v-menu>
@@ -118,7 +124,7 @@
     data () {
       return {
         curPage: 1,
-        pageSize: 5,
+        pageSize: 10,
         msg: {
           title: {en: 'Title', ru: 'Название'},
           days: {en: 'Plan (d)', ru: 'План (д)'},
@@ -127,7 +133,8 @@
           price: {en: 'Price', ru: 'Цена'},
           payment: {en: 'Payment', ru: 'Оплачено'},
           changeStatus: {en: 'Change status', ru: 'Изменить статус'},
-          edit: {en: 'Edit', ru: 'Редактировать'}
+          edit: {en: 'Edit', ru: 'Редактировать'},
+          remove: {en: 'Remove', ru: 'Удалить'}
         }
       }
     },

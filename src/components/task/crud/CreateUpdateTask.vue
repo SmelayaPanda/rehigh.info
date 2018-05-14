@@ -140,8 +140,10 @@
     },
     methods: { // TODO: add comments to task (userId, text, date)
       saveTask () {
+        this.dialog = false
+        this.task.payment.amount = Number(this.task.payment.amount)
+        this.task.price.amount = Number(this.task.price.amount)
         if (this.operation.name === 'add') {
-          this.dialog = false
           this.task.creator.userId = this.appUser.uid
           this.task.history.created = new Date().getTime()
           this.task.projectId = this.appProject.id
@@ -150,9 +152,11 @@
               this.task = initTask
             })
         } else {
-          this.dialog = false
           delete this.task.status // edit operation
           this.$store.dispatch('updateTask', this.task)
+            .then(() => { // clear
+              this.task = initTask
+            })
         }
       },
       close () {

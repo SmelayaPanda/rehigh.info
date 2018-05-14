@@ -95,6 +95,18 @@ export default {
         })
         .catch(err => dispatch('LOG', err))
     },
+    deleteTask  ({commit, dispatch, getters}, payload) {
+      commit('LOADING', true)
+      let tasks = getters.tasks
+      return fb.firestore().collection('tasks').doc(payload).delete()
+        .then(() => {
+          delete tasks[payload]
+          commit('setTasks', {...tasks})
+          console.log('Task deleted')
+          commit('LOADING', false)
+        })
+        .catch(err => dispatch('LOG', err))
+    },
     setProject ({commit, dispatch, getters}, payload) {
       commit('setProject', getters.projects[payload])
       dispatch('fetchProjectNotifications', payload)
