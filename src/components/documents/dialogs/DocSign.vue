@@ -1,42 +1,35 @@
 <template>
-  <v-layout row justify-center>
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <v-card>
-        <v-toolbar dark color="primary">
-          <v-btn icon dark @click.native="dialog = false">
-            <v-icon>close</v-icon>
-          </v-btn>
-          <v-toolbar-title>Re:High Studio</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-toolbar-items>
-            <v-btn dark flat @click.native="dialog = false">Ok</v-btn>
-          </v-toolbar-items>
-        </v-toolbar>
-        <v-container>
-          <h3>Электронная подпись</h3>
-          <p>
-            Данный раздел пока отсутствует. <br/>
-            Рассматриваются ресурсы для возможного удаленного подписания договоров на оказание услуг
-            через электронную подпись.
-          </p>
-        </v-container>
-      </v-card>
-    </v-dialog>
-  </v-layout>
+  <dialog-frame open-event="openDocSignDialog">
+    <div slot="title">Электронная подпись</div>
+    <div slot="version">
+      <v-select
+        v-model="version"
+        :items="items"
+        label="version"
+        prepend-icon="description">
+      </v-select>
+    </div>
+    <div slot="description">
+      <p>
+        Данный раздел пока отсутствует. <br/>
+        Рассматриваются ресурсы для возможного удаленного подписания договоров на оказание услуг
+        через электронную подпись.
+      </p>
+    </div>
+  </dialog-frame>
 </template>
 
 <script>
-  export default {
+  import DialogFrame from '../DialogFrame'
+
+export default {
     name: 'DocSign',
+    components: {DialogFrame},
     data () {
       return {
-        dialog: false
+        version: '1.0',
+        items: ['1.0']
       }
-    },
-    created () {
-      this.$bus.$on('openDocSignDialog', () => {
-        this.dialog = true
-      })
     }
   }
 </script>
