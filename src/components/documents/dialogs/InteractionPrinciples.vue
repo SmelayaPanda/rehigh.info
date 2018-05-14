@@ -44,7 +44,7 @@
     name: 'InteractionPrinciples',
     data () {
       return {
-        dialog: true
+        dialog: false
       }
     },
     created () {
