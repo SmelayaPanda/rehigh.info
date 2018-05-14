@@ -46,7 +46,7 @@
             <v-card-text class="title">Важно знать</v-card-text>
           </v-card>
         </v-flex>
-        <v-flex d-flex xs12 sm6 md3>
+        <v-flex d-flex xs12 sm6 md3 @click="$bus.$emit('openInteractionPrinciplesDialog')">
           <v-card color="secondary" class="doc_card" dark>
             <v-card-text class="title">Принципы взаимодейсвия</v-card-text>
           </v-card>
@@ -62,6 +62,7 @@
     <technology-stack/>
     <additional-works/>
     <important-to-know/>
+    <interaction-principles/>
   </div>
 </template>
 
@@ -70,10 +71,11 @@
   import TechnologyStack from './dialogs/TechnologyStack'
   import AdditionalWorks from './dialogs/AdditionalWorks'
   import ImportantToKnow from './dialogs/ImportantToKnow'
+  import InteractionPrinciples from './dialogs/InteractionPrinciples'
 
 export default {
     name: 'Documents',
-    components: {ImportantToKnow, AdditionalWorks, TechnologyStack, AppRouterName},
+    components: {InteractionPrinciples, ImportantToKnow, AdditionalWorks, TechnologyStack, AppRouterName},
     data () {
       return {
         msg: {
