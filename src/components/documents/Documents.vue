@@ -51,7 +51,7 @@
             <v-card-text class="title">Принципы взаимодейсвия</v-card-text>
           </v-card>
         </v-flex>
-        <v-flex d-flex>
+        <v-flex d-flex @click="$bus.$emit('openDocSignDialog')">
           <v-card color="secondary" class="doc_card" dark>
             <v-card-text class="title">Электронная подпись документов</v-card-text>
           </v-card>
@@ -63,6 +63,7 @@
     <additional-works/>
     <important-to-know/>
     <interaction-principles/>
+    <doc-sign/>
   </div>
 </template>
 
@@ -72,10 +73,11 @@
   import AdditionalWorks from './dialogs/AdditionalWorks'
   import ImportantToKnow from './dialogs/ImportantToKnow'
   import InteractionPrinciples from './dialogs/InteractionPrinciples'
+  import DocSign from './dialogs/DocSign'
 
 export default {
     name: 'Documents',
-    components: {InteractionPrinciples, ImportantToKnow, AdditionalWorks, TechnologyStack, AppRouterName},
+    components: {DocSign, InteractionPrinciples, ImportantToKnow, AdditionalWorks, TechnologyStack, AppRouterName},
     data () {
       return {
         msg: {
