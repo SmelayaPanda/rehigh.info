@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout row justify-center>
-      <v-flex xs12 sm8 md6 lg5 x4>
+      <v-flex xs12 sm8 md6 lg5 xl4>
         <el-card>
           <div v-if="this.appError" slot="header" class="clearfix">
             <v-icon class="error--text mr-2">error</v-icon>{{ this.appError.message }}
