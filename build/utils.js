@@ -68,8 +68,8 @@ exports.cssLoaders = function (options) {
         loader: 'sass-resources-loader',
         options: {
           resources: path.resolve(__dirname, '../src/styles/global.scss'),
-        },
-      },
+        }
+      }
     ],
     scss: [
       'vue-style-loader',
@@ -80,8 +80,8 @@ exports.cssLoaders = function (options) {
         loader: 'sass-resources-loader',
         options: {
           resources: path.resolve(__dirname, '../src/styles/global.scss'),
-        },
-      },
+        }
+      }
     ],
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
