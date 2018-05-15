@@ -24,7 +24,7 @@
         </li>
         <li>
           Доменные имена приобретаются на сервисе <b>GoDaddy</b>
-          (администрируюся могут с помощью сервиса <b>Cloud Flare</b>)
+          (администрироваться могут с помощью сервиса <b>Cloud Flare</b>)
         </li>
         <li>
           В качестве баз данных используются: <br>
@@ -43,7 +43,7 @@
         </li>
         <li>
           Дизайн сайтов премущественно разрабатывается в программах:
-          <b>Adobe Photoshop, Adobe Illustrator, Adobe After Effects.</b>
+          <b>Adobe Photoshop, Adobe Illustrator, Adobe After Effects, InDesign CC, XD CC</b>
         </li>
       </ol>
     </div>
