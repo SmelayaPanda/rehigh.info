@@ -1,4 +1,5 @@
-$color-primary: #039be5;
+$color-primary: #6550ca;
+$color-primary_light: #8f74ff;
 $color-secondary: #262f3d;
 $color-accent: #82B1FF;
 $color-error: #FF5252;
@@ -14,4 +15,12 @@ $color-warning: #FFC107;
 
 a {
   text-decoration: none;
+}
+
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+  background: $color-primary !important;
+}
+
+.el-radio-button__inner:hover {
+  color: $color-primary;
 }
