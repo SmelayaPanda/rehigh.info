@@ -22,8 +22,7 @@ export const config = {
   },
   vuetifyTheme: {
     theme: {
-      primary: '#6550ca',
-      primary_light: '#8f74ff',
+      primary: '#039be5',
       secondary: '#262f3d',
       accent: '#82B1FF',
       error: '#FF5252',

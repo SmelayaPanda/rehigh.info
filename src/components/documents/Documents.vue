@@ -26,7 +26,7 @@
         <v-flex d-flex xs12 sm6 md4>
           <v-layout row wrap>
             <v-flex d-flex @click="$bus.$emit('openAdditionalWorksDialog')">
-              <v-card color="primary" class="doc_card" dark>
+              <v-card color="success" class="doc_card" dark>
                 <v-card-title class="title">Порядок оказания дополнительных услуг</v-card-title>
               </v-card>
             </v-flex>
@@ -42,7 +42,7 @@
           </v-layout>
         </v-flex>
         <v-flex d-flex xs12 sm6 md3 child-flex @click="$bus.$emit('openImportantToKnowDialog')">
-          <v-card color="primary" class="doc_card" dark>
+          <v-card color="success" class="doc_card" dark>
             <v-card-text class="title">Важно знать</v-card-text>
           </v-card>
         </v-flex>
@@ -75,7 +75,7 @@
   import InteractionPrinciples from './dialogs/InteractionPrinciples'
   import DocSign from './dialogs/DocSign'
 
-export default {
+  export default {
     name: 'Documents',
     components: {DocSign, InteractionPrinciples, ImportantToKnow, AdditionalWorks, TechnologyStack, AppRouterName},
     data () {

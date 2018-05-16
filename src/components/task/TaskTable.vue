@@ -12,7 +12,7 @@
               <template slot-scope="props">
                 <el-tag type="success" size="small">ID: {{ props.row.id }}</el-tag>
                 <br>
-                <el-tag v-for="type in props.row.type" :key="type" type="success" size="small" class="mb-2 mt-2 mr-1">
+                <el-tag v-for="type in props.row.type" :key="type" size="small" class="mb-2 mt-2 mr-1">
                   {{ type }}
                 </el-tag>
                 <p>{{ props.row.description }}</p>

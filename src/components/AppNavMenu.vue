@@ -20,10 +20,10 @@
     <v-list class="white--text">
       <v-list-tile id="rehigh_title">
         <v-list-tile-action>
-          <v-icon class="primary_light--text">gesture</v-icon>
+          <v-icon class="primary--text">gesture</v-icon>
         </v-list-tile-action>
         <v-list-tile-title class="title">
-          <router-link to="/" exact class="primary_light--text">
+          <router-link to="/" exact>
             Re:High Studio
           </router-link>
         </v-list-tile-title>
@@ -32,7 +32,7 @@
       <v-divider></v-divider>
       <v-list-tile v-for="i in items" :key="i.router" @click="$router.push(i.router)">
         <v-list-tile-action>
-          <v-icon class="primary_light--text mb-1">{{ i.icon }}</v-icon>
+          <v-icon class="primary--text mb-1">{{ i.icon }}</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title class="body-2">{{ i.title[LANG] }}</v-list-tile-title>
