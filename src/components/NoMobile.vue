@@ -1,6 +1,6 @@
 <template>
     <v-container text-xs-center id="mobile">
-      <h2 class="primary--text">re:HIGH Studio Work Panel</h2>
+      <h2 class="logo-green--text">re:HIGH Studio Work Panel</h2>
       <h4 class="white--text">Mobile version of the platform is missing</h4>
       <h4 class="white--text">Мобильная версия платформы отсутствует</h4>
       <img src="@/assets/logo.svg" id="logo" alt="">

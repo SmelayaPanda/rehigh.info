@@ -28,7 +28,10 @@ export const config = {
       error: '#FF5252',
       info: '#616161',
       success: '#4CAF50',
-      warning: '#FFC107'
+      warning: '#FFC107',
+      'logo-green': '#39d18a',
+      'logo-blue': '#2f397b',
+      'logo-purple': '#421159'
     }
   }
 }
