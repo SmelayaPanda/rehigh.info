@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // AUTH
 import AuthGuard from './auth-guard'
-import SignIn from '@/components/auth/SignIn'
-import SignUp from '@/components/auth/SignUp'
+import Signin from '@/components/auth/Signin'
+import Signup from '@/components/auth/Signup'
 // PROJECT
 import AppHome from '@/components/AppHome'
 import Project from '@/components/projects/Project'
@@ -19,12 +19,14 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: AppHome
+      component: AppHome,
+      beforeEnter: AuthGuard
     },
     {
       path: '/project',
       name: 'project',
-      component: Project
+      component: Project,
+      beforeEnter: AuthGuard
     },
     {
       path: '/task',
@@ -45,12 +47,12 @@ export default new Router({
     {
       path: '/signin',
       name: 'signin',
-      component: SignIn
+      component: Signin
     },
     {
       path: '/signup',
       name: 'signup',
-      component: SignUp
+      component: Signup
     }
   ]
 })
