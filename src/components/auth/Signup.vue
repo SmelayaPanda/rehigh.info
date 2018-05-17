@@ -45,7 +45,7 @@
 
 <script>
   export default {
-    name: 'signin',
+    name: 'signup',
     data () {
       let notEmptyString = (rule, value, callback) => {
         if (!value) {

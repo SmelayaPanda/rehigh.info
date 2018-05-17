@@ -16,6 +16,9 @@
     </v-list>
     <v-divider></v-divider>
     <v-container>
+      <p v-if="!appProject">
+        {{ msg.select[LANG] }}
+      </p>
       <v-layout flex wpar v-for="event in notifications" :key="event.date">
         <v-card class="event_card">
           <p class="event_date">{{ event.date | date(LANG) }}</p>
@@ -32,7 +35,8 @@
       return {
         isOpened: false,
         msg: {
-          notify: {en: 'Notifications History', ru: 'История оповещений'}
+          notify: {en: 'Notifications History', ru: 'История оповещений'},
+          select: {en: 'Select a Project', ru: 'Выберите проект'}
         }
       }
     },
