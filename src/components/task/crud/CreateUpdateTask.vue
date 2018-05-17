@@ -30,16 +30,12 @@
                 :counter="128">
               </v-text-field>
             </v-flex>
-            <v-flex xs12>
-              <v-text-field
-                label="Description"
-                v-model="task.description"
-                :rules="[(v) => v.length <= 2048 || 'Max 2048 characters']"
-                :counter="2048"
-                multi-line
-                :rows="2">
-              </v-text-field>
-            </v-flex>
+            <div style="height: 300px">
+            <quill-editor v-model="task.description"
+                          ref="myQuillEditor"
+                          :options="editorOption">
+            </quill-editor>
+            </div>
             <v-flex xs12>
               <v-select
                 v-model="task.type"
@@ -111,6 +107,7 @@
 </template>
 
 <script>
+  import { quillEditor } from 'vue-quill-editor'
   let initTask = {
     title: '',
     description: '',
@@ -127,12 +124,18 @@
   let newTask = Object.assign({}, initTask)
   export default {
     name: 'CreateUpdateTask',
+    components: {
+      quillEditor
+    },
     data () {
       return {
         dialog: false,
         operation: {
           title: '',
           name: ''
+        },
+        editorOption: {
+          // some quill options
         },
         task: newTask,
         paymentPerHours: 400

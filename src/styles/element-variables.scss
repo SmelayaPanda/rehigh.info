@@ -1,0 +1,22 @@
+// File name e.g. element-variables.scss required
+// Don't forget synchronize color variables with main theme an Vuetify
+/* theme color */
+$--color-primary: #039be5;
+$---color-secondary: #262f3d;
+$--color-accent: #82B1FF;
+$--color-error: #FF5252;
+$--color-info: #616161;
+$--color-success: #4CAF50;
+$--color-warning: #FFC107;
+/* icon font path, required */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+// required
+@import "~element-ui/packages/theme-chalk/src/index";
+
+
+#task_status_select {
+  .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+    background: $color-secondary !important;
+    border: none;
+  }
+}

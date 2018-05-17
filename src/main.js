@@ -18,10 +18,14 @@ import {clickOutside} from './directives/click_outside'
 import './styles/global.scss'
 import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
-import 'element-ui/lib/theme-chalk/index.css'
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 // FILTERS
 import DateFilter from '@/filters/date'
 // for router in store
@@ -39,6 +43,7 @@ Vue.use(vueScrollBehavior, {
 })
 Vue.use(ElementUI, {locale})
 Vue.use(Vuetify, config.vuetifyTheme)
+Vue.use(VueQuillEditor /* { default global options } */)
 Vue.directive('click-outside', clickOutside)
 Vue.config.productionTip = false
 Vue.prototype.$bus = new Vue()

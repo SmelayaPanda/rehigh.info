@@ -15,8 +15,10 @@
                 <el-tag v-for="type in props.row.type" :key="type" size="small" class="mb-2 mt-2 mr-1">
                   {{ type }}
                 </el-tag>
-                <p>{{ props.row.description }}</p>
-                <el-steps v-if="props.row.history" align-center space="140px" class="mt-3">
+                <div class="mt-3 mb-5">
+                  <span v-html="props.row.description"></span>
+                </div>
+                <el-steps v-if="props.row.history" align-center space="140px">
                   <el-step
                     v-for="status in TASK_STATUSES"
                     v-if="props.row.history[status.val]"
