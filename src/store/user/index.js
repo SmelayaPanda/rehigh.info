@@ -45,9 +45,7 @@ export default {
         .catch(err => dispatch('LOG', err))
     },
     setInitialRole ({commit}, payload) {
-      if (payload.indexOf('developer') !== -1) {
-        commit('setRole', 'developer')
-      } else if (payload.indexOf('admin') !== -1) {
+      if (payload.indexOf('admin') !== -1) {
         commit('setRole', 'admin')
       } else if (payload.indexOf('client') !== -1) {
         commit('setRole', 'client')

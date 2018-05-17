@@ -30,11 +30,11 @@
                 :counter="128">
               </v-text-field>
             </v-flex>
-            <div style="height: 300px">
-            <quill-editor v-model="task.description"
-                          ref="myQuillEditor"
-                          :options="editorOption">
-            </quill-editor>
+            <div id="quill_wrap">
+              <quill-editor v-model="task.description"
+                            ref="myQuillEditor"
+                            :options="editorOption">
+              </quill-editor>
             </div>
             <v-flex xs12>
               <v-select
@@ -107,7 +107,8 @@
 </template>
 
 <script>
-  import { quillEditor } from 'vue-quill-editor'
+  import {quillEditor} from 'vue-quill-editor'
+
   let initTask = {
     title: '',
     description: '',
@@ -190,5 +191,10 @@
 <style scoped>
   #task_form {
     margin-top: -20px;
+  }
+
+  #quill_wrap {
+    height: auto;
+    margin-bottom: 20px;
   }
 </style>
