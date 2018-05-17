@@ -1,12 +1,17 @@
 <template>
   <v-app>
-    <app-nav-menu/>
-    <app-toolbar/>
-    <v-content>
-      <router-view/>
-    </v-content>
-    <app-notifications/>
-    <app-help></app-help>
+    <div v-if="this.$vuetify.breakpoint.name === 'xs' || this.$vuetify.breakpoint.name === 'sm'">
+      <no-mobile></no-mobile>
+    </div>
+    <div v-else>
+      <app-nav-menu/>
+      <app-toolbar/>
+      <v-content>
+        <router-view/>
+      </v-content>
+      <app-notifications/>
+      <app-help></app-help>
+    </div>
   </v-app>
 </template>
 
@@ -15,9 +20,10 @@
   import AppToolbar from './components/AppToolbar'
   import AppNotifications from './components/notifications/AppNotifications'
   import AppHelp from './components/help/AppHelp'
+  import NoMobile from './components/NoMobile'
 
 export default {
-    components: {AppHelp, AppToolbar, AppNavMenu, AppNotifications},
+    components: {NoMobile, AppHelp, AppToolbar, AppNavMenu, AppNotifications},
     data () {
       return {
         rightDrawer: false
