@@ -31,9 +31,10 @@
               </v-text-field>
             </v-flex>
             <div id="quill_wrap">
-              <quill-editor v-model="task.description"
-                            ref="myQuillEditor"
-                            :options="editorOption">
+              <quill-editor
+                v-model="task.description"
+                :options="editorOption"
+                ref="taskDescrQuill">
               </quill-editor>
             </div>
             <v-flex xs12>

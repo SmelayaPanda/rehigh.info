@@ -27,7 +27,7 @@ export const config = {
       accent: '#82B1FF',
       error: '#FF5252',
       info: '#616161',
-      success: '#4CAF50',
+      success: '#10ca54',
       warning: '#FFC107',
       'logo-green': '#39d18a',
       'logo-blue': '#2f397b',

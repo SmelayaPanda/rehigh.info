@@ -16,7 +16,7 @@
                   {{ type }}
                 </el-tag>
                 <div class="mt-3 mb-5">
-                  <span v-html="props.row.description"></span>
+                  <div v-html="props.row.description"></div>
                 </div>
                 <el-steps v-if="props.row.history" align-center space="140px">
                   <el-step
