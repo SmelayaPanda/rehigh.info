@@ -5,7 +5,7 @@ export default {
     tasks: '', // in selected project ( with taskStatus )
     taskStatus: 'created', // in selected project
     taskTimer: { // USER task in work process (only one)
-      taskId: '',
+      id: '',
       from: ''
     }
   },
@@ -34,7 +34,7 @@ export default {
         query = query.where('projectId', '==', payload.projectId)
       }
       if (payload.taskId) {
-        query = query.where('taskId', '==', payload.taskId)
+        query = query.where('id', '==', payload.taskId)
       }
       return query.get()
         .then(snap => {
@@ -96,8 +96,29 @@ export default {
     setTaskStatus ({commit, getters}, payload) {
       commit('setTaskStatus', payload)
     },
-    startTaskTimer ({commit, getters}, payload) {
-      commit('setTaskTimer', payload)
+    startTaskTimer ({commit, getters, dispatch}, payload) {
+      dispatch('stopTaskTimer').then(() => {
+        commit('setTaskTimer', payload)
+      })
+    },
+    stopTaskTimer ({commit, getters}) {
+      if (!getters.taskTimer.id) return
+      commit('LOADING', true)
+      let taskRef = fb.firestore().collection('tasks').doc(getters.taskTimer.id)
+      return taskRef.get()
+        .then((snap) => {
+          let newRealTime = snap.data().time.real + (new Date().getTime() - getters.taskTimer.from)
+          let tasks = getters.tasks
+          if (tasks[getters.taskTimer.id]) { // user found in task view
+            tasks[getters.taskTimer.id].time.real = newRealTime
+            commit('setTasks', {...tasks})
+          }
+          return taskRef.update({'time.real': newRealTime})
+        })
+        .then(() => {
+          commit('setTaskTimer', {id: '', from: ''})
+          commit('LOADING', false)
+        })
     }
   },
   getters: {

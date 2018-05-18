@@ -28,6 +28,7 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 // FILTERS
 import DateFilter from '@/filters/date'
+import msToTime from '@/filters/msToTime'
 // for router in store
 const unsync = sync(store, router)
 unsync()
@@ -35,6 +36,7 @@ unsync()
 Vue.mixin(data)
 Vue.mixin(computed)
 Vue.filter('date', DateFilter)
+Vue.filter('msToTime', msToTime)
 Vue.use(vueScrollBehavior, {
   router: router, // The router instance
   maxLength: 100, // Saved history List max length

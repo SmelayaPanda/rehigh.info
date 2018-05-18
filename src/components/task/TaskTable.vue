@@ -62,19 +62,24 @@
             </el-table-column>
             <el-table-column
               v-if="ROLE === ROLES.admin.val"
-              :label="msg.real[LANG]" width="100">
+              :label="msg.real[LANG]" width="130">
+              <!-- TIMER -->
               <template slot-scope="scope">
-                <v-btn v-if="isProcessedTasks.indexOf(scope.row.id) === -1"
-                       @click="startTaskTimer(scope.row.id)" :key="scope.row.id"
-                       class="task_timer" fab flat small>
-                  <v-icon>play_arrow</v-icon>
+                <v-btn v-if="TASK_TIMER.id === scope.row.id"
+                       @click="stopTaskTimer(scope.row.id)"
+                       :key="scope.row.id"
+                       class="task_timer" flat>
+                  <v-icon class="task_timer_icons">pause</v-icon>
+                  <el-tag type="success" size="small">{{ scope.row.time.real | msToTime }}</el-tag>
                 </v-btn>
-                <v-btn v-if="isProcessedTasks.indexOf(scope.row.id) !== -1"
-                       @click="stopTaskTimer(scope.row.id)" :key="scope.row.id"
-                       class="task_timer" fab flat small>
-                  <v-icon>pause</v-icon>
+                <v-btn v-else
+                       @click="startTaskTimer(scope.row.id)"
+                       :key="scope.row.id"
+                       class="task_timer" flat>
+                  <v-icon class="task_timer_icons">play_arrow</v-icon>
+                  <el-tag type="success" size="small">{{ scope.row.time.real | msToTime }}</el-tag>
                 </v-btn>
-                {{ scope.row.time.real }}
+                <br>
               </template>
             </el-table-column>
             <el-table-column :label="msg.price[LANG]" width="92">
@@ -137,7 +142,6 @@
       return {
         curPage: 1,
         pageSize: 10,
-        isProcessedTasks: [],
         msg: {
           title: {en: 'Title', ru: 'Название'},
           days: {en: 'Plan (d)', ru: 'План (д)'},
@@ -160,15 +164,11 @@
       },
       startTaskTimer (val) {
         console.log(val)
-        this.isProcessedTasks.push(val)
-        console.log(this.isProcessedTasks)
-        this.$store.dispatch('startTaskTimer', {taskId: val, from: new Date().getTime()})
+        this.$store.dispatch('startTaskTimer', {id: val, from: new Date().getTime()})
       },
       stopTaskTimer (val) {
         console.log(val)
-        this.isProcessedTasks.splice(this.isProcessedTasks.indexOf(val), 1)
-        console.log(this.isProcessedTasks)
-        // this.$store.dispatch('stopTask', val)
+        this.$store.dispatch('stopTaskTimer')
       }
     },
     computed: {
@@ -210,6 +210,10 @@
   .task_timer:hover {
     color: $color-primary;
     cursor: pointer;
-    transform: scale(1.1);
+  }
+
+  .task_timer_icons {
+    margin-left: -10px;
+    margin-right: 4px;
   }
 </style>
