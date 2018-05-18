@@ -96,12 +96,21 @@ export default {
     setTaskStatus ({commit, getters}, payload) {
       commit('setTaskStatus', payload)
     },
-    startTaskTimer ({commit, getters, dispatch}, payload) {
-      dispatch('stopTaskTimer').then(() => {
-        commit('setTaskTimer', payload)
-      })
+    updateUserTaskTimer ({commit, getters}) {
+      return fb.firestore().collection('users').doc(getters.user.uid).update({taskTimer: getters.taskTimer})
     },
-    stopTaskTimer ({commit, getters}) {
+    startTaskTimer ({commit, getters, dispatch}, payload) {
+      commit('LOADING', true)
+      dispatch('stopTaskTimer')
+        .then(() => {
+          commit('setTaskTimer', payload)
+          return dispatch('updateUserTaskTimer')
+        })
+        .then(() => {
+          commit('LOADING', false)
+        })
+    },
+    stopTaskTimer ({commit, getters, dispatch}) {
       if (!getters.taskTimer.id) return
       commit('LOADING', true)
       let taskRef = fb.firestore().collection('tasks').doc(getters.taskTimer.id)
@@ -117,6 +126,9 @@ export default {
         })
         .then(() => {
           commit('setTaskTimer', {id: '', from: ''})
+          return dispatch('updateUserTaskTimer')
+        })
+        .then(() => {
           commit('LOADING', false)
         })
     }

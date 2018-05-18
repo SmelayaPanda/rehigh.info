@@ -68,14 +68,14 @@
                 <v-btn v-if="TASK_TIMER.id === scope.row.id"
                        @click="stopTaskTimer(scope.row.id)"
                        :key="scope.row.id"
-                       class="task_timer" flat>
+                       class="task_timer" flat block>
                   <v-icon class="task_timer_icons">pause</v-icon>
                   <el-tag type="success" size="small">{{ scope.row.time.real | msToTime }}</el-tag>
                 </v-btn>
                 <v-btn v-else
                        @click="startTaskTimer(scope.row.id)"
                        :key="scope.row.id"
-                       class="task_timer" flat>
+                       class="task_timer" flat block>
                   <v-icon class="task_timer_icons">play_arrow</v-icon>
                   <el-tag type="success" size="small">{{ scope.row.time.real | msToTime }}</el-tag>
                 </v-btn>

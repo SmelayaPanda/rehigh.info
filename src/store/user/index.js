@@ -29,6 +29,7 @@ export default {
         .then(snap => {
           commit('setUser', Object.assign(user, snap.data()))
           commit('setLang', snap.data().lang ? snap.data().lang : 'ru')
+          commit('setTaskTimer', snap.data().taskTimer)
           dispatch('setInitialRole', snap.data().roles)
           router.push('/')
         })
