@@ -1,7 +1,7 @@
 <template>
   <div>
     <app-router-name :name="msg.contacts[LANG]"/>
-    <v-container class="secondary--text">
+    <v-container fluid class="secondary--text ml-3">
       <v-layout row class="secondary--text">
         <v-flex xs12 sm11 md10 lg7 xl7>
           <h1>Re:High Studio</h1>

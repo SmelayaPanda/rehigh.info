@@ -64,6 +64,16 @@
               v-if="appRole === ROLES.admin.val"
               :label="msg.real[LANG]" width="100">
               <template slot-scope="scope">
+                <v-btn v-if="isProcessedTasks.indexOf(scope.row.id) === -1"
+                       @click="startTask(scope.row.id)" :key="scope.row.id"
+                       class="task_timer" fab flat small>
+                  <v-icon>play_arrow</v-icon>
+                </v-btn>
+                <v-btn v-if="isProcessedTasks.indexOf(scope.row.id) !== -1"
+                       @click="stopTask(scope.row.id)" :key="scope.row.id"
+                       class="task_timer" fab flat small>
+                  <v-icon>pause</v-icon>
+                </v-btn>
                 {{ scope.row.time.real }}
               </template>
             </el-table-column>
@@ -127,6 +137,7 @@
       return {
         curPage: 1,
         pageSize: 10,
+        isProcessedTasks: [],
         msg: {
           title: {en: 'Title', ru: 'Название'},
           days: {en: 'Plan (d)', ru: 'План (д)'},
@@ -146,6 +157,18 @@
       },
       changePageSize (size) {
         this.pageSize = size
+      },
+      startTask (val) {
+        console.log(val)
+        this.isProcessedTasks.push(val)
+        console.log(this.isProcessedTasks)
+        // this.$store.dispatch('startTask', val)
+      },
+      stopTask (val) {
+        console.log(val)
+        this.isProcessedTasks.splice(this.isProcessedTasks.indexOf(val), 1)
+        console.log(this.isProcessedTasks)
+        // this.$store.dispatch('stopTask', val)
       }
     },
     computed: {
@@ -178,5 +201,15 @@
 
   .operation_btn {
     margin-left: -10px;
+  }
+
+  .task_timer {
+    color: $color-info;
+  }
+
+  .task_timer:hover {
+    color: $color-primary;
+    cursor: pointer;
+    transform: scale(1.1);
   }
 </style>
