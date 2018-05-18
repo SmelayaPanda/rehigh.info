@@ -4,7 +4,7 @@
       @click="menu = !menu"
       id="account_avatar"
       app color="white">
-      <span class="primary--text headline">{{ appUser ? appUser.email[0].toUpperCase() : 'A' }}</span>
+      <span class="primary--text headline">{{ USER ? USER.email[0].toUpperCase() : 'A' }}</span>
     </v-avatar>
     <transition name="el-fade-in-linear">
       <v-card
@@ -20,23 +20,23 @@
                 app color="secondary"
                 size="80"
                 class="elevation-3">
-                <span class="primary--text display-1">{{ appUser ? appUser.email[0].toUpperCase() : 'A' }}</span>
+                <span class="primary--text display-1">{{ USER ? USER.email[0].toUpperCase() : 'A' }}</span>
               </v-avatar>
             </v-flex>
-            <v-flex xs8 v-if="appUser">
-              <span>{{ appUser.firstname.toUpperCase() }} {{ appUser.lastname.toUpperCase() }}</span> <br>
-              <span class="info--text">{{ appUser.email }}</span> <br>
+            <v-flex xs8 v-if="USER">
+              <span>{{ USER.firstname.toUpperCase() }} {{ USER.lastname.toUpperCase() }}</span> <br>
+              <span class="info--text">{{ USER.email }}</span> <br>
               <v-btn small class="primary" id="my_account_btn">{{ msg.account[LANG] }}</v-btn>
             </v-flex>
           </v-layout>
         </v-card-title>
-        <v-container fluid v-if="appUser">
+        <v-container fluid v-if="USER">
           <v-layout row wrap>
             <v-flex xs12 sm6 md6>
               <h3 class="info--text" id="account_role_title">{{ msg.role[LANG] }}</h3>
               <v-radio-group @change="changeUserRole" v-model="role" column id="account_role">
                 <v-radio
-                  v-for="role in appUser.roles" :key="role" color="primary"
+                  v-for="role in USER.roles" :key="role" color="primary"
                   :label="ROLES[role][LANG]" :value="role">
                 </v-radio>
               </v-radio-group>
@@ -52,8 +52,8 @@
         </v-container>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn v-if="appUser" @click="logout" flat color="primary">{{ msg.logout[LANG] }}</v-btn>
-          <div v-if="!appUser">
+          <v-btn v-if="USER" @click="logout" flat color="primary">{{ msg.logout[LANG] }}</v-btn>
+          <div v-if="!USER">
             <v-btn @click="login" flat color="success">{{ msg.login[LANG] }}</v-btn>
             <v-btn @click="register" flat color="success">{{ msg.register[LANG] }}</v-btn>
           </div>
@@ -105,7 +105,7 @@
       }
     },
     watch: {
-      appRole (val) { // for initial role setting
+      ROLE (val) { // for initial role setting
         this.role = val
       },
       LANG (val) {

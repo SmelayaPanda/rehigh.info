@@ -16,7 +16,7 @@
     </v-list>
     <v-divider></v-divider>
     <v-container>
-      <p v-if="!appProject">
+      <p v-if="!PROJECT">
         {{ msg.select[LANG] }}
       </p>
       <v-layout flex wpar v-for="event in notifications" :key="event.date">

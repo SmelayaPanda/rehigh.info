@@ -4,7 +4,7 @@ export default {
   state: {
     tasks: '', // in selected project ( with taskStatus )
     taskStatus: 'created', // in selected project
-    taskTimer: { // appUser task in work process (only one)
+    taskTimer: { // USER task in work process (only one)
       taskId: '',
       from: ''
     }

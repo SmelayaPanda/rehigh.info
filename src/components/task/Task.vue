@@ -1,21 +1,21 @@
 <template>
-  <div id="task_router" v-if="appRole !== ROLES.guest.val">
+  <div id="task_router" v-if="ROLE !== ROLES.guest.val">
     <app-router-name :name="title[LANG]">
       <el-radio-group
-        @change="loadTasks" :disabled="!appProject"
+        @change="loadTasks" :disabled="!PROJECT"
         v-model="status" size="mini" id="task_status_select">
         <el-radio-button v-for="status in TASK_STATUSES" :key="status.val" :label="status.val">
           {{ status[LANG] }}
         </el-radio-button>
       </el-radio-group>
       <v-btn
-        v-if="appRole === ROLES.admin.val"
+        v-if="ROLE === ROLES.admin.val"
         @click="$bus.$emit('openAddNewTaskDialog')"
         flat fab small class="ml-3">
         <v-icon class="white--text ml-1" medium>playlist_add</v-icon>
       </v-btn>
     </app-router-name>
-    <task-table v-if="appProject"/>
+    <task-table v-if="PROJECT"/>
     <create-update-task/>
     <change-task-status/>
     <delete-task/>
@@ -40,11 +40,11 @@ export default {
     },
     methods: {
       loadTasks (val) {
-        this.$store.dispatch('fetchTasks', {projectId: this.appProject.id, status: val})
+        this.$store.dispatch('fetchTasks', {projectId: this.PROJECT.id, status: val})
       }
     },
     created () {
-      if (this.appProject) {
+      if (this.PROJECT) {
         this.loadTasks(this.status)
       }
     }

@@ -61,7 +61,7 @@
               </template>
             </el-table-column>
             <el-table-column
-              v-if="appRole === ROLES.admin.val"
+              v-if="ROLE === ROLES.admin.val"
               :label="msg.real[LANG]" width="100">
               <template slot-scope="scope">
                 <v-btn v-if="isProcessedTasks.indexOf(scope.row.id) === -1"
@@ -98,12 +98,12 @@
                       <v-list-tile-title>{{ msg.changeStatus[LANG] }}</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile
-                      v-if="appRole === ROLES.admin.val"
+                      v-if="ROLE === ROLES.admin.val"
                       @click="$bus.$emit('openEditTaskDialog', scope.row.id)">
                       <v-list-tile-title>{{ msg.edit[LANG] }}</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile
-                      v-if="appRole === ROLES.admin.val"
+                      v-if="ROLE === ROLES.admin.val"
                       @click="$bus.$emit('openDeleteTaskDialog', scope.row.id)">
                       <v-list-tile-title>{{ msg.remove[LANG] }}</v-list-tile-title>
                     </v-list-tile>

@@ -1,5 +1,5 @@
 <template>
-  <v-layout row justify-center v-if="appProject" :key="appProject.id">
+  <v-layout row justify-center v-if="PROJECT" :key="PROJECT.id">
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary">
@@ -15,8 +15,8 @@
         <v-list three-line subheader>
           <v-list-tile avatar>
             <v-list-tile-content>
-              <v-list-tile-title>{{ appProject.title }}</v-list-tile-title>
-              <v-list-tile-sub-title>{{ appProject.subtitle }}</v-list-tile-sub-title>
+              <v-list-tile-title>{{ PROJECT.title }}</v-list-tile-title>
+              <v-list-tile-sub-title>{{ PROJECT.subtitle }}</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -149,9 +149,9 @@
         this.task.payment.amount = Number(this.task.payment.amount)
         this.task.price.amount = Number(this.task.price.amount)
         if (this.operation.name === 'add') {
-          this.task.creator.userId = this.appUser.uid
+          this.task.creator.userId = this.USER.uid
           this.task.history.created = new Date().getTime()
-          this.task.projectId = this.appProject.id
+          this.task.projectId = this.PROJECT.id
           this.$store.dispatch('addNewTask', this.task)
             .then(() => { // clear
               this.task = initTask

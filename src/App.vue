@@ -4,7 +4,7 @@
       <no-mobile></no-mobile>
     </div>
     <div v-else>
-      <div v-if="!appUser">
+      <div v-if="!USER">
         <signin v-if="$route.path === '/signin'"/>
         <signup v-if="$route.path === '/signup'"/>
       </div>

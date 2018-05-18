@@ -3,8 +3,8 @@
     <v-layout row justify-center>
       <v-flex xs12 sm8 md6 lg5 xl4>
         <el-card>
-          <div v-if="this.appError" slot="header" class="clearfix">
-            <v-icon class="error--text mr-2">error</v-icon>{{ this.appError.message }}
+          <div v-if="ERROR" slot="header" class="clearfix">
+            <v-icon class="error--text mr-2">error</v-icon>{{ ERROR.message }}
           </div>
           <h2>Register</h2>
           <v-container>

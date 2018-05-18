@@ -2,19 +2,19 @@ import {store} from '../store'
 
 export const computed = {
   computed: {
-    appUser () {
+    USER () {
       return store.getters.user
     },
-    appRole () {
+    ROLE () {
       return store.getters.role
     },
-    appProject () {
+    PROJECT () {
       return this.$store.getters.project
     },
-    appProjects () {
+    PROJECTS () {
       return this.$store.getters.projects
     },
-    appError () {
+    ERROR () {
       return store.getters.error
     },
     LOADING () {

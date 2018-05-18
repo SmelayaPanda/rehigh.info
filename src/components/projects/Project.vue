@@ -2,30 +2,30 @@
   <v-container>
     <v-layout row class="secondary--text">
       <v-flex xs12 sm11 md10 lg7 xl7>
-        <v-container v-if="!appUser">
+        <v-container v-if="!USER">
           <h2>{{ msg.login[LANG] }}</h2>
         </v-container>
         <div v-else>
-          <v-container v-if="appProject">
-            <h1>{{ appProject.title }}</h1>
-            <h2>{{ appProject.subtitle }}</h2>
-            <div v-html="appProject.description"></div>
+          <v-container v-if="PROJECT">
+            <h1>{{ PROJECT.title }}</h1>
+            <h2>{{ PROJECT.subtitle }}</h2>
+            <div v-html="PROJECT.description"></div>
             <div style="margin-left: -4px;">
               <v-chip class="mt-3">
                 <v-avatar>
                   <v-icon class="secondary--text">date_range</v-icon>
                 </v-avatar>
-                {{ appProject.history.created | date(LANG) }}
+                {{ PROJECT.history.created | date(LANG) }}
               </v-chip>
               <br>
-              <v-chip v-for="(value, key) in appProject.emails" :key="key">
+              <v-chip v-for="(value, key) in PROJECT.emails" :key="key">
                 <v-avatar>
                   <v-icon class="secondary--text">vpn_lock</v-icon>
                 </v-avatar>
                 {{ key }}
               </v-chip>
               <br>
-              <v-chip v-for="type in appProject.type" :key="type">
+              <v-chip v-for="type in PROJECT.type" :key="type">
                 <v-avatar>
                   <v-icon class="secondary--text">label</v-icon>
                 </v-avatar>

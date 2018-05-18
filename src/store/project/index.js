@@ -2,8 +2,8 @@ import * as fb from 'firebase'
 
 export default {
   state: {
-    project: '', // selected - appProject
-    projects: '' // all - appProjects
+    project: '', // selected - PROJECT
+    projects: '' // all - PROJECTS
   },
   mutations: {
     setProject (state, payload) {

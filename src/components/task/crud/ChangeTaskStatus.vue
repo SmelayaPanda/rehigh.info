@@ -47,13 +47,13 @@
     },
     methods: {
       availableStatus (val) {
-        if (this.appRole === this.ROLES.client.val) {
+        if (this.ROLE === this.ROLES.client.val) {
           if (this.prevStatus === this.TASK_STATUSES.created.val) {
             return val === this.TASK_STATUSES.pending.val
           } else if (this.prevStatus === this.TASK_STATUSES.finished.val) {
             return val === this.TASK_STATUSES.accepted.val
           }
-        } else if (this.appRole === this.ROLES.admin.val) {
+        } else if (this.ROLE === this.ROLES.admin.val) {
           if (this.prevStatus === this.TASK_STATUSES.pending.val) {
             return val === this.TASK_STATUSES.process.val ||
               val === this.TASK_STATUSES.finished.val ||

@@ -5,7 +5,7 @@
         id="project_selector"
         v-model="select"
         @change="switchProject"
-        :disabled="!appUser || !appProjects || appRole === ROLES.guest.val"
+        :disabled="!USER || !PROJECTS || ROLE === ROLES.guest.val"
         :items="items"
         :hint="select.subtitle"
         :label="msg.project[LANG]"
@@ -20,25 +20,25 @@
       <create-update-project/>
     </el-col>
     <el-col :span="5">
-      <v-menu v-if="appProject && (appRole === ROLES.admin.val || appRole === ROLES.developer.val)" bottom right>
+      <v-menu v-if="PROJECT && (ROLE === ROLES.admin.val || ROLE === ROLES.developer.val)" bottom right>
         <v-btn flat fab small id="project_operation_btn" slot="activator">
           <v-icon>more_vert</v-icon>
         </v-btn>
         <v-list>
           <v-list-tile
-            v-if="appRole === ROLES.admin.val"
-            @click="$bus.$emit('openEditProjectDialog', appProject.id)">
+            v-if="ROLE === ROLES.admin.val"
+            @click="$bus.$emit('openEditProjectDialog', PROJECT.id)">
             <v-list-tile-title>{{ msg.edit[LANG] }}</v-list-tile-title>
           </v-list-tile>
           <v-list-tile
-            v-if="appRole === ROLES.developer.val"
+            v-if="ROLE === ROLES.developer.val"
             @click="$bus.$emit('openAddNewProjectDialog')">
             <v-list-tile-title>{{ msg.create[LANG] }}</v-list-tile-title>
           </v-list-tile>
           <!-- TODO: create remove project ? -->
           <v-list-tile
-            v-if="appRole === ROLES.developer.val"
-            @click="$bus.$emit('openDeleteProjectDialog', appProject.id)">
+            v-if="ROLE === ROLES.developer.val"
+            @click="$bus.$emit('openDeleteProjectDialog', PROJECT.id)">
             <v-list-tile-title>{{ msg.remove[LANG] }}</v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -67,7 +67,7 @@
       switchProject ({title, subtitle, id}) {
         this.$store.dispatch('setProject', id)
         this.$store.dispatch('fetchTasks', {
-          projectId: this.appProject.id,
+          projectId: this.PROJECT.id,
           status: this.$store.getters.taskStatus
         })
       }
@@ -75,17 +75,17 @@
     computed: {
       items () {
         let items = []
-        if (this.appProjects) {
-          for (let id in this.appProjects) {
-            if (this.appProjects[id].emails[this.appUser.email]) {
+        if (this.PROJECTS) {
+          for (let id in this.PROJECTS) {
+            if (this.PROJECTS[id].emails[this.USER.email]) {
               items.push({
                 id: id,
-                title: this.appProjects[id].title,
-                subtitle: this.appProjects[id].subtitle
+                title: this.PROJECTS[id].title,
+                subtitle: this.PROJECTS[id].subtitle
               })
             }
           }
-          if (items.length && this.appRole === 'client') { // auto select project for client
+          if (items.length && this.ROLE === 'client') { // auto select project for client
             this.select = {
               title: items[0].title,
               subtitle: items[0].subtitle,
