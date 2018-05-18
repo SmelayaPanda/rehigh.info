@@ -66,7 +66,7 @@
               :label="msg.real[LANG]" width="130" align="center">
               <template slot-scope="scope">
                 <v-btn v-if="TASK_TIMER.id === scope.row.id"
-                       @click="stopTaskTimer(scope.row.id)"
+                       @click="stopTaskTimer"
                        :key="scope.row.id"
                        :disabled="LOADING"
                        class="task_timer" flat>
@@ -165,11 +165,9 @@
         this.pageSize = size
       },
       startTaskTimer (val) {
-        console.log(val)
         this.$store.dispatch('startTaskTimer', {id: val, from: new Date().getTime()})
       },
-      stopTaskTimer (val) {
-        console.log(val)
+      stopTaskTimer () {
         this.$store.dispatch('stopTaskTimer')
       }
     },

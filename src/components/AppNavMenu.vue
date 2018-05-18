@@ -39,15 +39,28 @@
         </v-list-tile-content>
       </v-list-tile>
       <v-divider></v-divider>
-      <v-list-tile @click="">
-        <v-list-tile-action>
-          <v-icon class="primary--text mb-1">timer</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="body-2">{{ msg.timer[LANG] }}</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      {{TASK_TIMER}}
+      <!-- TIME MANAGER -->
+      <div v-if="ROLE === ROLES.admin.val">
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <v-icon class="primary--text mb-1">timer</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="body-2">{{ msg.timer[LANG] }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-container>
+          <div v-if="TASK_TIMER.from">
+            <v-icon class="success--text mb-1">skip_next</v-icon>
+            {{ new Date(TASK_TIMER.from).toLocaleTimeString() }}
+          </div>
+          <div v-if="taskInProcess">
+            <el-tag type="success" size="small">id: {{ taskInProcess.id }}</el-tag>
+            <el-tag size="small">{{ taskInProcess.status }}</el-tag>
+            <p class="mt-2">{{ taskInProcess.title }}</p>
+          </div>
+        </v-container>
+      </div>
     </v-list>
     <v-card flat id="bottom_nav">
       <v-bottom-nav :value="true" :active.sync="bottomNav" absolute color="transparent">
@@ -77,6 +90,11 @@
           help: {en: 'Help', ru: 'Помощь'},
           timer: {en: 'Time-manager', ru: 'Тайм-менеджер'}
         }
+      }
+    },
+    computed: {
+      taskInProcess () {
+        return this.$store.getters.taskInProcess
       }
     },
     created () {

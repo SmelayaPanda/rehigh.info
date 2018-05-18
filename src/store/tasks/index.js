@@ -7,7 +7,8 @@ export default {
     taskTimer: { // USER task in work process (only one)
       id: '',
       from: ''
-    }
+    },
+    taskInProcess: '' // taskTimer.id full task object
   },
   mutations: {
     setTasks (state, payload) {
@@ -18,6 +19,9 @@ export default {
     },
     setTaskTimer (state, payload) {
       state.taskTimer = payload
+    },
+    taskInProcess (state, payload) {
+      state.taskInProcess = payload
     }
   },
   actions: {
@@ -32,9 +36,6 @@ export default {
       if (payload.projectId) {
         console.log(payload.projectId)
         query = query.where('projectId', '==', payload.projectId)
-      }
-      if (payload.taskId) {
-        query = query.where('id', '==', payload.taskId)
       }
       return query.get()
         .then(snap => {
@@ -96,6 +97,15 @@ export default {
     setTaskStatus ({commit, getters}, payload) {
       commit('setTaskStatus', payload)
     },
+    setTaskInProcess ({commit, getters, dispatch}, payload) {
+      if (payload.obj) {
+        return commit('taskInProcess', payload.obj)
+      } else if (payload.id) {
+        return fb.firestore().collection('tasks').doc(payload.id).get().then(doc => {
+          commit('taskInProcess', Object.assign({id: payload.id}, doc.data()))
+        })
+      }
+    },
     updateUserTaskTimer ({commit, getters}) {
       return fb.firestore().collection('users').doc(getters.user.uid).update({taskTimer: getters.taskTimer})
     },
@@ -105,6 +115,15 @@ export default {
         .then(() => {
           commit('setTaskTimer', payload)
           return dispatch('updateUserTaskTimer')
+        })
+        .then(() => {
+          let data
+          if (getters.tasks[payload.id]) { // user can quick switch view
+            data = {obj: getters.tasks[payload.id]} // already loaded
+          } else { // load from db
+            data = {id: payload.id}
+          }
+          return dispatch('setTaskInProcess', data)
         })
         .then(() => {
           commit('LOADING', false)
@@ -126,6 +145,7 @@ export default {
         })
         .then(() => {
           commit('setTaskTimer', {id: '', from: ''})
+          commit('taskInProcess', '')
           return dispatch('updateUserTaskTimer')
         })
         .then(() => {
@@ -136,6 +156,7 @@ export default {
   getters: {
     tasks: state => state.tasks,
     taskStatus: state => state.taskStatus,
-    taskTimer: state => state.taskTimer
+    taskTimer: state => state.taskTimer,
+    taskInProcess: state => state.taskInProcess
   }
 }
