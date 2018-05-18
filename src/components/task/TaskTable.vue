@@ -60,22 +60,24 @@
                 ~{{ (scope.row.time.plan / 8).toFixed(1) }}
               </template>
             </el-table-column>
+            <!-- TIMER -->
             <el-table-column
               v-if="ROLE === ROLES.admin.val"
-              :label="msg.real[LANG]" width="130">
-              <!-- TIMER -->
+              :label="msg.real[LANG]" width="130" align="center">
               <template slot-scope="scope">
                 <v-btn v-if="TASK_TIMER.id === scope.row.id"
                        @click="stopTaskTimer(scope.row.id)"
                        :key="scope.row.id"
-                       class="task_timer" flat block>
+                       :disabled="LOADING"
+                       class="task_timer" flat>
                   <v-icon class="task_timer_icons">pause</v-icon>
                   <el-tag type="success" size="small">{{ scope.row.time.real | msToTime }}</el-tag>
                 </v-btn>
                 <v-btn v-else
                        @click="startTaskTimer(scope.row.id)"
                        :key="scope.row.id"
-                       class="task_timer" flat block>
+                       :disabled="LOADING"
+                       class="task_timer" flat>
                   <v-icon class="task_timer_icons">play_arrow</v-icon>
                   <el-tag type="success" size="small">{{ scope.row.time.real | msToTime }}</el-tag>
                 </v-btn>
@@ -145,7 +147,7 @@
         msg: {
           title: {en: 'Title', ru: 'Название'},
           days: {en: 'Plan (d)', ru: 'План (д)'},
-          real: {en: 'Real (h)', ru: 'Реально (ч)'},
+          real: {en: 'Real (h)', ru: 'Время'},
           deadline: {en: 'Deadline', ru: 'Сдача'},
           price: {en: 'Price', ru: 'Цена'},
           payment: {en: 'Payment', ru: 'Оплачено'},
