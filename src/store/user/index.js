@@ -49,8 +49,6 @@ export default {
         commit('setRole', 'admin')
       } else if (payload.indexOf('client') !== -1) {
         commit('setRole', 'client')
-      } else {
-        commit('setRole', 'guest')
       }
     },
     signUserUp ({commit, dispatch, getters}, payload) {

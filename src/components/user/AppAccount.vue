@@ -105,12 +105,12 @@
       }
     },
     watch: {
-      ROLE (val) { // for initial role setting
-        this.role = val
-      },
       LANG (val) {
         this.lang = val
       }
+    },
+    created () {
+      this.role = this.ROLE
     }
   }
 </script>
