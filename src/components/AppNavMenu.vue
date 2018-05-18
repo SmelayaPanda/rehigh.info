@@ -50,13 +50,21 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-container>
-          <div v-if="TASK_TIMER.from">
-            <v-icon class="success--text mb-1">skip_next</v-icon>
-            {{ new Date(TASK_TIMER.from).toLocaleTimeString() }}
-          </div>
           <div v-if="taskInProcess">
+            <v-btn v-if="timeInWork" flat @click="stopTimer" block>
+              <span class="white--text">
+                <v-icon id="pause_timer_icon">pause</v-icon>
+                <span class="white--text">{{ timeInWork | msToTime  }}</span>
+              </span>
+            </v-btn>
+            <v-btn v-else flat @click="startTimer" block>
+              <span class="white--text">
+                <v-icon id="start_timer_icon">play_arrow</v-icon>
+                Start
+              </span>
+            </v-btn>
             <el-tag type="success" size="small">id: {{ taskInProcess.id }}</el-tag>
-            <el-tag size="small">{{ taskInProcess.status }}</el-tag>
+            <el-tag size="small">{{ TASK_STATUSES[taskInProcess.status][LANG] }}</el-tag>
             <p class="mt-2">{{ taskInProcess.title }}</p>
           </div>
         </v-container>
@@ -79,6 +87,7 @@
       return {
         isOpened: true,
         miniVariant: false,
+        timeInWork: 0,
         items: [
           {title: {en: 'PROJECT', ru: 'ПРОЕКТ'}, router: '/project', icon: 'settings_ethernet'},
           {title: {en: 'TASK', ru: 'ЗАДАЧИ'}, router: '/task', icon: 'whatshot'},
@@ -92,19 +101,40 @@
         }
       }
     },
+    methods: {
+      startTimer () {
+        if (this.TASK_TIMER.id) { // TODO: start timer
+          // this.$store.dispatch('startTaskTimer', {id: this.TASK_TIMER.id, from: new Date().getTime()})
+          setInterval(() => {
+            this.timeInWork = new Date().getTime() - new Date(this.TASK_TIMER.from)
+          }, 1000)
+        } else {
+          this.timeInWork = 0
+        }
+      },
+      stopTimer () {
+        this.$store.dispatch('stopTaskTimer')
+      }
+    },
     computed: {
       taskInProcess () {
         return this.$store.getters.taskInProcess
+      }
+    },
+    watch: {
+      TASK_TIMER () {
+        this.startTimer()
       }
     },
     created () {
       this.$bus.$on('expandNavMenu', () => {
         this.miniVariant = !this.miniVariant
       })
+      this.startTimer()
     }
   }
 </script>
-<style type="text/css">
+<style scoped lang="scss">
   #work_panel {
     text-align: center;
     font-style: italic;
@@ -128,5 +158,17 @@
     width: 100%;
     position: absolute;
     bottom: 0;
+  }
+
+  #start_timer_icon {
+    margin-left: -40px;
+    margin-bottom: 2px;
+    color: $color-success;
+  }
+
+  #pause_timer_icon {
+    margin-left: -30px;
+    margin-bottom: 2px;
+    color: $color-error;
   }
 </style>

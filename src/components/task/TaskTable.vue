@@ -29,17 +29,25 @@
                 </el-steps>
               </template>
             </el-table-column>
-            <el-table-column label="" width="34">
+            <el-table-column label="" width="64">
               <template slot-scope="scope">
-                <v-icon v-if="scope.row.priority === TASK_PRIORITY.low.val"
-                        class="success--text">fiber_manual_record
-                </v-icon>
-                <v-icon v-if="scope.row.priority === TASK_PRIORITY.middle.val"
-                        class="primary--text">fiber_manual_record
-                </v-icon>
-                <v-icon v-if="scope.row.priority === TASK_PRIORITY.high.val"
-                        class="error--text">fiber_manual_record
-                </v-icon>
+                <v-progress-circular
+                  :size="44"
+                  :width="3"
+                  :rotate="360"
+                  :value="78"
+                  color="teal">
+                  78
+                </v-progress-circular>
+                <!--<v-icon v-if="scope.row.priority === TASK_PRIORITY.low.val"-->
+                        <!--class="success&#45;&#45;text">fiber_manual_record-->
+                <!--</v-icon>-->
+                <!--<v-icon v-if="scope.row.priority === TASK_PRIORITY.middle.val"-->
+                        <!--class="primary&#45;&#45;text">fiber_manual_record-->
+                <!--</v-icon>-->
+                <!--<v-icon v-if="scope.row.priority === TASK_PRIORITY.high.val"-->
+                        <!--class="error&#45;&#45;text">fiber_manual_record-->
+                <!--</v-icon>-->
               </template>
             </el-table-column>
             <el-table-column :label="msg.title[LANG]">

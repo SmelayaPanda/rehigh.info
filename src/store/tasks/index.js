@@ -7,7 +7,7 @@ export default {
     taskTimer: { // USER task in work process (only one)
       id: '',
       from: ''
-    },
+    }, // TODO refactor, simplify
     taskInProcess: '' // taskTimer.id full task object
   },
   mutations: {
@@ -145,7 +145,7 @@ export default {
         })
         .then(() => {
           commit('setTaskTimer', {id: '', from: ''})
-          commit('taskInProcess', '')
+          // commit('taskInProcess', '')
           return dispatch('updateUserTaskTimer')
         })
         .then(() => {
