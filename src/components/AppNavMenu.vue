@@ -11,8 +11,8 @@
     fixed
     app>
     <v-progress-linear
-      v-if="isLoading"
-      :indeterminate="isLoading"
+      v-if="LOADING"
+      :indeterminate="LOADING"
       height="3"
       color="primary"
       id="app_loading">
@@ -39,6 +39,15 @@
         </v-list-tile-content>
       </v-list-tile>
       <v-divider></v-divider>
+      <v-list-tile @click="">
+        <v-list-tile-action>
+          <v-icon class="primary--text mb-1">timer</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title class="body-2">{{ msg.timer[LANG] }}</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      {{TASK_TIMER}}
     </v-list>
     <v-card flat id="bottom_nav">
       <v-bottom-nav :value="true" :active.sync="bottomNav" absolute color="transparent">
@@ -65,7 +74,8 @@
         ],
         bottomNav: '',
         msg: {
-          help: {en: 'Help', ru: 'Помощь'}
+          help: {en: 'Help', ru: 'Помощь'},
+          timer: {en: 'Time-manager', ru: 'Тайм-менеджер'}
         }
       }
     },

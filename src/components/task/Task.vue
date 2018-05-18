@@ -40,17 +40,13 @@ export default {
     },
     methods: {
       loadTasks (val) {
-        this.$store.dispatch('setTaskStatus', val)
-        this.$store.dispatch('fetchTasks')
+        this.$store.dispatch('fetchTasks', {projectId: this.appProject.id, status: val})
       }
     },
     created () {
       if (this.appProject) {
         this.loadTasks(this.status)
       }
-      this.$bus.$on('changeTaskStatus', status => {
-        this.status = status
-      })
     }
   }
 </script>

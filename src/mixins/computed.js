@@ -17,11 +17,14 @@ export const computed = {
     appError () {
       return store.getters.error
     },
-    isLoading () {
+    LOADING () {
       return store.getters.loading
     },
     LANG () {
       return this.$store.getters.lang
+    },
+    TASK_TIMER () {
+      return this.$store.getters.taskTimer
     }
   }
 }

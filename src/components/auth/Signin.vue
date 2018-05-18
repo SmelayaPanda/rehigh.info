@@ -16,7 +16,7 @@
                 <el-input type="password" v-model="form.password" auto-complete="off"/>
               </el-form-item>
               <el-form-item>
-                <v-btn class="primary" :disabled="this.isLoading" @click="submitForm('form')">
+                <v-btn class="primary" :disabled="this.LOADING" @click="submitForm('form')">
                   GO
                 </v-btn>
               </el-form-item>

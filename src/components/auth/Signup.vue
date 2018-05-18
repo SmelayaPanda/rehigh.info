@@ -28,7 +28,7 @@
                 <el-input type="password" v-model="form.checkPass" auto-complete="off"/>
               </el-form-item>
               <el-form-item>
-                <v-btn class="primary" :disabled="isLoading || !isValidForm" @click="submitForm('form')">
+                <v-btn class="primary" :disabled="LOADING || !isValidForm" @click="submitForm('form')">
                   go
                 </v-btn>
               </el-form-item>

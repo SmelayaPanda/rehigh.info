@@ -66,9 +66,10 @@
     methods: {
       switchProject ({title, subtitle, id}) {
         this.$store.dispatch('setProject', id)
-        this.$store.dispatch('setTaskStatus', this.TASK_STATUSES.created.val)
-        this.$bus.$emit('changeTaskStatus', this.TASK_STATUSES.created.val)
-        this.$store.dispatch('fetchTasks')
+        this.$store.dispatch('fetchTasks', {
+          projectId: this.appProject.id,
+          status: this.$store.getters.taskStatus
+        })
       }
     },
     computed: {

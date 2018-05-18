@@ -3,7 +3,11 @@ import * as fb from 'firebase'
 export default {
   state: {
     tasks: '', // in selected project ( with taskStatus )
-    taskStatus: 'created' // in selected project
+    taskStatus: 'created', // in selected project
+    taskTimer: { // appUser task in work process (only one)
+      taskId: '',
+      from: ''
+    }
   },
   mutations: {
     setTasks (state, payload) {
@@ -11,14 +15,28 @@ export default {
     },
     setTaskStatus (state, payload) {
       state.taskStatus = payload
+    },
+    setTaskTimer (state, payload) {
+      state.taskTimer = payload
     }
   },
   actions: {
-    fetchTasks ({commit, dispatch, getters}) {
+    fetchTasks ({commit, dispatch, getters}, payload) {
       commit('LOADING', true)
-      return fb.firestore().collection('tasks')
-        .where('status', '==', getters.taskStatus)
-        .where('projectId', '==', getters.project.id).get()
+      let query = fb.firestore().collection('tasks')
+      if (payload.status) {
+        commit('setTaskStatus', payload.status)
+        console.log(payload.status)
+        query = query.where('status', '==', payload.status)
+      }
+      if (payload.projectId) {
+        console.log(payload.projectId)
+        query = query.where('projectId', '==', payload.projectId)
+      }
+      if (payload.taskId) {
+        query = query.where('taskId', '==', payload.taskId)
+      }
+      return query.get()
         .then(snap => {
           let tasks = {}
           snap.docs.forEach(doc => {
@@ -72,12 +90,19 @@ export default {
         })
         .catch(err => dispatch('LOG', err))
     },
+    setTasks ({commit}, payload) {
+      commit('setTasks', payload)
+    },
     setTaskStatus ({commit, getters}, payload) {
       commit('setTaskStatus', payload)
+    },
+    startTaskTimer ({commit, getters}, payload) {
+      commit('setTaskTimer', payload)
     }
   },
   getters: {
     tasks: state => state.tasks,
-    taskStatus: state => state.taskStatus
+    taskStatus: state => state.taskStatus,
+    taskTimer: state => state.taskTimer
   }
 }

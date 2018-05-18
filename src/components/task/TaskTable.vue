@@ -65,12 +65,12 @@
               :label="msg.real[LANG]" width="100">
               <template slot-scope="scope">
                 <v-btn v-if="isProcessedTasks.indexOf(scope.row.id) === -1"
-                       @click="startTask(scope.row.id)" :key="scope.row.id"
+                       @click="startTaskTimer(scope.row.id)" :key="scope.row.id"
                        class="task_timer" fab flat small>
                   <v-icon>play_arrow</v-icon>
                 </v-btn>
                 <v-btn v-if="isProcessedTasks.indexOf(scope.row.id) !== -1"
-                       @click="stopTask(scope.row.id)" :key="scope.row.id"
+                       @click="stopTaskTimer(scope.row.id)" :key="scope.row.id"
                        class="task_timer" fab flat small>
                   <v-icon>pause</v-icon>
                 </v-btn>
@@ -158,13 +158,13 @@
       changePageSize (size) {
         this.pageSize = size
       },
-      startTask (val) {
+      startTaskTimer (val) {
         console.log(val)
         this.isProcessedTasks.push(val)
         console.log(this.isProcessedTasks)
-        // this.$store.dispatch('startTask', val)
+        this.$store.dispatch('startTaskTimer', {taskId: val, from: new Date().getTime()})
       },
-      stopTask (val) {
+      stopTaskTimer (val) {
         console.log(val)
         this.isProcessedTasks.splice(this.isProcessedTasks.indexOf(val), 1)
         console.log(this.isProcessedTasks)
