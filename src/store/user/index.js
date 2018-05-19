@@ -29,11 +29,8 @@ export default {
         .then(snap => {
           commit('setUser', Object.assign(user, snap.data()))
           commit('setLang', snap.data().lang ? snap.data().lang : 'ru')
-          if (snap.data().taskTimer) { // set processed task
-            commit('setTaskTimer', snap.data().taskTimer)
-            if (snap.data().taskTimer.id) {
-              dispatch('setTaskInProcess', {id: snap.data().taskTimer.id})
-            }
+          if (snap.data().timer) { // TODO: add to user initialy and remove here if condition
+            commit('setTimer', snap.data().timer)
           }
           dispatch('setInitialRole', snap.data().roles)
           router.push('/')

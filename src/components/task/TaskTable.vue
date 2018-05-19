@@ -72,8 +72,8 @@
             <el-table-column
               v-if="ROLE === ROLES.admin.val"
               :label="msg.real[LANG]" width="130" align="center">
-              <template slot-scope="scope">
-                <v-btn v-if="TASK_TIMER.id === scope.row.id"
+              <template v-if="TIMER.task" slot-scope="scope">
+                <v-btn v-if="TIMER.task.id === scope.row.id && !TIMER.to"
                        @click="stopTaskTimer"
                        :key="scope.row.id"
                        :disabled="LOADING"
@@ -152,6 +152,7 @@
       return {
         curPage: 1,
         pageSize: 10,
+        prevTimerTaskId: '',
         msg: {
           title: {en: 'Title', ru: 'Название'},
           days: {en: 'Plan (d)', ru: 'План (д)'},
@@ -172,11 +173,23 @@
       changePageSize (size) {
         this.pageSize = size
       },
-      startTaskTimer (val) {
-        this.$store.dispatch('startTaskTimer', {id: val, from: new Date().getTime()})
+      async startTaskTimer (val) {
+        if (this.TIMER && !this.TIMER.to) { // other task in progress
+          await this.stopTaskTimer()
+        }
+        if (this.prevTimerTaskId === val) { // old task start
+          await this.$store.dispatch('setTimer', {isTimerStart: true})
+        } else { // new task start
+          await this.$store.dispatch('setTimer', {
+            isTimerStart: true,
+            isNewTask: true,
+            task: this.$store.getters.tasks[val]
+          })
+        }
+        this.prevTimerTaskId = val
       },
-      stopTaskTimer () {
-        this.$store.dispatch('stopTaskTimer')
+      async stopTaskTimer () {
+        await this.$store.dispatch('setTimer', {isTimerStop: true})
       }
     },
     computed: {

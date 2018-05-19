@@ -23,8 +23,8 @@ export const computed = {
     LANG () {
       return this.$store.getters.lang
     },
-    TASK_TIMER () {
-      return this.$store.getters.taskTimer
+    TIMER () {
+      return this.$store.getters.timer
     }
   }
 }

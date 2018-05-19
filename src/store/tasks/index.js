@@ -3,12 +3,19 @@ import * as fb from 'firebase'
 export default {
   state: {
     tasks: '', // in selected project ( with taskStatus )
-    taskStatus: 'created', // in selected project
-    taskTimer: { // USER task in work process (only one)
-      id: '',
-      from: ''
-    }, // TODO refactor, simplify
-    taskInProcess: '' // taskTimer.id full task object
+    taskStatus: 'created',
+    timer: '', // currents user's task in work process
+    //  task: {}, // full obj! (simplify logic - fetch by id is redundant)
+    //  from: '',
+    //  to: ''
+    workHistory: '' // full work history (firestore)
+    // id: {
+    //    projectId: '',
+    //    taskId: '',
+    //    userId: '',
+    //    from: '',
+    //    to: ''
+    // }
   },
   mutations: {
     setTasks (state, payload) {
@@ -17,11 +24,11 @@ export default {
     setTaskStatus (state, payload) {
       state.taskStatus = payload
     },
-    setTaskTimer (state, payload) {
-      state.taskTimer = payload
+    setTimer (state, payload) {
+      state.timer = payload
     },
-    taskInProcess (state, payload) {
-      state.taskInProcess = payload
+    setWorkHistory (state, payload) {
+      state.workHistory = payload
     }
   },
   actions: {
@@ -97,57 +104,26 @@ export default {
     setTaskStatus ({commit, getters}, payload) {
       commit('setTaskStatus', payload)
     },
-    setTaskInProcess ({commit, getters, dispatch}, payload) {
-      if (payload.obj) {
-        return commit('taskInProcess', payload.obj)
-      } else if (payload.id) {
-        return fb.firestore().collection('tasks').doc(payload.id).get().then(doc => {
-          commit('taskInProcess', Object.assign({id: payload.id}, doc.data()))
+    setTimer ({commit, getters, dispatch}, payload) {
+      commit('LOADING', true)
+      let data
+      if (payload.isTimerStart) {
+        if (payload.isNewTask) {
+          data = {'timer.task': payload.task, 'timer.from': new Date().getTime(), 'timer.to': 0}
+          commit('setTimer', {task: payload.task, from: new Date().getTime(), to: 0})
+        } else {
+          data = {'timer.from': new Date().getTime(), 'timer.to': 0}
+          commit('setTimer', {task: getters.timer.task, from: new Date().getTime(), to: 0})
+        }
+      } else if (payload.isTimerStop) {
+        data = {'timer.to': new Date().getTime()}
+        commit('setTimer', {
+          task: getters.timer.task,
+          from: 0,
+          to: new Date().getTime()
         })
       }
-    },
-    updateUserTaskTimer ({commit, getters}) {
-      return fb.firestore().collection('users').doc(getters.user.uid).update({taskTimer: getters.taskTimer})
-    },
-    startTaskTimer ({commit, getters, dispatch}, payload) {
-      commit('LOADING', true)
-      dispatch('stopTaskTimer')
-        .then(() => {
-          commit('setTaskTimer', payload)
-          return dispatch('updateUserTaskTimer')
-        })
-        .then(() => {
-          let data
-          if (getters.tasks[payload.id]) { // user can quick switch view
-            data = {obj: getters.tasks[payload.id]} // already loaded
-          } else { // load from db
-            data = {id: payload.id}
-          }
-          return dispatch('setTaskInProcess', data)
-        })
-        .then(() => {
-          commit('LOADING', false)
-        })
-    },
-    stopTaskTimer ({commit, getters, dispatch}) {
-      if (!getters.taskTimer.id) return
-      commit('LOADING', true)
-      let taskRef = fb.firestore().collection('tasks').doc(getters.taskTimer.id)
-      return taskRef.get()
-        .then((snap) => {
-          let newRealTime = snap.data().time.real + (new Date().getTime() - getters.taskTimer.from)
-          let tasks = getters.tasks
-          if (tasks[getters.taskTimer.id]) { // user found in task view
-            tasks[getters.taskTimer.id].time.real = newRealTime
-            commit('setTasks', {...tasks})
-          }
-          return taskRef.update({'time.real': newRealTime})
-        })
-        .then(() => {
-          commit('setTaskTimer', {id: '', from: ''})
-          // commit('taskInProcess', '')
-          return dispatch('updateUserTaskTimer')
-        })
+      return fb.firestore().collection('users').doc(getters.user.uid).update(data)
         .then(() => {
           commit('LOADING', false)
         })
@@ -156,7 +132,6 @@ export default {
   getters: {
     tasks: state => state.tasks,
     taskStatus: state => state.taskStatus,
-    taskTimer: state => state.taskTimer,
-    taskInProcess: state => state.taskInProcess
+    timer: state => state.timer
   }
 }

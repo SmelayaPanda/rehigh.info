@@ -50,8 +50,8 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-container>
-          <div v-if="taskInProcess">
-            <v-btn v-if="timeInWork" flat @click="stopTimer" block>
+          <div v-if="TIMER.task">
+            <v-btn v-if="TIMER.from && !TIMER.to" flat @click="stopTimer" block>
               <span class="white--text">
                 <v-icon id="pause_timer_icon">pause</v-icon>
                 <span class="white--text">{{ timeInWork | msToTime  }}</span>
@@ -63,9 +63,9 @@
                 Start
               </span>
             </v-btn>
-            <el-tag type="success" size="small">id: {{ taskInProcess.id }}</el-tag>
-            <el-tag size="small">{{ TASK_STATUSES[taskInProcess.status][LANG] }}</el-tag>
-            <p class="mt-2">{{ taskInProcess.title }}</p>
+            <el-tag type="success" size="small">id: {{ TIMER.task.id }}</el-tag>
+            <el-tag size="small">{{ TASK_STATUSES[TIMER.task.status][LANG] }}</el-tag>
+            <p class="mt-2">{{ TIMER.task.title }}</p>
           </div>
         </v-container>
       </div>
@@ -102,35 +102,29 @@
       }
     },
     methods: {
-      startTimer () {
-        if (this.TASK_TIMER.id) { // TODO: start timer
-          // this.$store.dispatch('startTaskTimer', {id: this.TASK_TIMER.id, from: new Date().getTime()})
+      async startTimer () {
+        if (this.TIMER.task.id) {
+          await this.$store.dispatch('setTimer', {isTimerStart: true})
           setInterval(() => {
-            this.timeInWork = new Date().getTime() - new Date(this.TASK_TIMER.from)
+            this.timeInWork = new Date().getTime() - new Date(this.TIMER.from)
           }, 1000)
         } else {
           this.timeInWork = 0
         }
       },
       stopTimer () {
-        this.$store.dispatch('stopTaskTimer')
-      }
-    },
-    computed: {
-      taskInProcess () {
-        return this.$store.getters.taskInProcess
-      }
-    },
-    watch: {
-      TASK_TIMER () {
-        this.startTimer()
+        this.$store.dispatch('setTimer', {isTimerStop: true})
       }
     },
     created () {
       this.$bus.$on('expandNavMenu', () => {
         this.miniVariant = !this.miniVariant
       })
-      this.startTimer()
+      if (this.TIMER.from && !this.TIMER.to) {
+        setInterval(() => {
+          this.timeInWork = new Date().getTime() - new Date(this.TIMER.from)
+        }, 1000)
+      }
     }
   }
 </script>
