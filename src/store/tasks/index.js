@@ -128,6 +128,13 @@ export default {
         actions.push(fb.firestore().collection('projects').doc(task.projectId).update({
           'time.real': getters.projects[task.projectId].time.real + addTime
         }))
+        actions.push(fb.firestore().collection('workHistory').add({
+          projectId: task.projectId,
+          taskId: task.id,
+          userId: getters.user.uid,
+          from: getters.timer.from,
+          to: now
+        }))
         updateUserData = {'timer.to': now}
         if (tasks[task.id]) { // in tasks view with this task
           tasks[task.id].time.real = task.time.real + addTime

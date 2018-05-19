@@ -186,10 +186,12 @@
             task: this.$store.getters.tasks[val]
           })
         }
+        this.$bus.$emit('startTicTac')
         this.prevTimerTaskId = val
       },
       async stopTaskTimer () {
         await this.$store.dispatch('setTimer', {isTimerStop: true})
+        this.$bus.$emit('stopTicTac')
       }
     },
     computed: {

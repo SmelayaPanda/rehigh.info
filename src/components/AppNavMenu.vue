@@ -92,6 +92,7 @@
         isOpened: true,
         miniVariant: false,
         timeInWork: 0,
+        ticTacId: '',
         items: [
           {title: {en: 'PROJECT', ru: 'ПРОЕКТ'}, router: '/project', icon: 'settings_ethernet'},
           {title: {en: 'TASK', ru: 'ЗАДАЧИ'}, router: '/task', icon: 'whatshot'},
@@ -109,25 +110,33 @@
       async startTimer () {
         if (this.TIMER.task.id) {
           await this.$store.dispatch('setTimer', {isTimerStart: true})
-          setInterval(() => {
-            this.timeInWork = new Date().getTime() - new Date(this.TIMER.from)
-          }, 1000)
+          this.startTicTac()
         } else {
           this.timeInWork = 0
         }
       },
       stopTimer () {
         this.$store.dispatch('setTimer', {isTimerStop: true})
+        clearInterval(this.ticTacId)
+      },
+      startTicTac () {
+        this.ticTacId = setInterval(() => {
+          this.timeInWork = new Date().getTime() - new Date(this.TIMER.from)
+        }, 1000)
       }
     },
     created () {
       this.$bus.$on('expandNavMenu', () => {
         this.miniVariant = !this.miniVariant
       })
+      this.$bus.$on('startTicTac', () => {
+        this.startTicTac()
+      })
+      this.$bus.$on('stopTicTac', () => {
+        clearInterval(this.ticTacId)
+      })
       if (this.TIMER.from && !this.TIMER.to) {
-        setInterval(() => {
-          this.timeInWork = new Date().getTime() - new Date(this.TIMER.from)
-        }, 1000)
+        this.startTicTac()
       }
     }
   }
