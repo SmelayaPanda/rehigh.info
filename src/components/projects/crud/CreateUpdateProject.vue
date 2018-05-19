@@ -114,6 +114,7 @@
           emails[el] = true
         })
         this.project.emails = emails
+        // TODO add time: {plan, real}
         // Operations
         if (this.operation === 'add') {
           this.project.history = {}

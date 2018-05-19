@@ -10,12 +10,18 @@
             <h1>{{ PROJECT.title }}</h1>
             <h2>{{ PROJECT.subtitle }}</h2>
             <div v-html="PROJECT.description"></div>
-            <div style="margin-left: -4px;">
-              <v-chip class="mt-3">
+            <div id="project_chips">
+              <v-chip>
                 <v-avatar>
                   <v-icon class="secondary--text">date_range</v-icon>
                 </v-avatar>
                 {{ PROJECT.history.created | date(LANG) }}
+              </v-chip>
+              <v-chip v-if="ROLE === ROLES.admin.val">
+                <v-avatar>
+                  <v-icon class="secondary--text">timer</v-icon>
+                </v-avatar>
+                {{ (PROJECT.time.real / (60 * 60 * 1000)).toFixed(2) }} ч
               </v-chip>
               <br>
               <v-chip v-for="(value, key) in PROJECT.emails" :key="key">
@@ -57,5 +63,8 @@
 </script>
 
 <style scoped>
-
+  #project_chips {
+    margin-left: -4px;
+    margin-top: 10px;
+  }
 </style>

@@ -106,28 +106,44 @@ export default {
     },
     setTimer ({commit, getters, dispatch}, payload) {
       commit('LOADING', true)
-      let data
-      if (payload.isTimerStart) {
+      let now = new Date().getTime()
+      let updateUserData
+      let projects = getters.projects
+      let tasks = getters.tasks
+      let task = payload.isNewTask ? payload.task : getters.timer.task
+      let actions = []
+      if (payload.isTimerStart) { // START
         if (payload.isNewTask) {
-          data = {'timer.task': payload.task, 'timer.from': new Date().getTime(), 'timer.to': 0}
-          commit('setTimer', {task: payload.task, from: new Date().getTime(), to: 0})
+          updateUserData = {'timer.task': task, 'timer.from': now, 'timer.to': 0}
         } else {
-          data = {'timer.from': new Date().getTime(), 'timer.to': 0}
-          commit('setTimer', {task: getters.timer.task, from: new Date().getTime(), to: 0})
+          updateUserData = {'timer.from': now, 'timer.to': 0}
         }
-      } else if (payload.isTimerStop) {
-        data = {'timer.to': new Date().getTime()}
-        commit('setTimer', {
-          task: getters.timer.task,
-          from: 0,
-          to: new Date().getTime()
-        })
+        commit('setTimer', {task: task, from: now, to: 0})
+      } else if (payload.isTimerStop) { // STOP
+        // UPDATE time.real of project and task
+        let addTime = now - getters.timer.from
+        actions.push(fb.firestore().collection('tasks').doc(task.id).update({
+          'time.real': task.time.real + addTime
+        }))
+        actions.push(fb.firestore().collection('projects').doc(task.projectId).update({
+          'time.real': getters.projects[task.projectId].time.real + addTime
+        }))
+        updateUserData = {'timer.to': now}
+        if (tasks[task.id]) { // in tasks view with this task
+          tasks[task.id].time.real = task.time.real + addTime
+          commit('setTasks', {...tasks})
+        }
+        projects[task.projectId].time.real += addTime
+        commit('setProjects', {...projects})
+        commit('setTimer', {task: task, from: 0, to: now})
       }
-      return fb.firestore().collection('users').doc(getters.user.uid).update(data)
+      actions.push(fb.firestore().collection('users').doc(getters.user.uid).update(updateUserData))
+      return Promise.all(actions)
         .then(() => {
           commit('LOADING', false)
         })
-    }
+    },
+    addHandleTimer () {}
   },
   getters: {
     tasks: state => state.tasks,

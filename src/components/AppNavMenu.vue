@@ -17,8 +17,8 @@
       color="primary"
       id="app_loading">
     </v-progress-linear>
-    <v-list class="white--text">
-      <v-list-tile id="rehigh_title">
+    <v-list id="rehigh_title">
+      <v-list-tile>
         <v-list-tile-action>
           <v-icon class="primary--text">gesture</v-icon>
         </v-list-tile-action>
@@ -65,7 +65,11 @@
             </v-btn>
             <el-tag type="success" size="small">id: {{ TIMER.task.id }}</el-tag>
             <el-tag size="small">{{ TASK_STATUSES[TIMER.task.status][LANG] }}</el-tag>
-            <p class="mt-2">{{ TIMER.task.title }}</p>
+            <p class="mt-2">
+              <span v-if="PROJECTS[TIMER.task.projectId]">{{ PROJECTS[TIMER.task.projectId].title }}</span>
+              <v-icon class="white--text" small>keyboard_arrow_right</v-icon>
+              {{ TIMER.task.title }}
+            </p>
           </div>
         </v-container>
       </div>
@@ -133,13 +137,13 @@
     text-align: center;
     font-style: italic;
     margin-top: -6px;
-    margin-bottom: 28px;
+    margin-bottom: 30px;
     font-size: 13px;
   }
 
   #rehigh_title {
-    margin-top: 24px;
-    margin-bottom: 8px;
+    margin-top: 30px;
+    color: white;
   }
 
   #app_loading {
@@ -164,5 +168,10 @@
     margin-left: -30px;
     margin-bottom: 2px;
     color: $color-error;
+  }
+
+  #task_project_name {
+    font-size: 12px;
+    font-weight: bold;
   }
 </style>

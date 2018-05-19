@@ -29,9 +29,7 @@ export default {
         .then(snap => {
           commit('setUser', Object.assign(user, snap.data()))
           commit('setLang', snap.data().lang ? snap.data().lang : 'ru')
-          if (snap.data().timer) { // TODO: add to user initialy and remove here if condition
-            commit('setTimer', snap.data().timer)
-          }
+          commit('setTimer', snap.data().timer)
           dispatch('setInitialRole', snap.data().roles)
           router.push('/')
         })
@@ -65,6 +63,7 @@ export default {
             lastname: payload.lastname,
             nickname: payload.nickname,
             email: snap.user.email,
+            timer: '',
             lang: 'ru',
             roles: ['guest'],
             created: new Date().getTime()
