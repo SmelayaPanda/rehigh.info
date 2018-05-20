@@ -29,7 +29,11 @@
               </el-form-item>
               <el-form-item>
                 <v-btn class="primary" :disabled="LOADING || !isValidForm" @click="submitForm('form')">
-                  go
+                  <span v-if="!LOADING">GO</span>
+                  <v-progress-circular
+                    v-if="LOADING" :size="22" :width="2"
+                    indeterminate color="white">
+                  </v-progress-circular>
                 </v-btn>
               </el-form-item>
             </el-form>

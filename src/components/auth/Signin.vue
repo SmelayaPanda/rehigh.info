@@ -17,7 +17,11 @@
               </el-form-item>
               <el-form-item>
                 <v-btn class="primary" :disabled="LOADING" @click="submitForm('form')">
-                  GO
+                  <span v-if="!LOADING">GO</span>
+                  <v-progress-circular
+                    v-if="LOADING" :size="22" :width="2"
+                    indeterminate color="white">
+                  </v-progress-circular>
                 </v-btn>
               </el-form-item>
               <div v-if="submitCount > 1">
@@ -99,5 +103,5 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 </style>
