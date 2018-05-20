@@ -148,6 +148,7 @@
         this.dialog = false
         this.task.payment.amount = Number(this.task.payment.amount)
         this.task.price.amount = Number(this.task.price.amount)
+        this.task.time.plan = Number(this.task.time.plan) * 60 * 60 * 1000
         if (this.operation.name === 'add') {
           this.task.creator.userId = this.USER.uid
           this.task.history.created = new Date().getTime()
@@ -176,15 +177,16 @@
       this.$bus.$on('openAddNewTaskDialog', () => {
         this.operation.name = 'add'
         this.operation.title = 'Add new task'
+        this.calcHours()
         this.dialog = true
       })
       this.$bus.$on('openEditTaskDialog', (id) => {
         this.task = this.$store.getters.tasks[id]
         this.operation.name = 'edit'
         this.operation.title = 'Edit task'
+        this.calcHours()
         this.dialog = true
       })
-      this.calcHours(this.task.price.amount)
     }
   }
 </script>

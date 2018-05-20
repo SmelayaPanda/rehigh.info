@@ -65,7 +65,7 @@
             </el-table-column>
             <el-table-column :label="msg.days[LANG]" width="80">
               <template slot-scope="scope">
-                ~{{ (scope.row.time.plan / 8).toFixed(1) }}
+                ~{{ scope.row.time.plan | msTo('WD') }}
               </template>
             </el-table-column>
             <!-- TIMER -->
@@ -79,7 +79,7 @@
                        :disabled="LOADING"
                        class="task_timer" flat>
                   <v-icon class="task_timer_icons">pause</v-icon>
-                  <el-tag type="success" size="small">{{ scope.row.time.real | msToTime }}</el-tag>
+                  <el-tag type="success" size="small">{{ scope.row.time.real | msTo('HMS') }}</el-tag>
                 </v-btn>
                 <v-btn v-else
                        @click="startTaskTimer(scope.row.id)"
@@ -87,7 +87,7 @@
                        :disabled="LOADING"
                        class="task_timer" flat>
                   <v-icon class="task_timer_icons">play_arrow</v-icon>
-                  <el-tag type="success" size="small">{{ scope.row.time.real | msToTime }}</el-tag>
+                  <el-tag type="success" size="small">{{ scope.row.time.real | msTo('HMS') }}</el-tag>
                 </v-btn>
                 <br>
               </template>

@@ -21,7 +21,7 @@
                 <v-avatar>
                   <v-icon class="secondary--text">timelapse</v-icon>
                 </v-avatar>
-                {{ PROJECT.time.real | msToHM(LANG) }} / {{ PROJECT.time.plan | msToHM(LANG) }}
+                {{ PROJECT.time.real | msTo('HM', LANG) }} / {{ PROJECT.time.plan | msTo('HM', LANG) }}
               </v-chip>
               <br>
               <v-chip v-for="(value, key) in PROJECT.emails" :key="key">

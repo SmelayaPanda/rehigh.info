@@ -54,7 +54,7 @@
             <v-btn v-if="TIMER.from && !TIMER.to" flat @click="stopTimer" block>
               <span class="white--text">
                 <v-icon id="pause_timer_icon">pause</v-icon>
-                <span class="white--text">{{ timeInWork | msToTime  }}</span>
+                <span class="white--text">{{ timeInWork | msTo('HMS')  }}</span>
               </span>
             </v-btn>
             <v-btn v-else flat @click="startTimer" block>
