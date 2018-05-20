@@ -122,7 +122,7 @@
     price: {amount: 3000, currency: 'RUB'},
     type: [],
     time: {plan: 8, real: 0},
-    progress: 0, // 0 - 100
+    progress: 1, // 0 - 100
     deadline: new Date().getTime(),
     history: {created: ''},
     status: 'created',

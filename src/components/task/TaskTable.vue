@@ -37,8 +37,8 @@
                   <!--v-model="taskProgressMenu"-->
                   <!--offset-x>-->
                     <v-progress-circular
-                      v-if="scope.row.progress"
-                      :size="44"
+                      v-if="scope.row.progress !== ''"
+                      :size="50"
                       :width="3"
                       :value="scope.row.progress"
                       :rotate="-90"
