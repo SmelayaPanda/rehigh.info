@@ -6,10 +6,10 @@
           <v-btn icon dark @click.native="close">
             <v-icon>close</v-icon>
           </v-btn>
-          <v-toolbar-title>{{ operation.title }}</v-toolbar-title>
+          <v-toolbar-title>{{ msg[operation][LANG] }}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark flat @click.native="saveTask">Save</v-btn>
+            <v-btn dark flat @click.native="saveTask">{{ msg.save[LANG] }}</v-btn>
           </v-toolbar-items>
         </v-toolbar>
         <v-list three-line subheader>
@@ -27,7 +27,7 @@
             </v-flex>
             <v-flex xs12>
               <v-text-field
-                label="Title"
+                :label="msg.title[LANG]"
                 v-model="task.title"
                 :rules="[(v) => v.length <= 128 || 'Max 128 characters']"
                 :counter="128">
@@ -44,7 +44,7 @@
               <v-select
                 v-model="task.type"
                 :items="TASK_TYPES"
-                label="Task type"
+                :label="msg.taskType[LANG]"
                 chips
                 deletable-chips
                 tags
@@ -53,7 +53,7 @@
               </v-select>
             </v-flex>
             <v-flex xs12 sm4 md2 lg2 xl2>
-              <span class="info--text">Priority</span>
+              <span class="info--text">{{ msg.priority[LANG] }}</span>
               <v-radio-group v-model="task.priority">
                 <v-radio :label="TASK_PRIORITY.low.en" :value="TASK_PRIORITY.low.val"
                          color="success"></v-radio>
@@ -65,45 +65,45 @@
             </v-flex>
             <v-flex xs12 sm4 md3 lg2 xl2>
               <v-text-field
-                label="Price"
+                :label="msg.price[LANG]"
                 @input="calcHours"
                 v-model="task.price.amount"
                 :suffix="task.price.currency"
                 type="number">
               </v-text-field>
               <v-text-field
-                label="Payment per hours"
+                :label="msg.payPerHour[LANG]"
                 @input="calcHours"
                 v-model="paymentPerHours"
                 suffix="RUB/hour"
                 type="number">
               </v-text-field>
               <v-text-field
-                label="Plan time"
+                :label="msg.planTime[LANG]"
                 v-model="task.time.plan"
-                suffix="hours"
+                :suffix="msg.hours[LANG]"
                 type="number"
                 disabled>
               </v-text-field>
               <v-text-field
-                label="Payment"
+                :label="msg.payment[LANG]"
                 v-model="task.payment.amount"
                 :suffix="task.payment.currency"
                 type="number">
               </v-text-field>
             </v-flex>
             <v-flex xs12 sm4 md3 lg2 xl2>
-              <p class="info--text">Deadline</p>
+              <p class="info--text">{{ msg.deadline[LANG] }}</p>
               <el-date-picker
                 v-model="task.deadline"
                 type="date"
-                placeholder="Pick a Date"
+                :placeholder="msg.pickDate[LANG]"
                 :clearable="false"
                 format="yyyy/MM/dd"
                 value-format="timestamp">
               </el-date-picker>
               <div class="mt-4">
-              <span class="info--text">Progress</span>
+              <span class="info--text">{{ msg.progress[LANG] }}</span>
               <v-slider v-model="task.progress" thumb-label step="1" ticks></v-slider>
               </div>
             </v-flex>
@@ -141,17 +141,28 @@
     data () {
       return {
         dialog: false,
-        operation: {
-          title: '',
-          name: ''
-        },
+        operation: 'add',
         editorOption: {
           // some quill options
         },
         task: newTask,
         paymentPerHours: 400,
         msg: {
-          hidden: {en: 'Hidden', ru: 'Скрытая'}
+          add: {en: 'Add new task', ru: 'Добавить новую задачу'},
+          edit: {en: 'Edit task', ru: 'Редактировать задачу'},
+          hidden: {en: 'Hidden', ru: 'Скрытая'},
+          save: {en: 'save', ru: 'сохранить'},
+          title: {en: 'Title', ru: 'Заголовок'},
+          taskType: {en: 'Task type', ru: 'Тип задачи'},
+          priority: {en: 'Priority', ru: 'Приоритетность'},
+          price: {en: 'Price', ru: 'Стоимость'},
+          payPerHour: {en: 'Payment per hours', ru: 'Оплата в час'},
+          planTime: {en: 'Plan time', ru: 'Плановое время'},
+          hours: {en: 'hours', ru: 'часов'},
+          payment: {en: 'Payment', ru: 'Оплачено'},
+          pickDate: {en: 'Pick a Date', ru: 'Выберите дату'},
+          progress: {en: 'Progress', ru: 'Прогресс'},
+          deadline: {en: 'Deadline', ru: 'Дата сдачи'}
         }
       }
     },
@@ -161,7 +172,7 @@
         this.task.payment.amount = Number(this.task.payment.amount)
         this.task.price.amount = Number(this.task.price.amount)
         this.task.time.plan = Number(this.task.time.plan) * 60 * 60 * 1000
-        if (this.operation.name === 'add') {
+        if (this.operation === 'add') {
           this.task.creator.userId = this.USER.uid
           this.task.history.created = new Date().getTime()
           this.task.projectId = this.PROJECT.id
@@ -187,15 +198,13 @@
     },
     created () {
       this.$bus.$on('openAddNewTaskDialog', () => {
-        this.operation.name = 'add'
-        this.operation.title = 'Add new task'
+        this.operation = 'add'
         this.calcHours()
         this.dialog = true
       })
       this.$bus.$on('openEditTaskDialog', (id) => {
         this.task = this.$store.getters.tasks[id]
-        this.operation.name = 'edit'
-        this.operation.title = 'Edit task'
+        this.operation = 'edit'
         this.calcHours()
         this.dialog = true
       })

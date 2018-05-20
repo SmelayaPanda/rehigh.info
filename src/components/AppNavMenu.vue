@@ -64,7 +64,9 @@
               </span>
             </v-btn>
             <el-tag type="success" size="small">id: {{ TIMER.task.id }}</el-tag>
-            <el-tag size="small">{{ TASK_STATUSES[TIMER.task.status][LANG] }}</el-tag>
+            <el-tag v-if="TASK_STATUSES[TIMER.task.status]" size="small">
+              {{ TASK_STATUSES[TIMER.task.status][LANG] }}
+            </el-tag>
             <p class="mt-2">
               <span v-if="PROJECTS[TIMER.task.projectId]">{{ PROJECTS[TIMER.task.projectId].title }}</span>
               <v-icon class="white--text" small>keyboard_arrow_right</v-icon>

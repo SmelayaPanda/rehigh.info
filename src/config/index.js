@@ -2,12 +2,12 @@ export const config = {
   firebase (env) {
     if (env === 'development') {
       return {
-        apiKey: 'AIzaSyBChgD-ImMjNR9nRvYOlPpFDDxWHyo3x68',
-        authDomain: 'rehigh-dev.firebaseapp.com',
-        databaseURL: 'https://rehigh-dev.firebaseio.com',
-        projectId: 'rehigh-dev',
-        storageBucket: 'rehigh-dev.appspot.com',
-        messagingSenderId: '430080679681'
+        apiKey: 'AIzaSyDvWnDKyQiwCA2BdUJYBYN3GMaHCuCl_wo',
+        authDomain: 'rehigh-info-dev.firebaseapp.com',
+        databaseURL: 'https://rehigh-info-dev.firebaseio.com',
+        projectId: 'rehigh-info-dev',
+        storageBucket: 'rehigh-info-dev.appspot.com',
+        messagingSenderId: '182973070710'
       }
     } else if (env === 'production') {
       return {

@@ -63,7 +63,7 @@ export default {
             lastname: payload.lastname,
             nickname: payload.nickname,
             email: snap.user.email,
-            timer: '',
+            timer: {task: 1, from: 1, to: 1},
             lang: 'ru',
             roles: ['guest'],
             created: new Date().getTime()
