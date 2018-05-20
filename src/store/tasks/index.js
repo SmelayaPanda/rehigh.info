@@ -37,11 +37,9 @@ export default {
       let query = fb.firestore().collection('tasks')
       if (payload.status) {
         commit('setTaskStatus', payload.status)
-        console.log(payload.status)
         query = query.where('status', '==', payload.status)
       }
       if (payload.projectId) {
-        console.log(payload.projectId)
         query = query.where('projectId', '==', payload.projectId)
       }
       return query.get()

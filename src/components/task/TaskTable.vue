@@ -31,23 +31,27 @@
             </el-table-column>
             <el-table-column label="" width="64">
               <template slot-scope="scope">
-                <v-progress-circular
-                  :size="44"
-                  :width="3"
-                  :rotate="360"
-                  :value="78"
-                  color="teal">
-                  78
-                </v-progress-circular>
-                <!--<v-icon v-if="scope.row.priority === TASK_PRIORITY.low.val"-->
-                        <!--class="success&#45;&#45;text">fiber_manual_record-->
-                <!--</v-icon>-->
-                <!--<v-icon v-if="scope.row.priority === TASK_PRIORITY.middle.val"-->
-                        <!--class="primary&#45;&#45;text">fiber_manual_record-->
-                <!--</v-icon>-->
-                <!--<v-icon v-if="scope.row.priority === TASK_PRIORITY.high.val"-->
-                        <!--class="error&#45;&#45;text">fiber_manual_record-->
-                <!--</v-icon>-->
+                <!--<v-menu-->
+                  <!--:close-on-content-click="false"-->
+                  <!--:nudge-width="200"-->
+                  <!--v-model="taskProgressMenu"-->
+                  <!--offset-x>-->
+                    <v-progress-circular
+                      v-if="scope.row.progress"
+                      :size="44"
+                      :width="3"
+                      :value="scope.row.progress"
+                      :rotate="-90"
+                      slot="activator"
+                      :color="scope.row.priority === TASK_PRIORITY.low.val ? 'success' :
+                             (scope.row.priority === TASK_PRIORITY.middle.val ? 'primary' :
+                             (scope.row.priority === TASK_PRIORITY.high.val ? 'error' : ''))">
+                      {{ scope.row.progress }}
+                    </v-progress-circular>
+                  <!--<v-card style="padding: 10px">-->
+                    <!--<v-slider :max="100" v-model="taskProgress" label="Progress"></v-slider>-->
+                  <!--</v-card>-->
+                <!--</v-menu>-->
               </template>
             </el-table-column>
             <el-table-column :label="msg.title[LANG]">
@@ -153,6 +157,8 @@
         curPage: 1,
         pageSize: 10,
         prevTimerTaskId: '',
+        taskProgressMenu: true,
+        taskProgress: 20,
         msg: {
           title: {en: 'Title', ru: 'Название'},
           days: {en: 'Plan (d)', ru: 'План (д)'},

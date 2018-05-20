@@ -99,6 +99,10 @@
                 format="yyyy/MM/dd"
                 value-format="timestamp">
               </el-date-picker>
+              <div class="mt-4">
+              <span class="info--text">Progress</span>
+              <v-slider v-model="task.progress" thumb-label step="1" ticks></v-slider>
+              </div>
             </v-flex>
           </v-layout>
         </v-container>
@@ -118,6 +122,7 @@
     price: {amount: 3000, currency: 'RUB'},
     type: [],
     time: {plan: 8, real: 0},
+    progress: 0, // 0 - 100
     deadline: new Date().getTime(),
     history: {created: ''},
     status: 'created',
