@@ -60,7 +60,7 @@
             <v-btn v-else flat @click="startTimer" block>
               <span class="white--text">
                 <v-icon id="start_timer_icon">play_arrow</v-icon>
-                Start
+                {{ msg.start[LANG] }}
               </span>
             </v-btn>
             <el-tag type="success" size="small">id: {{ TIMER.task.id }}</el-tag>
@@ -102,6 +102,7 @@
         bottomNav: '',
         msg: {
           help: {en: 'Help', ru: 'Помощь'},
+          start: {en: 'Start', ru: 'Старт'},
           timer: {en: 'Time-manager', ru: 'Тайм-менеджер'}
         }
       }

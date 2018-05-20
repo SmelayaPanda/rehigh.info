@@ -23,6 +23,9 @@
         <v-container id="task_form">
           <v-layout row wrap justify-space-between>
             <v-flex xs12>
+              <v-switch :label="msg.hidden[LANG]" v-model="task.hidden" color="primary"></v-switch>
+            </v-flex>
+            <v-flex xs12>
               <v-text-field
                 label="Title"
                 v-model="task.title"
@@ -126,6 +129,7 @@
     deadline: new Date().getTime(),
     history: {created: ''},
     status: 'created',
+    hidden: true, // !hidden visible for admin only
     creator: {userId: ''}
   }
   let newTask = Object.assign({}, initTask)
@@ -145,7 +149,10 @@
           // some quill options
         },
         task: newTask,
-        paymentPerHours: 400
+        paymentPerHours: 400,
+        msg: {
+          hidden: {en: 'Hidden', ru: 'Скрытая'}
+        }
       }
     },
     methods: { // TODO: add comments to task (userId, text, date)

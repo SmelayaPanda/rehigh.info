@@ -6,7 +6,6 @@
           <el-table
             :data="tasks"
             show-overflow-tooltip
-            :default-sort="{prop: 'deadline', order: 'descending'}"
             style="width: 100%">
             <el-table-column type="expand">
               <template slot-scope="props">
@@ -203,8 +202,13 @@
     computed: {
       tasks () {
         if (this.$store.getters.tasks) {
-          return Object.values(this.$store.getters.tasks)
-            .slice((this.curPage - 1) * this.pageSize, this.curPage * this.pageSize)
+          let tasksArr
+          if (this.ROLE === this.ROLES.admin.val) { // hidden task visible for only admin only
+            tasksArr = Object.values(this.$store.getters.tasks)
+          } else {
+            tasksArr = Object.values(this.$store.getters.tasks).filter(el => !el.hidden)
+          }
+          return tasksArr.slice((this.curPage - 1) * this.pageSize, this.curPage * this.pageSize)
         } else {
           return []
         }
