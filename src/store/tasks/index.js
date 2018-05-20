@@ -142,7 +142,7 @@ export default {
         }
         projects[task.projectId].time.real += addTime
         commit('setProjects', {...projects})
-        commit('setTimer', {task: task, from: 0, to: now})
+        commit('setTimer', {task: task, from: getters.timer.from, to: now})
       }
       actions.push(fb.firestore().collection('users').doc(getters.user.uid).update(updateUserData))
       return Promise.all(actions)
