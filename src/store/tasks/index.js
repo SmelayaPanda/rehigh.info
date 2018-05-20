@@ -63,7 +63,9 @@ export default {
           tasks[docRef.id] = payload
           tasks[docRef.id].id = docRef.id
           commit('setTasks', {...tasks})
-          dispatch('EVENT', `Добавлена новая задача: ${payload.title}.`)
+          if (!payload.hidden) {
+            dispatch('EVENT', `Добавлена новая задача: ${payload.title}.`)
+          }
           commit('LOADING', false)
         })
         .catch(err => dispatch('LOG', err))
