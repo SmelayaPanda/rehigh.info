@@ -19,9 +19,9 @@
               </v-chip>
               <v-chip v-if="ROLE === ROLES.admin.val">
                 <v-avatar>
-                  <v-icon class="secondary--text">timer</v-icon>
+                  <v-icon class="secondary--text">timelapse</v-icon>
                 </v-avatar>
-                {{ (PROJECT.time.real / (60 * 60 * 1000)).toFixed(2) }} ч
+                {{ PROJECT.time.real | msToHM(LANG) }} / {{ PROJECT.time.plan | msToHM(LANG) }}
               </v-chip>
               <br>
               <v-chip v-for="(value, key) in PROJECT.emails" :key="key">

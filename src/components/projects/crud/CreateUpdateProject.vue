@@ -70,6 +70,35 @@
                 multiple>
               </v-select>
             </v-flex>
+            <v-flex xs12 sm4 md3 lg2 xl2>
+              <v-text-field
+                label="Price"
+                @input="calcHours"
+                v-model="project.price.amount"
+                :suffix="project.price.currency"
+                type="number">
+              </v-text-field>
+              <v-text-field
+                label="Payment per hours"
+                @input="calcHours"
+                v-model="paymentPerHours"
+                suffix="RUB/hour"
+                type="number">
+              </v-text-field>
+              <v-text-field
+                label="Plan time"
+                v-model="project.time.plan"
+                suffix="hours"
+                type="number"
+                disabled>
+              </v-text-field>
+              <v-text-field
+                label="Payment"
+                v-model="project.payment.amount"
+                :suffix="project.payment.currency"
+                type="number">
+              </v-text-field>
+            </v-flex>
           </v-layout>
         </v-container>
       </v-card>
@@ -82,7 +111,19 @@
     title: '',
     subtitle: '',
     description: '',
-    type: ''
+    type: '',
+    price: {
+      amount: 0,
+      currency: 'RUB'
+    },
+    payment: {
+      amount: 0,
+      currency: 'RUB'
+    },
+    time: {
+      plan: 0,
+      real: 0
+    }
   }
   let newProject = Object.assign({}, initProject)
   export default {
@@ -92,6 +133,7 @@
         dialog: false,
         operation: '',
         project: newProject,
+        paymentPerHours: 400,
         emailList: [ // emails which have access to project
           'smelayapandagm@gmail.com',
           'vika.erika@gmail.com'
@@ -114,32 +156,38 @@
           emails[el] = true
         })
         this.project.emails = emails
-        // TODO add time: {plan, real}
-        // Operations
-        if (this.operation === 'add') {
+        this.project.payment.amount = Number(this.project.payment.amount)
+        this.project.price.amount = Number(this.project.price.amount)
+        this.project.time.plan = Number(this.project.time.plan) * 60 * 60 * 1000
+        if (this.operation === 'add') { // CREATE
           this.project.history = {}
           this.project.history.created = new Date().getTime()
           this.$store.dispatch('addNewProject', this.project)
             .then(() => { // clear
               this.project = initProject
             })
-        } else if (this.operation === 'edit') {
+        } else if (this.operation === 'edit') { // UPDATE
           this.$store.dispatch('updateProject', {id: this.project.id, updateData: this.project})
         }
       },
       close () {
         this.dialog = false
         this.project = initProject
+      },
+      calcHours () {
+        this.project.time.plan = this.project.price.amount / this.paymentPerHours
       }
     },
     created () {
       this.$bus.$on('openAddNewProjectDialog', () => {
         this.operation = 'add'
+        this.calcHours()
         this.dialog = true
       })
       this.$bus.$on('openEditProjectDialog', () => {
         this.operation = 'edit'
-        this.project = this.$store.getters.project
+        this.project = this.PROJECT
+        this.calcHours()
         this.dialog = true
       })
     }
