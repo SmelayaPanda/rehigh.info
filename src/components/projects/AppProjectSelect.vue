@@ -107,6 +107,10 @@
     width: 280px;
   }
 
+  .input-group__details {
+    width: 0;
+  }
+
   #project_operation_btn {
     margin-left: 20px;
     color: white;
