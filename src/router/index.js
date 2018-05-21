@@ -10,6 +10,7 @@ import Project from '@/components/projects/Project'
 import Task from '@/components/task/Task'
 import Documents from '@/components/documents/Documents'
 import Contacts from '@/components/contacts/Contacts'
+import System from '@/components/system/System'
 
 Vue.use(Router)
 
@@ -43,6 +44,11 @@ export default new Router({
       path: '/contacts',
       name: 'contacts',
       component: Contacts
+    },
+    {
+      path: '/system',
+      name: 'system',
+      component: System
     },
     {
       path: '/signin',

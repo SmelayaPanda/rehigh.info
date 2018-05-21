@@ -30,7 +30,10 @@
       </v-list-tile>
       <p v-if="!miniVariant" id="work_panel">work panel</p>
       <v-divider></v-divider>
-      <v-list-tile v-for="i in items" :key="i.router" @click="$router.push(i.router)">
+      <v-list-tile
+        v-for="i in items" :key="i.router"
+        v-if="i.roles.indexOf(ROLE) !== -1"
+        @click="$router.push(i.router)">
         <v-list-tile-action>
           <v-icon class="primary--text mb-1">{{ i.icon }}</v-icon>
         </v-list-tile-action>
@@ -96,10 +99,36 @@
         timeInWork: 0,
         ticTacId: '',
         items: [
-          {title: {en: 'PROJECT', ru: 'ПРОЕКТ'}, router: '/project', icon: 'settings_ethernet'},
-          {title: {en: 'TASK', ru: 'ЗАДАЧИ'}, router: '/task', icon: 'whatshot'},
-          {title: {en: 'DOCUMENTS', ru: 'ДОКУМЕНТЫ'}, router: '/documents', icon: 'insert_drive_file'},
-          {title: {en: 'CONTACTS', ru: 'КОНТАКТЫ'}, router: '/contacts', icon: 'perm_contact_calendar'}
+          {
+            title: {en: 'PROJECT', ru: 'ПРОЕКТ'},
+            router: '/project',
+            icon: 'settings_ethernet',
+            roles: ['admin', 'client']
+          },
+          {
+            title: {en: 'TASK', ru: 'ЗАДАЧИ'},
+            router: '/task',
+            icon: 'whatshot',
+            roles: ['admin', 'client']
+          },
+          {
+            title: {en: 'DOCUMENTS', ru: 'ДОКУМЕНТЫ'},
+            router: '/documents',
+            icon: 'insert_drive_file',
+            roles: ['admin', 'client']
+          },
+          {
+            title: {en: 'CONTACTS', ru: 'КОНТАКТЫ'},
+            router: '/contacts',
+            icon: 'perm_contact_calendar',
+            roles: ['admin', 'client', 'guest']
+          },
+          {
+            title: {en: 'SYSTEM', ru: 'СИСТЕМА'},
+            router: '/system',
+            icon: 'settings',
+            roles: ['developer']
+          }
         ],
         bottomNav: '',
         msg: {
