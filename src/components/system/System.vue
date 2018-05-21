@@ -92,7 +92,7 @@
             actions.push(fb.firestore().collection(collectionName).doc(docId).set(collection[docId]))
           }
           Promise.all(actions).then(() => {
-            console.log('collection: ' + collectionName + ' uploaded')
+            console.log('Collection: ' + collectionName + ' uploaded!')
             this.$refs.fileInput.value = ''
             this.$store.dispatch('LOADING', false)
           })
