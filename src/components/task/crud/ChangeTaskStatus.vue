@@ -17,7 +17,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red darken-1" flat @click.native="dialog = false">{{ msg.cancel[LANG] }}</v-btn>
+          <v-btn color="red darken-1" flat @click.native="close">{{ msg.cancel[LANG] }}</v-btn>
           <v-btn
             @click.native="save"
             :disabled="!status"
@@ -54,6 +54,9 @@
             return val === this.TASK_STATUSES.accepted.val
           }
         } else if (this.ROLE === this.ROLES.admin.val) {
+          if (this.task && this.task.hidden) { // can switch to any status hidden task
+            return true
+          }
           if (this.prevStatus === this.TASK_STATUSES.pending.val) {
             return val === this.TASK_STATUSES.process.val ||
               val === this.TASK_STATUSES.finished.val ||
@@ -76,9 +79,19 @@
           status: this.status,
           [`history.${this.status}`]: new Date().getTime()
         })
+      },
+      close () {
+        this.taskId = ''
+        this.status = ''
+        this.prevStatus = ''
+        this.dialog = false
       }
     },
-    computed: {},
+    computed: {
+      task () {
+        return this.$store.getters.tasks[this.taskId]
+      }
+    },
     created () {
       this.$bus.$on('openChangeTaskStatusDialog', (id) => {
         this.dialog = true
