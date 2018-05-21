@@ -75,9 +75,12 @@
         console.log(this.taskId)
         console.log(this.status)
         this.$store.dispatch('updateTask', {
+          isStatusChange: true,
           id: this.taskId,
-          status: this.status,
-          [`history.${this.status}`]: new Date().getTime()
+          data: {
+            status: this.status,
+            [`history.${this.status}`]: new Date().getTime()
+          }
         })
       },
       close () {

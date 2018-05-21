@@ -73,13 +73,16 @@ export default {
     updateTask ({commit, dispatch, getters}, payload) {
       commit('LOADING', true)
       let tasks = getters.tasks
-      return fb.firestore().collection('tasks').doc(payload.id).update(payload)
+      return fb.firestore().collection('tasks').doc(payload.id).update(payload.data)
         .then(() => {
-          if (payload.status) { // change status
-            dispatch('EVENT', `Изменен статус задачи ${payload.id}: ${tasks[payload.id].title}`)
+          if (payload.isChangedPayment) {
+            dispatch('calcFullProjectPayment')
+          }
+          if (payload.isStatusChange) {
+            dispatch('EVENT', `Изменен статус задачи ${tasks[payload.id].title}`)
             delete tasks[payload.id]
           } else { // edit
-            tasks[payload.id] = payload
+            tasks[payload.id] = payload.data
           }
           commit('setTasks', {...tasks})
           commit('LOADING', false)

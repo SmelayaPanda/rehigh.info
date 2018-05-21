@@ -89,6 +89,7 @@
                 :label="msg.payment[LANG]"
                 v-model="task.payment.amount"
                 :suffix="task.payment.currency"
+                @change="paymentChange"
                 type="number">
               </v-text-field>
             </v-flex>
@@ -147,6 +148,7 @@
         },
         task: newTask,
         paymentPerHours: 400,
+        isChangedPayment: false,
         msg: {
           add: {en: 'Add new task', ru: 'Добавить новую задачу'},
           edit: {en: 'Edit task', ru: 'Редактировать задачу'},
@@ -181,10 +183,14 @@
               this.task = initTask
             })
         } else {
-          delete this.task.status // edit operation
-          this.$store.dispatch('updateTask', this.task)
+          this.$store.dispatch('updateTask', {
+            id: this.task.id,
+            isChangedPayment: this.isChangedPayment,
+            data: this.task
+          })
             .then(() => { // clear
               this.task = initTask
+              this.isChangedPayment = false
             })
         }
       },
@@ -194,6 +200,9 @@
       },
       calcHours () {
         this.task.time.plan = this.task.price.amount / this.paymentPerHours
+      },
+      paymentChange (val) {
+        this.isChangedPayment = true
       }
     },
     created () {

@@ -53,6 +53,30 @@ export default {
     setProject ({commit, dispatch, getters}, payload) {
       commit('setProject', getters.projects[payload])
       dispatch('fetchProjectNotifications', payload)
+    },
+    calcFullProjectPayment ({commit, dispatch, getters}) {
+      commit('LOADING', true)
+      if (!getters.project) return
+      let projects = getters.projects
+      let projectPayment = 0
+      fb.firestore().collection('tasks')
+        .where('projectId', '==', getters.project.id)
+        .where('payment.amount', '>', 0)
+        .get()
+        .then(snap => {
+          snap.docs.forEach(doc => {
+            projectPayment += doc.data().payment.amount
+          })
+          return fb.firestore().collection('projects').doc(getters.project.id).update({
+            'payment.amount': projectPayment
+          })
+        })
+        .then(() => {
+          console.log('Project payment recalculated')
+          projects[getters.project.id].payment.amount = projectPayment
+          commit('setProjects', {...projects})
+          commit('LOADING', false)
+        })
     }
   },
   getters: {

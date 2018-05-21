@@ -24,6 +24,14 @@
                 {{ PROJECT.time.real | msTo('HM', LANG) }} / {{ PROJECT.time.plan | msTo('HM', LANG) }}
               </v-chip>
               <br>
+              <v-chip>
+                <v-avatar>
+                  <v-icon class="secondary--text">monetization_on</v-icon>
+                </v-avatar>
+                {{ PROJECT.payment.amount }} {{ PROJECT.payment.currency }}
+                / {{ PROJECT.price.amount }} {{ PROJECT.price.currency }}
+              </v-chip>
+              <br>
               <v-chip v-for="(value, key) in PROJECT.emails" :key="key">
                 <v-avatar>
                   <v-icon class="secondary--text">vpn_lock</v-icon>
