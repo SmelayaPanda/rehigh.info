@@ -11,8 +11,16 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "firebase-admin": "~5.12.0",
-    "firebase-functions": "^1.0.1"
+    "express": "^4.16.3",
+    "firebase-admin": "^5.12.1",
+    "firebase-functions": "^1.0.2",
+    "@google-cloud/storage": "^1.6.0",
+    "child-process-promise": "^2.2.1",
+    "cors": "^2.8.4",
+    "nodemailer": "^4.6.4",
+    "mkdirp": "^0.5.1",
+    "mkdirp-promise": "^5.0.1",
+    "yandex-checkout": "^1.0.10"
   },
   "devDependencies": {
     "tslint": "^5.8.0",
