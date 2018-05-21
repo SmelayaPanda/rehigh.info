@@ -46,8 +46,7 @@
           .then(() => {
             zip.generateAsync({type: 'blob'})
               .then((content) => {
-                let date = new Date().toISOString().substring(0, 10)
-                FileSaver.saveAs(content, 'dump_' + date + '.zip')
+                FileSaver.saveAs(content, 'rehigh_info_dump_' + new Date().toLocaleString() + '.zip')
                 this.$store.dispatch('LOADING', false)
               })
               .catch(err => {
