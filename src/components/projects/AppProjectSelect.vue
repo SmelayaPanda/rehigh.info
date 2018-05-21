@@ -14,6 +14,7 @@
         color="primary"
         :dark="true"
         single-line
+        autocomplete
         return-object
         persistent-hint>
       </v-select>
@@ -85,6 +86,7 @@
               })
             }
           }
+          items.sort((a, b) => a.title > b.title)
           if (items.length && this.ROLE === 'client') { // auto select project for client
             this.select = {
               title: items[0].title,

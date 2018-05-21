@@ -13,7 +13,7 @@
           </v-toolbar-items>
         </v-toolbar>
         <v-list three-line subheader>
-          <v-list-tile avatar>
+          <v-list-tile avatar v-if="operation === 'edit'">
             <v-list-tile-content>
               <v-list-tile-title>{{ PROJECT.title }}</v-list-tile-title>
               <v-list-tile-sub-title>{{ PROJECT.subtitle }}</v-list-tile-sub-title>
