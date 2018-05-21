@@ -89,7 +89,9 @@
     </v-card>
   </v-navigation-drawer>
 </template>
+
 <script>
+  import msTo from './../filters/msTo'
   export default {
     name: 'app-nav-menu',
     data () {
@@ -149,11 +151,14 @@
       },
       stopTimer () {
         this.$store.dispatch('setTimer', {isTimerStop: true})
+        document.title = 're:HIGH Studio Work Panel'
         clearInterval(this.ticTacId)
       },
       startTicTac () {
         this.ticTacId = setInterval(() => {
           this.timeInWork = new Date().getTime() - new Date(this.TIMER.from)
+          let time = msTo(this.timeInWork, 'TAB', this.LANG)
+          document.title = time
         }, 1000)
       }
     },
