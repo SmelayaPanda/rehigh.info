@@ -103,7 +103,8 @@
 </script>
 
 <style type="text/css">
-  #project_selector {
+  #project_selector,
+  .input-group--select .input-group__selections{
     width: 280px;
   }
 
