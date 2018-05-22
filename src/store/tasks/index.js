@@ -79,7 +79,7 @@ export default {
             dispatch('calcFullProjectPayment')
           }
           if (payload.isStatusChange) {
-            dispatch('EVENT', `Изменен статус задачи ${tasks[payload.id].title}`)
+            dispatch('EVENT', `Изменен статус задачи: "${tasks[payload.id].title}" (${payload.data.status})`)
             delete tasks[payload.id]
           } else { // edit
             tasks[payload.id] = payload.data

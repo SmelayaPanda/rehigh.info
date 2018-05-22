@@ -2,7 +2,7 @@ export const data = {
   data: function () {
     return {
       ROLES: {
-        admin: {val: 'admin', en: 'Admin', ru: 'Администратор'},
+        admin: {val: 'admin', en: 'Admin', ru: 'Админ'},
         developer: {val: 'developer', en: 'Developer', ru: 'Разработчик'},
         client: {val: 'client', en: 'Client', ru: 'Клиент'},
         guest: {val: 'guest', en: 'Guest', ru: 'Гость'}

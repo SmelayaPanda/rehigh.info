@@ -7,14 +7,17 @@
           <v-radio-group v-model="status" column id="user_lang">
             <v-radio
               v-for="status in TASK_STATUSES"
+              v-if="availableStatus(status.val)"
               :key="status.val"
               :label="status[LANG]"
               :value="status.val"
-              :disabled="!availableStatus(status.val)"
               color="primary">
             </v-radio>
           </v-radio-group>
         </v-card-text>
+        <v-container class="info--text caption">
+          * смена статусов задач зависит от вашей аккаунт-роли и текщего статуса задачи
+        </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="red darken-1" flat @click.native="close">{{ msg.cancel[LANG] }}</v-btn>

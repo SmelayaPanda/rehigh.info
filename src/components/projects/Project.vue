@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-layout row class="secondary--text">
       <v-flex xs12 sm11 md10 lg7 xl7>
         <v-container v-if="!USER">
