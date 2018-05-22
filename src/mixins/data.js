@@ -9,12 +9,12 @@ export const data = {
       },
       RUB: '&nbsp;&#8381',
       TASK_STATUSES: {
-        created: {val: 'created', en: 'Created', ru: 'Создан'},
+        created: {val: 'created', en: 'Created', ru: 'Создано'},
         pending: {val: 'pending', en: 'Pending', ru: 'Ожидает'}, // only client can switch to status pending
         process: {val: 'process', en: 'Process', ru: 'В процессе'},
-        finished: {val: 'finished', en: 'Finished', ru: 'Завершен'},
-        accepted: {val: 'accepted', en: 'Accepted', ru: 'Принят'},
-        stopped: {val: 'stopped', en: 'Stopped', ru: 'Приостановлен'}
+        finished: {val: 'finished', en: 'Finished', ru: 'Завершено'},
+        accepted: {val: 'accepted', en: 'Accepted', ru: 'Принято'},
+        stopped: {val: 'stopped', en: 'Stopped', ru: 'Приостановлено'}
       },
       TASK_TYPES: [ // TODO: to dictionaries
         'vue', 'vuex', 'vue-router', 'vuetify', 'elements-ui',

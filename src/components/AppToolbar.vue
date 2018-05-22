@@ -16,17 +16,17 @@
         <v-icon class="white--text">notifications_none</v-icon>
       </v-btn>
     </div>
-    <app-account/>
+    <account-menu/>
     <br>
   </v-toolbar>
 </template>
 <script>
   import AppProjectSelect from './projects/AppProjectSelect'
-  import AppAccount from './user/AppAccount'
+  import AccountMenu from './user/AccountMenu'
 
   export default {
     name: 'app-toolbar',
-    components: {AppAccount, AppProjectSelect},
+    components: {AccountMenu, AppProjectSelect},
     data () {
       return {
         miniVariant: false

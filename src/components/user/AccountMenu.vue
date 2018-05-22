@@ -26,7 +26,9 @@
             <v-flex xs8 v-if="USER">
               <span>{{ USER.firstname.toUpperCase() }} {{ USER.lastname.toUpperCase() }}</span> <br>
               <span class="info--text">{{ USER.email }}</span> <br>
-              <v-btn small class="primary" id="my_account_btn">{{ msg.account[LANG] }}</v-btn>
+              <router-link to="/account" exact>
+                <v-btn small class="primary" id="my_account_btn">{{ msg.account[LANG] }}</v-btn>
+              </router-link>
             </v-flex>
           </v-layout>
         </v-card-title>
@@ -65,7 +67,7 @@
 
 <script>
   export default {
-    name: 'AppAccount',
+    name: 'AccountMenu',
     data () {
       return {
         menu: false,

@@ -8,7 +8,7 @@
 </template>
 <script>
   export default {
-    name: 'router-name',
+    name: 'app-router-name',
     props: {
       name: {type: String, required: true}
     }
@@ -17,12 +17,12 @@
 <style scoped lang="scss">
   #task_header {
     background: $color-primary;
-    height: 60px;
+    height: 48px;
   }
 
   #router_header {
     font-size: 22px;
-    line-height: 40px;
+    line-height: 22px;
     color: white;
     margin-left: 52px;
     padding-right: 15px;

@@ -1,6 +1,6 @@
 <template>
   <div id="task_router" v-if="ROLE !== ROLES.guest.val">
-    <app-router-name :name="title[LANG]">
+    <app-router-name :name="''">
       <el-radio-group
         @change="loadTasks" :disabled="!PROJECT"
         v-model="status" size="mini" id="task_status_select">
@@ -57,5 +57,6 @@ export default {
 
   #task_status_select {
     margin-bottom: 7px;
+    margin-left: -12px;
   }
 </style>

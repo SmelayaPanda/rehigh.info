@@ -113,6 +113,7 @@
         miniVariant: false,
         timeInWork: 0,
         ticTacId: '',
+        soundNotifyId: '',
         items: [
           {
             title: {en: 'PROJECT', ru: 'ПРОЕКТ'},
@@ -166,6 +167,7 @@
         this.$store.dispatch('setTimer', {isTimerStop: true})
         document.title = 're:HIGH Studio Work Panel'
         clearInterval(this.ticTacId)
+        clearInterval(this.soundNotifyId)
       },
       startTicTac () {
         this.ticTacId = setInterval(() => {
@@ -173,6 +175,15 @@
           let time = msTo(this.timeInWork, 'TAB', this.LANG)
           document.title = time
         }, 1000)
+        this.setSoundNotification()
+      },
+      setSoundNotification () {
+        this.soundNotifyId = setInterval(() => {
+          this.audio = new Audio(require('@/assets/sounds/' + this.USER.sound.name + '.mp3'))
+          this.audio.setAttribute('crossorigin', 'anonymous')
+          this.audio.volume = this.USER.sound.volume
+          this.audio.play()
+        }, this.USER.sound.frequency)
       }
     },
     created () {
@@ -185,6 +196,7 @@
       this.$bus.$on('stopTicTac', () => {
         document.title = 're:HIGH Studio Work Panel'
         clearInterval(this.ticTacId)
+        clearInterval(this.soundNotifyId)
       })
       if (this.TIMER.from && !this.TIMER.to) {
         this.startTicTac()
@@ -202,7 +214,7 @@
   }
 
   #rehigh_title {
-    margin-top: 30px;
+    margin-top: 18px;
     color: white;
   }
 

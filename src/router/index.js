@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import AuthGuard from './auth-guard'
 import Signin from '@/components/auth/Signin'
 import Signup from '@/components/auth/Signup'
+import Account from '@/components/user/Account'
 // PROJECT
 import AppHome from '@/components/AppHome'
 import Project from '@/components/projects/Project'
@@ -49,6 +50,11 @@ export default new Router({
       path: '/system',
       name: 'system',
       component: System
+    },
+    {
+      path: '/account',
+      name: 'account',
+      component: Account
     },
     {
       path: '/signin',

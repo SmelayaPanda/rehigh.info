@@ -139,6 +139,18 @@ export default {
           }
           dispatch('LOG', err)
         })
+    },
+    saveNotificationSound ({commit, dispatch, getters}, payload) {
+      commit('LOADING', true)
+      return fb.firestore().collection('users').doc(getters.user.uid).update({sound: payload})
+        .then(() => {
+          let user = getters.user
+          user.sound = payload
+          commit('setUser', {...user})
+          commit('LOADING', false)
+          console.log('Sound saved')
+        })
+        .catch(err => dispatch('LOG', err))
     }
   },
   getters: {
