@@ -170,6 +170,7 @@
         this.startTicTac()
       })
       this.$bus.$on('stopTicTac', () => {
+        document.title = 're:HIGH Studio Work Panel'
         clearInterval(this.ticTacId)
       })
       if (this.TIMER.from && !this.TIMER.to) {
