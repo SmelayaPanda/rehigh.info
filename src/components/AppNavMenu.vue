@@ -43,7 +43,7 @@
       </v-list-tile>
       <v-divider></v-divider>
       <!-- TIME MANAGER -->
-      <div v-if="ROLE === ROLES.admin.val">
+      <div v-if="ROLE === ROLES.admin.val && TIMER.task">
         <v-list-tile @click="">
           <v-list-tile-action>
             <v-icon class="primary--text mb-1">timer</v-icon>
@@ -52,30 +52,42 @@
             <v-list-tile-title class="body-2">{{ msg.timer[LANG] }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-container>
-          <div v-if="TIMER.task">
-            <v-btn v-if="!TIMER.to" flat @click="stopTimer" block>
-              <span class="white--text">
-                <v-icon id="pause_timer_icon">pause</v-icon>
-                <span class="white--text">{{ timeInWork | msTo('HMS')  }}</span>
-              </span>
-            </v-btn>
-            <v-btn v-else flat @click="startTimer" block>
-              <span class="white--text">
-                <v-icon id="start_timer_icon">play_arrow</v-icon>
-                {{ msg.start[LANG] }}
-              </span>
-            </v-btn>
-            <el-tag type="success" size="small">id: {{ TIMER.task.id }}</el-tag>
-            <el-tag v-if="TASK_STATUSES[TIMER.task.status]" size="small">
-              {{ TASK_STATUSES[TIMER.task.status][LANG] }}
-            </el-tag>
-            <p class="mt-2">
-              <span v-if="PROJECTS[TIMER.task.projectId]">{{ PROJECTS[TIMER.task.projectId].title }}</span>
-              <v-icon class="white--text" small>keyboard_arrow_right</v-icon>
-              {{ TIMER.task.title }}
-            </p>
-          </div>
+        <!-- TIMER MINI -->
+        <v-list v-if="miniVariant">
+          <v-list-tile v-if="!TIMER.to" @click="stopTimer">
+            <v-list-tile-action>
+              <v-icon class="error--text">pause</v-icon>
+            </v-list-tile-action>
+          </v-list-tile>
+          <v-list-tile v-else @click="startTimer">
+            <v-list-tile-action>
+              <v-icon class="success--text">play_arrow</v-icon>
+            </v-list-tile-action>
+          </v-list-tile>
+        </v-list>
+        <!-- TIMER -->
+        <v-container v-else>
+          <v-btn v-if="!TIMER.to" flat @click="stopTimer" block>
+            <span class="white--text">
+              <v-icon id="pause_timer_icon">pause</v-icon>
+              <span class="white--text">{{ timeInWork | msTo('HMS') }}</span>
+            </span>
+          </v-btn>
+          <v-btn v-else flat @click="startTimer" block>
+            <span class="white--text">
+              <v-icon id="start_timer_icon">play_arrow</v-icon>
+              {{ msg.start[LANG] }}
+            </span>
+          </v-btn>
+          <el-tag type="success" size="small">id: {{ TIMER.task.id }}</el-tag>
+          <el-tag v-if="TASK_STATUSES[TIMER.task.status]" size="small">
+            {{ TASK_STATUSES[TIMER.task.status][LANG] }}
+          </el-tag>
+          <p class="mt-2">
+            <span v-if="PROJECTS[TIMER.task.projectId]">{{ PROJECTS[TIMER.task.projectId].title }}</span>
+            <v-icon class="white--text" small>keyboard_arrow_right</v-icon>
+            {{ TIMER.task.title }}
+          </p>
         </v-container>
       </div>
     </v-list>
@@ -92,6 +104,7 @@
 
 <script>
   import msTo from './../filters/msTo'
+
   export default {
     name: 'app-nav-menu',
     data () {
