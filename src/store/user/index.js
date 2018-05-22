@@ -64,6 +64,7 @@ export default {
             nickname: payload.nickname,
             email: snap.user.email,
             timer: {task: 1, from: 1, to: 1},
+            sound: {name: '', frequency: 1000, volume: 0.7},
             lang: 'ru',
             roles: ['guest'],
             created: new Date().getTime()

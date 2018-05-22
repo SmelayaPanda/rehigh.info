@@ -12,6 +12,7 @@
         </v-tab>
       </v-tabs>
     </app-router-name>
+    <user-data v-if="tab === '0'"/>
     <sound-notify-settings v-if="tab === '1'"></sound-notify-settings>
   </div>
 </template>
@@ -19,13 +20,14 @@
 <script>
   import AppRouterName from '../theme/AppRouterName'
   import SoundNotifySettings from './SoundNotifySettings'
+  import UserData from './UserData'
 
-  export default {
+export default {
     name: 'Account',
-    components: {SoundNotifySettings, AppRouterName},
+    components: {UserData, SoundNotifySettings, AppRouterName},
     data () {
       return {
-        tab: '1',
+        tab: '0',
         tabs: {
           data: {en: 'Data', ru: 'Данные'},
           notifications: {en: 'notifications', ru: 'Оповещения'},
