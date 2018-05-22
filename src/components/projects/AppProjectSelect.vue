@@ -1,51 +1,55 @@
 <template>
-  <el-row row wrap>
-    <el-col :span="19">
-      <v-select
-        id="project_selector"
-        v-model="select"
-        @change="switchProject"
-        :disabled="!USER || !PROJECTS || ROLE === ROLES.guest.val"
-        :items="items"
-        :hint="select.subtitle"
-        :label="msg.project[LANG]"
-        item-text="title"
-        item-value="subtitle"
-        color="primary"
-        :dark="true"
-        single-line
-        autocomplete
-        return-object
-        persistent-hint>
-      </v-select>
-      <create-update-project/>
-    </el-col>
-    <el-col :span="5">
-      <v-menu v-if="PROJECT && (ROLE === ROLES.admin.val || ROLE === ROLES.developer.val)" bottom right>
-        <v-btn flat fab small id="project_operation_btn" slot="activator">
-          <v-icon>more_vert</v-icon>
-        </v-btn>
-        <v-list>
-          <v-list-tile
-            v-if="ROLE === ROLES.admin.val"
-            @click="$bus.$emit('openEditProjectDialog', PROJECT.id)">
-            <v-list-tile-title>{{ msg.edit[LANG] }}</v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile
-            v-if="ROLE === ROLES.developer.val"
-            @click="$bus.$emit('openAddNewProjectDialog')">
-            <v-list-tile-title>{{ msg.create[LANG] }}</v-list-tile-title>
-          </v-list-tile>
-          <!-- TODO: create remove project ? -->
-          <v-list-tile
-            v-if="ROLE === ROLES.developer.val"
-            @click="$bus.$emit('openDeleteProjectDialog', PROJECT.id)">
-            <v-list-tile-title>{{ msg.remove[LANG] }}</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
-    </el-col>
-  </el-row>
+  <v-container id="project_select_wrap">
+    <v-layout row wrap>
+      <v-flex xs10 sm11 md6 lg4 xl4>
+        <v-select
+          id="project_selector"
+          v-model="select"
+          @change="switchProject"
+          :disabled="!USER || !PROJECTS || ROLE === ROLES.guest.val"
+          :items="items"
+          :hint="select.subtitle"
+          :label="msg.project[LANG]"
+          :dark="true"
+          min-width="280"
+          max-height="300"
+          item-text="title"
+          item-value="subtitle"
+          color="primary"
+          single-line
+          autocomplete
+          return-object
+          persistent-hint>
+        </v-select>
+        <create-update-project/>
+      </v-flex>
+      <v-flex xs2 sm1 md1 lg1 xl1>
+        <v-menu v-if="PROJECT && (ROLE === ROLES.admin.val || ROLE === ROLES.developer.val)" bottom right>
+          <v-btn flat fab small id="project_operation_btn" slot="activator">
+            <v-icon>more_vert</v-icon>
+          </v-btn>
+          <v-list>
+            <v-list-tile
+              v-if="ROLE === ROLES.admin.val"
+              @click="$bus.$emit('openEditProjectDialog', PROJECT.id)">
+              <v-list-tile-title>{{ msg.edit[LANG] }}</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile
+              v-if="ROLE === ROLES.developer.val"
+              @click="$bus.$emit('openAddNewProjectDialog')">
+              <v-list-tile-title>{{ msg.create[LANG] }}</v-list-tile-title>
+            </v-list-tile>
+            <!-- TODO: create remove project ? -->
+            <v-list-tile
+              v-if="ROLE === ROLES.developer.val"
+              @click="$bus.$emit('openDeleteProjectDialog', PROJECT.id)">
+              <v-list-tile-title>{{ msg.remove[LANG] }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 <script>
   import CreateUpdateProject from './crud/CreateUpdateProject'
@@ -103,13 +107,8 @@
 </script>
 
 <style type="text/css">
-  #project_selector,
-  .input-group--select .input-group__selections{
-    width: 280px;
-  }
-
-  .input-group__details {
-    width: 0;
+  #project_select_wrap {
+    padding-top: 5px;
   }
 
   #project_operation_btn {
