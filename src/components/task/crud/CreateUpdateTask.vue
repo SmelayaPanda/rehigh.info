@@ -209,6 +209,7 @@
       this.$bus.$on('openAddNewTaskDialog', () => {
         this.operation = 'add'
         this.calcHours()
+        this.task = initTask
         this.dialog = true
       })
       this.$bus.$on('openEditTaskDialog', (id) => {
