@@ -107,7 +107,7 @@ export default {
     setTaskStatus ({commit, getters}, payload) {
       commit('setTaskStatus', payload)
     },
-    setTimer ({commit, getters, dispatch}, payload) {
+    async setTimer ({commit, getters, dispatch}, payload) {
       commit('LOADING', true)
       let now = new Date().getTime()
       let updateUserData
@@ -121,10 +121,12 @@ export default {
         } else {
           updateUserData = {'timer.from': now, 'timer.to': 0}
         }
-        commit('setTimer', {task: task, from: now, to: 0})
+        await commit('setTimer', Object.assign({}, {task: task, from: now, to: 0}))
       } else if (payload.isTimerStop) { // STOP
+        // console.log('1. stop timer')
         // UPDATE time.real of project and task
         let addTime = now - getters.timer.from
+        // console.log('2. add time: ' + addTime)
         actions.push(fb.firestore().collection('tasks').doc(task.id).update({
           'time.real': task.time.real + addTime
         }))
@@ -140,15 +142,15 @@ export default {
         }))
         updateUserData = {'timer.to': now}
         if (tasks[task.id]) { // in tasks view with this task
-          tasks[task.id].time.real = task.time.real + addTime
-          commit('setTasks', {...tasks})
+          tasks[task.id].time.real = tasks[task.id].time.real + addTime
+          await commit('setTasks', {...tasks})
         }
         projects[task.projectId].time.real += addTime
-        commit('setProjects', {...projects})
-        commit('setTimer', {task: task, from: getters.timer.from, to: now})
+        await commit('setProjects', {...projects})
+        await commit('setTimer', Object.assign({}, {task: task, from: getters.timer.from, to: now}))
       }
       actions.push(fb.firestore().collection('users').doc(getters.user.uid).update(updateUserData))
-      return Promise.all(actions)
+      await Promise.all(actions)
         .then(() => {
           commit('LOADING', false)
         })
