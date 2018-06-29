@@ -35,7 +35,7 @@ export default {
     data () {
       return {
         title: {en: 'Task', ru: 'Задачи'},
-        status: 'created'
+        status: 'process'
       }
     },
     methods: {

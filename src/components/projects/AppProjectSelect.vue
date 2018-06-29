@@ -88,9 +88,19 @@
                 title: this.PROJECTS[id].title,
                 subtitle: this.PROJECTS[id].subtitle
               })
+              // INITIAL LOAD: auto-select last project for admin
+              if (this.ROLE === 'admin' && this.TIMER && this.TIMER.task && this.TIMER.task.projectId === id) {
+                this.select = {
+                  id: id,
+                  title: this.PROJECTS[id].title,
+                  subtitle: this.PROJECTS[id].subtitle
+                }
+                if (!this.PROJECT) {
+                  this.switchProject(this.select)
+                }
+              }
             }
           }
-          items.sort((a, b) => a.title > b.title)
           if (items.length && this.ROLE === 'client') { // auto select project for client
             this.select = {
               title: items[0].title,
@@ -100,6 +110,7 @@
             this.$store.dispatch('setProject', items[0].id)
           }
         }
+        items.sort((a, b) => a.title > b.title)
         return items
       }
     }

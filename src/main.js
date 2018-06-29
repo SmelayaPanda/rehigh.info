@@ -63,6 +63,11 @@ new Vue({
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.$store.dispatch('fetchUserData', user)
+          .then(() => {
+            if (this.$store.getters.user.roles.indexOf('admin') !== -1) {
+              this.$router.push('/task')
+            }
+          })
         this.$store.dispatch('fetchProjects')
       } else {
         router.push('/signin')
