@@ -43,6 +43,16 @@ export default {
         this.$store.dispatch('fetchTasks', {projectId: this.PROJECT.id, status: val})
       }
     },
+    computed: {
+      storeTaskStatus () {
+        return this.$store.getters.taskStatus
+      }
+    },
+    watch: {
+      storeTaskStatus (val) {
+        this.status = val
+      }
+    },
     created () {
       if (this.PROJECT) {
         this.loadTasks(this.status)

@@ -89,6 +89,18 @@
             {{ TIMER.task.title }}
           </p>
           <p>Затрачено: {{ TIMER.task.time.real | msTo('HMS') }}</p>
+          <v-text-field
+            dark
+            label="Ручное время"
+            v-model="addMinutes"
+            suffix="мин"
+            type="number">
+          </v-text-field>
+          <v-btn dark small color="primary" @click="addHandleMinutes"
+                 :disabled="!addMinutes || !TIMER.to"
+                 style="margin-top: -10px; margin-left: 0px;">
+            <v-icon dark>add</v-icon>
+          </v-btn>
         </v-container>
       </div>
     </v-list>
@@ -115,6 +127,7 @@
         timeInWork: 0,
         ticTacId: '',
         soundNotifyId: '',
+        addMinutes: '',
         items: [
           {
             title: {en: 'PROJECT', ru: 'ПРОЕКТ'},
@@ -185,6 +198,9 @@
           this.audio.volume = this.USER.sound.volume
           this.audio.play()
         }, this.USER.sound.frequency)
+      },
+      addHandleMinutes () {
+        this.$store.dispatch('addHandleMinutes', this.addMinutes)
       }
     },
     created () {
@@ -246,5 +262,9 @@
   #task_project_name {
     font-size: 12px;
     font-weight: bold;
+  }
+
+  #handle_time {
+    color: white;
   }
 </style>

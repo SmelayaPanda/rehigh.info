@@ -1,9 +1,10 @@
 import * as fb from 'firebase'
+import {Message} from 'element-ui'
 
 export default {
   state: {
     tasks: '', // in selected project ( with taskStatus )
-    taskStatus: 'created',
+    taskStatus: 'process',
     timer: '', // currents user's task in work process
     //  task: {}, // full obj! (simplify logic - fetch by id is redundant)
     //  from: '',
@@ -114,7 +115,6 @@ export default {
       let projects = getters.projects
       let tasks = getters.tasks
       let task = payload.isNewTask ? payload.task : getters.timer.task
-      console.log(task)
       let actions = []
       if (payload.isTimerStart) { // START
         if (payload.isNewTask) {
@@ -155,7 +155,45 @@ export default {
           commit('LOADING', false)
         })
     },
-    addHandleTimer () {}
+    async addHandleMinutes ({commit, getters, dispatch}, payload) {
+      let addTime = payload * 60 * 1000
+      let task = getters.timer.task
+      let tasks = getters.tasks
+      if (Math.sign(addTime) === -1 && task.time.real + addTime < 0) {
+        Message({
+          type: 'error',
+          showClose: true,
+          message: 'Вычитаемое время превышает общее затраченное!',
+          duration: 10000
+        })
+        return
+      }
+      task.time.real += addTime
+      let actions = []
+      actions.push(fb.firestore().collection('tasks').doc(task.id).update({
+        'time.real': task.time.real
+      }))
+      actions.push(fb.firestore().collection('projects').doc(task.projectId).update({
+        'time.real': getters.projects[task.projectId].time.real + addTime
+      }))
+      actions.push(fb.firestore().collection('users').doc(getters.user.uid).update({
+        'timer.task.time.real': task.time.real
+      }))
+      if (tasks[task.id]) { // in tasks view with this task
+        tasks[task.id].time.real = task.time.real
+        await commit('setTasks', {...tasks})
+      }
+      commit('setTimer', Object.assign({}, {task: task, from: getters.timer.from, to: getters.timer.to}))
+      await Promise.all(actions)
+        .then(() => {
+          if (Math.sign(addTime) === -1) {
+            Message({type: 'warning', showClose: true, message: 'Ручное время вычтено!', duration: 5000})
+          } else {
+            Message({type: 'success', showClose: true, message: 'Ручное время добавлено!', duration: 5000})
+          }
+          commit('LOADING', false)
+        })
+    }
   },
   getters: {
     tasks: state => state.tasks,

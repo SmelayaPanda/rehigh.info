@@ -96,7 +96,12 @@
                   subtitle: this.PROJECTS[id].subtitle
                 }
                 if (!this.PROJECT) {
-                  this.switchProject(this.select)
+                  this.$store.dispatch('setProject', id)
+                  this.$store.dispatch('fetchTasks', { // auto open last task from timer
+                    projectId: this.PROJECT.id,
+                    status: this.TIMER.task.status
+                  })
+                  this.$store.commit('setTaskStatus', this.TIMER.task.status)
                 }
               }
             }
