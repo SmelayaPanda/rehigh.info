@@ -88,6 +88,7 @@
             <v-icon class="white--text" small>keyboard_arrow_right</v-icon>
             {{ TIMER.task.title }}
           </p>
+          <p>Затрачено: {{ TIMER.task.time.real | msTo('HMS') }}</p>
         </v-container>
       </div>
     </v-list>

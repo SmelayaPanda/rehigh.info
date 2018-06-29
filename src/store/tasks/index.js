@@ -114,6 +114,7 @@ export default {
       let projects = getters.projects
       let tasks = getters.tasks
       let task = payload.isNewTask ? payload.task : getters.timer.task
+      console.log(task)
       let actions = []
       if (payload.isTimerStart) { // START
         if (payload.isNewTask) {
@@ -123,12 +124,11 @@ export default {
         }
         await commit('setTimer', Object.assign({}, {task: task, from: now, to: 0}))
       } else if (payload.isTimerStop) { // STOP
-        // console.log('1. stop timer')
         // UPDATE time.real of project and task
         let addTime = now - getters.timer.from
-        // console.log('2. add time: ' + addTime)
+        task.time.real += addTime
         actions.push(fb.firestore().collection('tasks').doc(task.id).update({
-          'time.real': task.time.real + addTime
+          'time.real': task.time.real
         }))
         actions.push(fb.firestore().collection('projects').doc(task.projectId).update({
           'time.real': getters.projects[task.projectId].time.real + addTime
@@ -140,9 +140,9 @@ export default {
           from: getters.timer.from,
           to: now
         }))
-        updateUserData = {'timer.to': now}
+        updateUserData = {'timer.task.time.real': task.time.real, 'timer.to': now}
         if (tasks[task.id]) { // in tasks view with this task
-          tasks[task.id].time.real = tasks[task.id].time.real + addTime
+          tasks[task.id].time.real = task.time.real
           await commit('setTasks', {...tasks})
         }
         projects[task.projectId].time.real += addTime
