@@ -201,6 +201,9 @@
       },
       addHandleMinutes () {
         this.$store.dispatch('addHandleMinutes', this.addMinutes)
+          .then(() => {
+            this.addMinutes = ''
+          })
       }
     },
     created () {
