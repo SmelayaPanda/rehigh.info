@@ -8,7 +8,8 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "yarn dev",
     "lint": "eslint --ext .js,.vue src",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "test": "yarn jest --coverage"
   },
   "dependencies": {
     "algoliasearch": "^3.27.1",
@@ -78,6 +79,25 @@
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "jest": "^23.4.0",
+    "babel-jest": "^23.4.0",
+    "vue-jest": "^2.6.0",
+    "babel-plugin-module-resolver":"^3.1.1",
+    "vue-test-utils": "^1.0.0-beta.11",
+    "eslint-plugin-jest":  "^21.17.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "coverageReporters": ["text-summary", "html"],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    }
   }
 }

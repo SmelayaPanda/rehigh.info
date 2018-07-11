@@ -9,10 +9,10 @@ export const computed = {
       return store.getters.role
     },
     PROJECT () {
-      return this.$store.getters.project
+      return store.getters.project
     },
     PROJECTS () {
-      return this.$store.getters.projects
+      return store.getters.projects
     },
     ERROR () {
       return store.getters.error
@@ -21,10 +21,10 @@ export const computed = {
       return store.getters.loading
     },
     LANG () {
-      return this.$store.getters.lang
+      return store.getters.lang
     },
     TIMER () {
-      return this.$store.getters.timer
+      return store.getters.timer
     }
   }
 }
