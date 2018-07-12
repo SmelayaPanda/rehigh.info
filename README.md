@@ -1,14 +1,12 @@
 # rehigh
 
-> re:High Studio Work panel page
+> re:High Studio Work Panel Site
 
-for deploy to firebase hosting run only: 
-  $ firebase deploy (without yarn build) 
+to deploy just: 
+  $ firebase deploy (build included to predeploy) 
 
 Notes:
 1. global.scss
-   + npm install sass-resources-loader
-   + npm install node-sass
-   + npm install sass-loader
+   + sass-resources-loader / node-sass / sass-loader
    + build/utils.js replace sass loader
    + import global.scss file into main.js and in resources of build/utils.js
