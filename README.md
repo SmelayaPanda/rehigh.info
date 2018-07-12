@@ -1,6 +1,6 @@
-# rehigh
+# rehigh.info
 
-> re:High Studio Work Panel Site
+> ReHigh Studio Work Panel Site
 
 to deploy just: 
   $ firebase deploy (build included to predeploy) 
