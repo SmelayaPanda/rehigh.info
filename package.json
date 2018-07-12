@@ -9,7 +9,8 @@
     "start": "yarn dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js",
-    "test": "yarn jest --coverage"
+    "test": "yarn jest --coverage",
+    "csnap": "yarn run jest -u"
   },
   "dependencies": {
     "algoliasearch": "^3.27.1",
