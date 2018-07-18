@@ -7,7 +7,7 @@ import {store} from './store'
 import {sync} from 'vuex-router-sync'
 import vueScrollBehavior from 'vue-scroll-behavior'
 import * as fb from 'firebase'
-import pushFCM from './pushFCM'
+import pushFCM from './services/pushFCM'
 import 'firebase/firestore'
 import {config} from './config/index'
 // MIXINS
