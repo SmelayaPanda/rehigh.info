@@ -6,7 +6,8 @@ import router from './router'
 import {store} from './store'
 import {sync} from 'vuex-router-sync'
 import vueScrollBehavior from 'vue-scroll-behavior'
-import * as firebase from 'firebase'
+import * as fb from 'firebase'
+import pushFCM from './pushFCM'
 import 'firebase/firestore'
 import {config} from './config/index'
 // MIXINS
@@ -49,6 +50,10 @@ Vue.use(VueQuillEditor /* { default global options } */)
 Vue.directive('click-outside', clickOutside)
 Vue.config.productionTip = false
 Vue.prototype.$bus = new Vue()
+
+fb.initializeApp(config.firebase(process.env.NODE_ENV))
+fb.firestore().settings({timestampsInSnapshots: true})
+pushFCM()
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -57,10 +62,7 @@ new Vue({
   components: {App},
   template: '<App/>',
   created () {
-    firebase.initializeApp(config.firebase(process.env.NODE_ENV))
-    firebase.firestore().settings({timestampsInSnapshots: true})
-    // Vue.prototype
-    firebase.auth().onAuthStateChanged(user => {
+    fb.auth().onAuthStateChanged(user => {
       if (user) {
         this.$store.dispatch('fetchUserData', user)
           .then(() => {
@@ -73,5 +75,6 @@ new Vue({
         router.push('/signin')
       }
     })
-  }
+  },
+  mounted () {}
 })

@@ -1,0 +1,16 @@
+{
+  "short_name": "ReHigh",
+  "name": "ReHigh Studio Work Panel",
+  "icons": [
+    {
+      "src": "/static/logo/png/purple_coub.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#262f3d",
+  "display": "standalone",
+  "theme_color": "#039be5",
+  "gcm_sender_id": "103953800507"
+}
