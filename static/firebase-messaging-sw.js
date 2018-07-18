@@ -3,7 +3,9 @@ if (typeof importScripts === 'function') {
   importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js')
 
   // why double initialization?
-  firebase.initializeApp(config)
+  firebase.initializeApp({
+    messagingSenderId: '182973070710'
+  })
 
   const messaging = firebase.messaging()
 

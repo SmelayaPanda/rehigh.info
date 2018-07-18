@@ -29,6 +29,10 @@ export default function () {
           .then(() => {
             getToken()
           })
+
+        messaging.onMessage(payload => {
+          console.log(payload)
+        })
       })
       .catch(err => console.warn(err))
   }
