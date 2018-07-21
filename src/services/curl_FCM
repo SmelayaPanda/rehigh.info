@@ -1,7 +1,7 @@
 curl -X POST -H "Authorization: key=YOUR-SERVER-KEY" -H "Content-Type: application/json" -d '{
 "notification": {
-  "title": "Portugal vs. Denmark",
-    "body": "5 to 1",
+    "title": "Brasilia vs. Belgium",
+    "body": "1 to 2",
     "icon": "firebase-logo.png",
     "click_action": "http://localhost:8081"
 },
@@ -10,5 +10,5 @@ curl -X POST -H "Authorization: key=YOUR-SERVER-KEY" -H "Content-Type: applicati
 
 
 
-"YOUR-SERVER-KEY" - Ключ сервера (Cloud Messaging -> Учетные данные для проекта)
-"YOUR-IID-TOKEN" returned from messaging.getToken()
+"YOUR-SERVER-KEY" - server key (Cloud Messaging -> Project credential)
+"YOUR-IID-TOKEN" - returned from messaging.getToken()

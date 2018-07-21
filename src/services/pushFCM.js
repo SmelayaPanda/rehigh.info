@@ -6,12 +6,19 @@ export default function () {
       .then(registration => {
         const messaging = firebase.messaging()
 
+        // if user on the page you can do with payload something else
+        messaging.onMessage(payload => {
+          console.log(payload)
+        })
+
         let getToken = () => {
           messaging.getToken()
             .then(currentToken => {
               if (currentToken) {
                 console.log('Notification permission granted. Current token:')
                 console.log(currentToken)
+                // TODO: save currentToken to db user collection -> fcmToken field
+                // console.log(firebase.auth().currentUser.uid)
                 return currentToken
               } else {
                 console.log('No Instance ID token available. Request permission to generate one.')
@@ -22,17 +29,12 @@ export default function () {
             })
         }
 
-        // messaging.usePublicVapidKey('BCqvr6Krb0q8kpyHuVPrhmk3UOycdQqeS1vVvN6iRA6mbIkTlW0kmj0eYdeYtvDJ7eV--xWVQ5ProTDGgjefVFo')
         messaging.useServiceWorker(registration)
 
         messaging.requestPermission()
           .then(() => {
             getToken()
           })
-
-        messaging.onMessage(payload => {
-          console.log(payload)
-        })
       })
       .catch(err => console.warn(err))
   }

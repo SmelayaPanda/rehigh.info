@@ -50,9 +50,6 @@ Vue.use(VueQuillEditor /* { default global options } */)
 Vue.directive('click-outside', clickOutside)
 Vue.config.productionTip = false
 Vue.prototype.$bus = new Vue()
-
-fb.initializeApp(config.firebase(process.env.NODE_ENV))
-fb.firestore().settings({timestampsInSnapshots: true})
 pushFCM()
 /* eslint-disable no-new */
 new Vue({
@@ -62,6 +59,8 @@ new Vue({
   components: {App},
   template: '<App/>',
   created () {
+    fb.initializeApp(config.firebase(process.env.NODE_ENV))
+    fb.firestore().settings({timestampsInSnapshots: true})
     fb.auth().onAuthStateChanged(user => {
       if (user) {
         this.$store.dispatch('fetchUserData', user)
