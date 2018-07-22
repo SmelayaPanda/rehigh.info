@@ -1,10 +1,8 @@
 'use strict'
-// @ts-ignore
 import * as cors from 'cors';
-// @ts-ignore
+
 const corsHandler = cors({origin: true});
 
-// @ts-ignore
 export const updateFcmTopicHandler = function (req, res, admin) {
   corsHandler(req, res, () => {
     console.log(req.body)

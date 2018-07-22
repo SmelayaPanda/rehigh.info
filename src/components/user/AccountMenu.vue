@@ -26,9 +26,7 @@
             <v-flex xs8 v-if="USER">
               <span>{{ USER.firstname.toUpperCase() }} {{ USER.lastname.toUpperCase() }}</span> <br>
               <span class="info--text">{{ USER.email }}</span> <br>
-              <router-link to="/account" exact>
-                <v-btn small class="primary" id="my_account_btn">{{ msg.account[LANG] }}</v-btn>
-              </router-link>
+              <v-btn @click="viewMyAccount" small class="primary" id="my_account_btn">{{ msg.account[LANG] }}</v-btn>
             </v-flex>
           </v-layout>
         </v-card-title>
@@ -104,6 +102,10 @@
       },
       changeUserLang (val) {
         this.$store.dispatch('setLang', val)
+      },
+      viewMyAccount () {
+        this.menu = false
+        this.$router.push('/account')
       }
     },
     watch: {

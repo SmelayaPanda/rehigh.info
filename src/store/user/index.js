@@ -186,7 +186,25 @@ export default {
         })
         .catch(err => dispatch('LOG', err))
     },
-    updateUserTopics ({commit, dispatch, getters}, payload) {
+    testFcm ({commit, dispatch, getters}, payload) {
+      if (!getters.user.fcm && !getters.user.fcm.token) {
+        return console.warn('User has blocked push notification')
+      }
+      let url
+      if (process.env.NODE_ENV === 'production') {
+        url = 'https://us-central1-rehigh-dev.cloudfunctions.net/sendFcm'
+      } else if (process.env.NODE_ENV === 'development') {
+        url = 'https://us-central1-rehigh-info-dev.cloudfunctions.net/sendFcm'
+      }
+      axios.post(url, {
+        token: getters.user.fcm.token,
+        title: 'Test FCM',
+        body: 'it is works'
+      })
+        .then((data) => {
+          console.log('Response data: ', data)
+        })
+        .catch(err => dispatch('LOG', err))
     }
   },
   getters: {

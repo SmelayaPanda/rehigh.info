@@ -57,6 +57,7 @@
                       :label="msg.restTime[LANG]"
                       v-model="topics.restTime">
             </v-switch>
+            <v-btn color="primary" @click="testFcm">Test Push</v-btn>
           </v-card-text>
         </el-card>
       </v-flex>
@@ -116,6 +117,9 @@
       },
       updateFcmTopic (topic, subscribe) {
         this.$store.dispatch('updateFcmTopic', {topic: topic, subscribe: subscribe})
+      },
+      testFcm () {
+        this.$store.dispatch('testFcm')
       }
     },
     created () {
