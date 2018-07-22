@@ -7,7 +7,7 @@ import {store} from './store'
 import {sync} from 'vuex-router-sync'
 import vueScrollBehavior from 'vue-scroll-behavior'
 import * as fb from 'firebase'
-import pushFCM from './services/pushFCM'
+import pushFcm from './services/pushFcm'
 import 'firebase/firestore'
 import {config} from './config/index'
 // MIXINS
@@ -67,7 +67,7 @@ new Vue({
             if (this.$store.getters.user.roles.indexOf('admin') !== -1) {
               this.$router.push('/task')
             }
-            pushFCM()
+            pushFcm()
           })
         this.$store.dispatch('fetchProjects')
       } else {

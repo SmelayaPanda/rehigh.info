@@ -12,6 +12,12 @@ export default function () {
           console.log(payload)
         })
 
+        messaging.onTokenRefresh(function () {
+          messaging.getToken().then(function (refreshedToken) {
+            store.dispatch('updateFcmToken', refreshedToken)
+          })
+        })
+
         let getToken = () => {
           messaging.getToken()
             .then(currentToken => {
