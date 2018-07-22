@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import {store} from './../store'
 
 export default function () {
   if ('serviceWorker' in navigator) {
@@ -17,8 +18,11 @@ export default function () {
               if (currentToken) {
                 console.log('Notification permission granted. Current token:')
                 console.log(currentToken)
-                // TODO: save currentToken to db user collection -> fcmToken field
-                // console.log(firebase.auth().currentUser.uid)
+                if (store.getters.user.fcmToken) {
+                  console.log('FCM: Token already stored')
+                } else {
+                  store.dispatch('updateFcmToken', currentToken)
+                }
                 return currentToken
               } else {
                 console.log('No Instance ID token available. Request permission to generate one.')

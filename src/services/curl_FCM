@@ -5,10 +5,22 @@ curl -X POST -H "Authorization: key=YOUR-SERVER-KEY" -H "Content-Type: applicati
     "icon": "firebase-logo.png",
     "click_action": "http://localhost:8081"
 },
-"to": "YOUR-IID-TOKEN"
+"to": "YOUR-IID-TOKEN",
+"time_to_live": 600
 }' "https://fcm.googleapis.com/fcm/send"
 
 
 
+NOTES:
 "YOUR-SERVER-KEY" - server key (Cloud Messaging -> Project credential)
 "YOUR-IID-TOKEN" - returned from messaging.getToken()
+
+Web API notification payload have only 4 parameters (more for Android and iOS)
+
+FCM types:
+  - notifications (default TTL - 4 weeks for showing)
+  - data (can be handled on client, perfect for timed events)
+
+MESSAGES:
+  - Non-collapsible (all messages will be delivered)
+  - Collapsible (saved max 4 last messages)

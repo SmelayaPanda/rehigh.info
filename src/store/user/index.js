@@ -152,6 +152,13 @@ export default {
           console.log('Sound saved')
         })
         .catch(err => dispatch('LOG', err))
+    },
+    updateFcmToken ({commit, dispatch, getters}, payload) {
+      fb.firestore().collection('users').doc(getters.user.uid).update({fcmToken: payload})
+        .then(() => {
+          console.log('FCM: token added to db')
+        })
+        .catch(err => dispatch('LOG', err))
     }
   },
   getters: {

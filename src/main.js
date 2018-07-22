@@ -50,7 +50,6 @@ Vue.use(VueQuillEditor /* { default global options } */)
 Vue.directive('click-outside', clickOutside)
 Vue.config.productionTip = false
 Vue.prototype.$bus = new Vue()
-pushFCM()
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -68,6 +67,7 @@ new Vue({
             if (this.$store.getters.user.roles.indexOf('admin') !== -1) {
               this.$router.push('/task')
             }
+            pushFCM()
           })
         this.$store.dispatch('fetchProjects')
       } else {
