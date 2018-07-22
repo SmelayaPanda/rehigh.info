@@ -157,9 +157,9 @@ export default {
     updateFcmToken ({commit, dispatch, getters}, payload) {
       let url
       if (process.env.NODE_ENV === 'production') {
-        url = ' https://us-central1-rehigh-info-dev.cloudfunctions.net/subscribeToTopic'
+        url = 'https://us-central1-rehigh-dev.cloudfunctions.net/subscribeToTopic'
       } else if (process.env.NODE_ENV === 'development') {
-        url = ' https://us-central1-rehigh-info-dev.cloudfunctions.net/subscribeToTopic'
+        url = 'https://us-central1-rehigh-info-dev.cloudfunctions.net/subscribeToTopic'
       }
       axios.post(url, {
         userId: getters.user.uid,
