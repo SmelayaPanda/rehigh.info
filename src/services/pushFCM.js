@@ -18,7 +18,7 @@ export default function () {
               if (currentToken) {
                 console.log('Notification permission granted. Current token:')
                 console.log(currentToken)
-                if (store.getters.user.fcmToken) {
+                if (store.getters.user && store.getters.user.fcm && store.getters.user.fcm.token) {
                   console.log('FCM: Token already stored')
                 } else {
                   store.dispatch('updateFcmToken', currentToken)

@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "rehigh-dev",
+    "dev": "rehigh-info-dev",
+    "prod": "rehigh-dev"
+  }
+}

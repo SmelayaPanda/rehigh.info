@@ -1,13 +1,13 @@
-// import * as functions from 'firebase-functions';
+import {subscribeToTopicHandler} from "./https/subscribeToTopic";
 
-// exports.bigben = functions.https.onRequest((req, res) => {
-//   const hours = (new Date().getHours() % 12) + 1 // london is UTC + 1hr;
-//   res.status(200).send(`<!doctype html>
-//     <head>
-//       <title>Time</title>
-//     </head>
-//     <body>
-//       ${'BONG '.repeat(hours)}
-//     </body>
-//   </html>`);
-// });
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+admin.initializeApp()
+
+export const helloWorld = functions.https.onRequest((request, response) => {
+ response.send("Hello from Firebase!");
+});
+
+export const subscribeToTopic = functions.https.onRequest((req, res) => {
+  subscribeToTopicHandler(req, res, admin)
+})

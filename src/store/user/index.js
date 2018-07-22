@@ -1,5 +1,6 @@
 import * as fb from 'firebase'
 import router from '../../router'
+import axios from 'axios'
 import {Message, Notification} from 'element-ui'
 
 export default {
@@ -154,11 +155,27 @@ export default {
         .catch(err => dispatch('LOG', err))
     },
     updateFcmToken ({commit, dispatch, getters}, payload) {
-      fb.firestore().collection('users').doc(getters.user.uid).update({fcmToken: payload})
-        .then(() => {
-          console.log('FCM: token added to db')
+      let url
+      if (process.env.NODE_ENV === 'production') {
+        url = ' https://us-central1-rehigh-info-dev.cloudfunctions.net/subscribeToTopic'
+      } else if (process.env.NODE_ENV === 'development') {
+        url = ' https://us-central1-rehigh-info-dev.cloudfunctions.net/subscribeToTopic'
+      }
+      axios.post(url, {
+        userId: getters.user.uid,
+        token: payload,
+        topics: {
+          standUp: true,
+          taskStatus: true,
+          restTime: true
+        }
+      })
+        .then((data) => {
+          console.log('Http sended: ', data)
         })
         .catch(err => dispatch('LOG', err))
+    },
+    updateUserTopics ({commit, dispatch, getters}, payload) {
     }
   },
   getters: {
