@@ -1,14 +1,10 @@
-import {subscribeToTopicHandler} from "./https/subscribeToTopic";
+import {updateFcmTopicHandler} from "./https/updateFcmTopic";
 
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 admin.initializeApp()
-// admin.firestore().settings({timestampsInSnapshots: true})
+admin.firestore().settings({timestampsInSnapshots: true})
 
-export const helloWorld = functions.https.onRequest((request, response) => {
- response.send("Hello from Firebase!");
-});
-
-export const subscribeToTopic = functions.https.onRequest((req, res) => {
-  subscribeToTopicHandler(req, res, admin)
+export const updateFcmTopic = functions.https.onRequest((req, res) => {
+  updateFcmTopicHandler(req, res, admin)
 })

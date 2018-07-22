@@ -19,7 +19,7 @@
         </el-card>
       </v-flex>
       <v-flex xs12 sm12 md5 lg4 xl3>
-      <el-card id="sounds_settings_card">
+        <el-card id="sounds_settings_card">
           <span>
             {{ msg.every[LANG] }}
             {{ sound.frequency / 60000 }}
@@ -43,13 +43,30 @@
           <v-btn @click="saveSound" class="success">{{ msg.save[LANG] }}</v-btn>
         </el-card>
       </v-flex>
+      <v-flex xs12 sm12 md5 lg4 xl3>
+        <el-card id="push_notify_card">
+          <span>
+            {{ msg.push[LANG] }}
+          </span>
+          <v-card-text>
+            <v-switch @change="updateFcmTopic('taskStatus', topics.taskStatus)"
+                      :label="msg.taskStatus[LANG]"
+                      v-model="topics.taskStatus">
+            </v-switch>
+            <v-switch @change="updateFcmTopic('restTime', topics.restTime)"
+                      :label="msg.restTime[LANG]"
+                      v-model="topics.restTime">
+            </v-switch>
+          </v-card-text>
+        </el-card>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
   export default {
-    name: 'SoundNotifySettings',
+    name: 'Notifications',
     data () {
       return {
         msg: {
@@ -57,7 +74,14 @@
           every: {en: 'Every', ru: 'Каждые'},
           min: {en: 'min', ru: 'мин'},
           volume: {en: 'Volume', ru: 'Громкость'},
-          save: {en: 'Save', ru: 'Сохранить'}
+          save: {en: 'Save', ru: 'Сохранить'},
+          push: {en: 'Push Notifications', ru: 'Push-уведомления'},
+          taskStatus: {en: 'Task Status Notify', ru: 'Смена статусов задач'},
+          restTime: {en: 'Rest Time Notify', ru: 'Напоминание об отдыхе'}
+        },
+        topics: {
+          taskStatus: false,
+          restTime: false
         },
         sound: {
           name: 'ding_ling',
@@ -89,6 +113,9 @@
       },
       saveSound () {
         this.$store.dispatch('saveNotificationSound', this.sound)
+      },
+      updateFcmTopic (topic, subscribe) {
+        this.$store.dispatch('updateFcmTopic', {topic: topic, subscribe: subscribe})
       }
     },
     created () {
@@ -99,12 +126,14 @@
 
 <style scoped>
   #sounds_card,
-  #sounds_settings_card {
+  #sounds_settings_card,
+  #push_notify_card {
     height: 360px;
     padding: 10px;
     max-width: 360px;
-    margin-right: 10px;
+    /*margin-right: 10px;*/
   }
+
   #sounds {
     height: 260px;
     width: 100%;

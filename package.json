@@ -9,6 +9,7 @@
     "start": "yarn dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js",
+    "prod": "yarn build && firebase deploy",
     "test": "yarn jest --coverage",
     "csnap": "yarn run jest -u"
   },

@@ -13,18 +13,18 @@
       </v-tabs>
     </app-router-name>
     <user-data v-if="tab === '0'"/>
-    <sound-notify-settings v-if="tab === '1'"></sound-notify-settings>
+    <Notifications v-if="tab === '1'"/>
   </div>
 </template>
 
 <script>
   import AppRouterName from '../theme/AppRouterName'
-  import SoundNotifySettings from './SoundNotifySettings'
+  import Notifications from './Notifications'
   import UserData from './UserData'
 
 export default {
     name: 'Account',
-    components: {UserData, SoundNotifySettings, AppRouterName},
+    components: {UserData, Notifications, AppRouterName},
     data () {
       return {
         tab: '0',

@@ -2,9 +2,6 @@
 
 > ReHigh Studio Work Panel Site
 
-to deploy just: 
-  $ firebase deploy (build included to predeploy) 
-
 Notes:
 1. global.scss
    + sass-resources-loader / node-sass / sass-loader

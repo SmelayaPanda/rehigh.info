@@ -155,23 +155,34 @@ export default {
         .catch(err => dispatch('LOG', err))
     },
     updateFcmToken ({commit, dispatch, getters}, payload) {
+      return fb.firestore().collection('users').doc(getters.user.uid).update({'fcm.token': payload})
+        .then(() => {
+          let user = getters.user
+          user.fcm = []
+          user.fcm.token = payload
+          commit('setUser', {...user})
+          console.log('FCM: token updated')
+        })
+        .catch(err => dispatch('LOG', err))
+    },
+    updateFcmTopic ({commit, dispatch, getters}, payload) {
+      if (!getters.user.fcm && !getters.user.fcm.token) {
+        return console.warn('User has blocked push notification')
+      }
       let url
       if (process.env.NODE_ENV === 'production') {
-        url = 'https://us-central1-rehigh-dev.cloudfunctions.net/subscribeToTopic'
+        url = 'https://us-central1-rehigh-dev.cloudfunctions.net/updateFcmTopic'
       } else if (process.env.NODE_ENV === 'development') {
-        url = 'https://us-central1-rehigh-info-dev.cloudfunctions.net/subscribeToTopic'
+        url = 'https://us-central1-rehigh-info-dev.cloudfunctions.net/updateFcmTopic'
       }
       axios.post(url, {
         userId: getters.user.uid,
-        token: payload,
-        topics: {
-          standUp: true,
-          taskStatus: true,
-          restTime: true
-        }
+        token: getters.user.fcm.token,
+        topic: payload.topic,
+        subscribe: payload.subscribe // true = subscribe, false = unsubscribe
       })
         .then((data) => {
-          console.log('Http sended: ', data)
+          console.log('Response data: ', data)
         })
         .catch(err => dispatch('LOG', err))
     },
