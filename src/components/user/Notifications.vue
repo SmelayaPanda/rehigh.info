@@ -49,18 +49,23 @@
             {{ msg.push[LANG] }}
           </span>
           <v-card-text>
-            <v-switch
-              @change="updateFcmTopic('taskStatus', topics.taskStatus)"
-              :label="msg.taskStatus[LANG]"
-              v-model="topics.taskStatus"
-              color="primary">
-            </v-switch>
-            <v-switch
-              @change="updateFcmTopic('workTime', topics.workTime)"
-              :label="msg.workTime[LANG]"
-              v-model="topics.workTime"
-              color="primary">
-            </v-switch>
+            <div v-if="USER.fcm.token">
+              <v-switch
+                @change="updateFcmTopic('taskStatus', topics.taskStatus)"
+                :label="msg.taskStatus[LANG]"
+                v-model="topics.taskStatus"
+                color="primary">
+              </v-switch>
+              <v-switch
+                @change="updateFcmTopic('workTime', topics.workTime)"
+                :label="msg.workTime[LANG]"
+                v-model="topics.workTime"
+                color="primary">
+              </v-switch>
+            </div>
+            <div v-else>
+              <p>Push-notifications is blocked</p>
+            </div>
           </v-card-text>
         </el-card>
       </v-flex>
