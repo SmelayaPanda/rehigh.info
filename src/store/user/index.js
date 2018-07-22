@@ -186,7 +186,7 @@ export default {
         })
         .catch(err => dispatch('LOG', err))
     },
-    testFcm ({commit, dispatch, getters}, payload) {
+    sendFcm ({commit, dispatch, getters}, payload) {
       if (!getters.user.fcm && !getters.user.fcm.token) {
         return console.warn('User has blocked push notification')
       }
@@ -198,8 +198,8 @@ export default {
       }
       axios.post(url, {
         token: getters.user.fcm.token,
-        title: 'Test FCM',
-        body: 'it is works'
+        title: payload.title,
+        body: payload.body
       })
         .then((data) => {
           console.log('Response data: ', data)

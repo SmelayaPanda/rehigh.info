@@ -53,11 +53,10 @@
                       :label="msg.taskStatus[LANG]"
                       v-model="topics.taskStatus">
             </v-switch>
-            <v-switch @change="updateFcmTopic('restTime', topics.restTime)"
-                      :label="msg.restTime[LANG]"
-                      v-model="topics.restTime">
+            <v-switch @change="updateFcmTopic('workTime', topics.workTime)"
+                      :label="msg.workTime[LANG]"
+                      v-model="topics.workTime">
             </v-switch>
-            <v-btn color="primary" @click="testFcm">Test Push</v-btn>
           </v-card-text>
         </el-card>
       </v-flex>
@@ -78,11 +77,11 @@
           save: {en: 'Save', ru: 'Сохранить'},
           push: {en: 'Push Notifications', ru: 'Push-уведомления'},
           taskStatus: {en: 'Task Status Notify', ru: 'Смена статусов задач'},
-          restTime: {en: 'Rest Time Notify', ru: 'Напоминание об отдыхе'}
+          workTime: {en: 'Work Time Notify', ru: 'Напоминание об отдыхе'}
         },
         topics: {
           taskStatus: false,
-          restTime: false
+          workTime: false
         },
         sound: {
           name: 'ding_ling',
@@ -117,9 +116,6 @@
       },
       updateFcmTopic (topic, subscribe) {
         this.$store.dispatch('updateFcmTopic', {topic: topic, subscribe: subscribe})
-      },
-      testFcm () {
-        this.$store.dispatch('testFcm')
       }
     },
     created () {

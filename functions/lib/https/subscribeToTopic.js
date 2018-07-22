@@ -8,7 +8,7 @@ const corsHandler = cors({ origin: true });
 exports.subscribeToTopicHandler = function (req, res, admin) {
     corsHandler(req, res, () => {
         console.log(req.body);
-        const topic = 'restTime';
+        const topic = 'workTime';
         const { token } = req.body;
         const { userId } = req.body;
         return admin.messaging().subscribeToTopic(token, topic)

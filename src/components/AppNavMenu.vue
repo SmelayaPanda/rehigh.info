@@ -189,10 +189,16 @@
           let time = msTo(this.timeInWork, 'TAB', this.LANG)
           document.title = time
         }, 1000)
-        this.setSoundNotification()
+        this.setNotifications()
       },
-      setSoundNotification () {
+      setNotifications () {
         this.soundNotifyId = setInterval(() => {
+          if (this.USER.fcm && this.USER.fcm.topics && this.USER.fcm.topics.workTime) {
+            this.$store.dispatch('sendFcm', {
+              title: `Время работы: ${msTo(this.timeInWork, 'TAB', this.LANG)}`,
+              body: `Не забывайте о перерывах, берегите здоровье!`
+            })
+          }
           this.audio = new Audio(require('@/assets/sounds/' + this.USER.sound.name + '.mp3'))
           this.audio.setAttribute('crossorigin', 'anonymous')
           this.audio.volume = this.USER.sound.volume

@@ -10,7 +10,6 @@ export default function () {
         // if user on the page you can do with payload something else
         messaging.onMessage(payload => {
           console.log(payload)
-          alert('See console.log')
         })
 
         let getToken = () => {

@@ -14,7 +14,7 @@ if (typeof importScripts === 'function') {
     const title = payload.title // max - 30 symbols
     const options = {
       body: payload.body, // max - 120 symbols
-      icon: payload.icon
+      icon: '/static/logo/png/purple_coub.png'
     }
 
     self.registration.showNotification(title, options)
