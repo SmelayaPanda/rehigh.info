@@ -49,13 +49,17 @@
             {{ msg.push[LANG] }}
           </span>
           <v-card-text>
-            <v-switch @change="updateFcmTopic('taskStatus', topics.taskStatus)"
-                      :label="msg.taskStatus[LANG]"
-                      v-model="topics.taskStatus">
+            <v-switch
+              @change="updateFcmTopic('taskStatus', topics.taskStatus)"
+              :label="msg.taskStatus[LANG]"
+              v-model="topics.taskStatus"
+              color="primary">
             </v-switch>
-            <v-switch @change="updateFcmTopic('workTime', topics.workTime)"
-                      :label="msg.workTime[LANG]"
-                      v-model="topics.workTime">
+            <v-switch
+              @change="updateFcmTopic('workTime', topics.workTime)"
+              :label="msg.workTime[LANG]"
+              v-model="topics.workTime"
+              color="primary">
             </v-switch>
           </v-card-text>
         </el-card>
@@ -120,6 +124,10 @@
     },
     created () {
       this.sound = this.USER.sound
+      if (this.USER.fcm && this.USER.fcm.topics) {
+        this.topics.workTime = Boolean(this.USER.fcm.topics.workTime)
+        this.topics.taskStatus = Boolean(this.USER.fcm.topics.taskStatus)
+      }
     }
   }
 </script>

@@ -155,6 +155,7 @@ export default {
         .catch(err => dispatch('LOG', err))
     },
     updateFcmToken ({commit, dispatch, getters}, payload) {
+      commit('LOADING', true)
       return fb.firestore().collection('users').doc(getters.user.uid).update({'fcm.token': payload})
         .then(() => {
           let user = getters.user
@@ -162,11 +163,14 @@ export default {
           user.fcm.token = payload
           commit('setUser', {...user})
           console.log('FCM: token updated')
+          commit('LOADING', false)
         })
         .catch(err => dispatch('LOG', err))
     },
     updateFcmTopic ({commit, dispatch, getters}, payload) {
+      commit('LOADING', true)
       if (!getters.user.fcm && !getters.user.fcm.token) {
+        commit('LOADING', false)
         return console.warn('User has blocked push notification')
       }
       let url
@@ -183,6 +187,7 @@ export default {
       })
         .then((data) => {
           console.log('Response data: ', data)
+          commit('LOADING', false)
         })
         .catch(err => dispatch('LOG', err))
     },
