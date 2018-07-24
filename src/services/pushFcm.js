@@ -22,21 +22,30 @@ export default function () {
           messaging.getToken()
             .then(currentToken => {
               if (currentToken) {
-                console.log('Notification permission granted. Current token:')
-                console.log(currentToken)
-                if (store.getters.user && store.getters.user.fcm && store.getters.user.fcm.token) {
-                  console.log('FCM: Token already stored')
-                  console.log('User ID: ', store.getters.user.uid)
+                console.log('FCM: Current token:', currentToken)
+                console.log('FCM: User ID: ', store.getters.user.uid)
+                if (currentToken && store.getters.user.fcm && store.getters.user.fcm.token) {
+                  if (currentToken === store.getters.user.fcm.token) {
+                    console.log('FCM: Token already stored')
+                  } else { // token changed => unsubscribe prev token
+                    store.dispatch('updateFcmTopic', {topic: 'workTime', subscribe: false})
+                      .then(() => {
+                        console.log('FCM: Previous token unsubscribed')
+                      })
+                  }
                 } else {
                   store.dispatch('updateFcmToken', currentToken)
+                    .then(() => {
+                      store.dispatch('updateFcmTopic', {topic: 'workTime', subscribe: true})
+                    })
                 }
                 return currentToken
               } else {
-                console.log('No Instance ID token available. Request permission to generate one.')
+                console.log('FCM: No Instance ID token available. Request permission to generate one.')
               }
             })
             .catch(err => {
-              console.log('Unable to get permission to notify.', err)
+              console.log('FCM: Unable to get permission to notify.', err)
             })
         }
 
@@ -44,6 +53,7 @@ export default function () {
 
         messaging.requestPermission()
           .then(() => {
+            console.log('FCM: Notification permission granted.')
             getToken()
           })
       })

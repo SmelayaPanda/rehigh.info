@@ -126,6 +126,7 @@
         isOpened: true,
         miniVariant: false,
         timeInWork: 0,
+        workIntervalsCount: 0,
         ticTacId: '',
         soundNotifyId: '',
         addMinutes: '',
@@ -183,6 +184,7 @@
         document.title = 're:HIGH Studio Work Panel'
         SWT.clearInterval(this.ticTacId)
         SWT.clearInterval(this.soundNotifyId)
+        this.workIntervalsCount = 0
       },
       startTicTac () {
         this.ticTacId = SWT.setInterval(() => {
@@ -195,8 +197,9 @@
       setNotifications () {
         this.soundNotifyId = SWT.setInterval(() => {
           if (this.USER.fcm && this.USER.fcm.topics && this.USER.fcm.topics.workTime) {
+            this.workIntervalsCount++
             this.$store.dispatch('sendFcm', {
-              title: `Время работы: ${msTo(this.timeInWork, 'TAB', this.LANG)}`,
+              title: `Время работы: ${this.workIntervalsCount * this.USER.sound.frequency / 1000 % 60} мин`,
               body: `Не забывайте о перерывах, берегите здоровье!`
             })
           }
@@ -204,7 +207,7 @@
           this.audio.setAttribute('crossorigin', 'anonymous')
           this.audio.volume = this.USER.sound.volume
           this.audio.play()
-        }, this.USER.sound.frequency + 1)
+        }, this.USER.sound.frequency)
       },
       addHandleMinutes () {
         this.$store.dispatch('addHandleMinutes', this.addMinutes)

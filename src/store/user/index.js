@@ -186,14 +186,15 @@ export default {
         subscribe: payload.subscribe // true = subscribe, false = unsubscribe
       })
         .then((data) => {
-          console.log('Response data: ', data)
+          console.log('FCM: response data', data)
+          console.log('FCM: User subscribed to topic: ', payload.topic)
           commit('LOADING', false)
         })
         .catch(err => dispatch('LOG', err))
     },
     sendFcm ({commit, dispatch, getters}, payload) {
       if (!getters.user.fcm && !getters.user.fcm.token) {
-        return console.warn('User has blocked push notification')
+        return console.warn('FCM: User has blocked push notification')
       }
       let url
       if (process.env.NODE_ENV === 'production') {
@@ -207,7 +208,7 @@ export default {
         body: payload.body
       })
         .then((data) => {
-          console.log('Response data: ', data)
+          console.log('FCM: Response data: ', data)
         })
         .catch(err => dispatch('LOG', err))
     }
