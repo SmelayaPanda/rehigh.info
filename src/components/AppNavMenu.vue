@@ -181,8 +181,8 @@
       stopTimer () {
         this.$store.dispatch('setTimer', {isTimerStop: true})
         document.title = 're:HIGH Studio Work Panel'
-        clearInterval(this.ticTacId)
-        clearInterval(this.soundNotifyId)
+        SWT.clearInterval(this.ticTacId)
+        SWT.clearInterval(this.soundNotifyId)
       },
       startTicTac () {
         this.ticTacId = SWT.setInterval(() => {
