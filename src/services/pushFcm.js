@@ -26,6 +26,7 @@ export default function () {
                 console.log(currentToken)
                 if (store.getters.user && store.getters.user.fcm && store.getters.user.fcm.token) {
                   console.log('FCM: Token already stored')
+                  console.log('User ID: ', store.getters.user.uid)
                 } else {
                   store.dispatch('updateFcmToken', currentToken)
                 }

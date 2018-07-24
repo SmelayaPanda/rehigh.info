@@ -51,6 +51,7 @@
           <v-card-text>
             <div v-if="USER.fcm.token">
               <v-switch
+                disabled
                 @change="updateFcmTopic('taskStatus', topics.taskStatus)"
                 :label="msg.taskStatus[LANG]"
                 v-model="topics.taskStatus"

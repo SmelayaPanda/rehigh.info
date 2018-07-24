@@ -117,6 +117,7 @@
 
 <script>
   import msTo from './../filters/msTo'
+  import * as SWT from 'worker-timers'
 
   export default {
     name: 'app-nav-menu',
@@ -184,7 +185,7 @@
         clearInterval(this.soundNotifyId)
       },
       startTicTac () {
-        this.ticTacId = setInterval(() => {
+        this.ticTacId = SWT.setInterval(() => {
           this.timeInWork = new Date().getTime() - new Date(this.TIMER.from)
           let time = msTo(this.timeInWork, 'TAB', this.LANG)
           document.title = time
@@ -192,7 +193,7 @@
         this.setNotifications()
       },
       setNotifications () {
-        this.soundNotifyId = setInterval(() => {
+        this.soundNotifyId = SWT.setInterval(() => {
           if (this.USER.fcm && this.USER.fcm.topics && this.USER.fcm.topics.workTime) {
             this.$store.dispatch('sendFcm', {
               title: `Время работы: ${msTo(this.timeInWork, 'TAB', this.LANG)}`,
@@ -203,7 +204,7 @@
           this.audio.setAttribute('crossorigin', 'anonymous')
           this.audio.volume = this.USER.sound.volume
           this.audio.play()
-        }, this.USER.sound.frequency)
+        }, this.USER.sound.frequency + 1)
       },
       addHandleMinutes () {
         this.$store.dispatch('addHandleMinutes', this.addMinutes)
@@ -221,8 +222,8 @@
       })
       this.$bus.$on('stopTicTac', () => {
         document.title = 're:HIGH Studio Work Panel'
-        clearInterval(this.ticTacId)
-        clearInterval(this.soundNotifyId)
+        SWT.clearInterval(this.ticTacId)
+        SWT.clearInterval(this.soundNotifyId)
       })
       if (this.TIMER.from && !this.TIMER.to) {
         this.startTicTac()
